@@ -1,0 +1,4 @@
+name: FarmMC
+version: '${project.version}'
+main: tokyo.ramune.farmmc.FarmMC
+api-version: 1.19
