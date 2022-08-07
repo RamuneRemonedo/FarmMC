@@ -8,12 +8,9 @@ import tokyo.ramune.farmmc.cursor.Cursor;
 import tokyo.ramune.farmmc.database.SQL;
 import tokyo.ramune.farmmc.player.event.FarmPlayerExpChangeEvent;
 import tokyo.ramune.farmmc.player.event.FarmPlayerLevelUpEvent;
-import tokyo.ramune.farmmc.event.FarmEvent;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class FarmPlayerManager {
 
@@ -62,16 +59,10 @@ public class FarmPlayerManager {
         updateDBPlayerName(player);
         FarmPlayer farmPlayer = new FarmPlayer() {
             private boolean isAllowFixedHeight = false;
-            private final ArrayDeque<FarmEvent> farmEventArrayDeque = new ArrayDeque<>();
 
             @Override
             public Player getPlayer() {
                 return player;
-            }
-
-            @Override
-            public ArrayDeque<FarmEvent> getFarmEventDeque() {
-                return farmEventArrayDeque;
             }
 
             @Override
@@ -169,9 +160,6 @@ public class FarmPlayerManager {
 
     public void removePlayer(FarmPlayer farmPlayer) {
         farmPlayer.getCursor().remove();
-        while (farmPlayer.getFarmEventDeque().size() > 0) {
-            Objects.requireNonNull(farmPlayer.getFarmEventDeque().poll()).onCancel();
-        }
         farmPlayer.getCursor().remove();
         farmPlayer.getExpBossBar().remove();
         players.remove(farmPlayer);

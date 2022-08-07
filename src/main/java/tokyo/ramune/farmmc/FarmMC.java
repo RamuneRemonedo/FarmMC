@@ -6,6 +6,7 @@ import tokyo.ramune.farmmc.config.Config;
 import tokyo.ramune.farmmc.cursor.CursorManager;
 import tokyo.ramune.farmmc.database.DatabaseManager;
 import tokyo.ramune.farmmc.listener.ListenerHandler;
+import tokyo.ramune.farmmc.menu.MenuManager;
 import tokyo.ramune.farmmc.player.FarmPlayerManager;
 import tokyo.ramune.farmmc.world.WorldManager;
 
@@ -21,6 +22,8 @@ public final class FarmMC extends JavaPlugin {
     private static BossBarManager bossBarManager;
     private static CursorManager cursorManager;
 
+    private static MenuManager menuManager;
+
     @Override
     public void onEnable() {
         plugin = this;
@@ -34,6 +37,8 @@ public final class FarmMC extends JavaPlugin {
         farmPlayerManager = new FarmPlayerManager();
         bossBarManager = new BossBarManager();
         cursorManager = new CursorManager();
+
+        menuManager = new MenuManager();
 
         new ListenerHandler().registerListeners();
         getLogger().info("The plugin has been enabled.");
@@ -71,5 +76,9 @@ public final class FarmMC extends JavaPlugin {
 
     public static BossBarManager getBossBarManager() {
         return bossBarManager;
+    }
+
+    public static MenuManager getMenuManager() {
+        return menuManager;
     }
 }
