@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.util.Vector;
 import tokyo.ramune.farmmc.cursor.Cursor;
-import tokyo.ramune.farmmc.cursor.CursorMoveEvent;
+import tokyo.ramune.farmmc.cursor.event.CursorMoveEvent;
 
 public class CursorMoveListener implements Listener {
 

@@ -3,9 +3,14 @@ package tokyo.ramune.farmmc.player;
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.bossbar.FarmBossBar;
 import tokyo.ramune.farmmc.cursor.Cursor;
+import tokyo.ramune.farmmc.event.FarmEvent;
+
+import java.util.ArrayDeque;
 
 public interface FarmPlayer {
     Player getPlayer();
+
+    ArrayDeque<FarmEvent> getFarmEventDeque();
 
     long getLevel();
 
@@ -14,6 +19,8 @@ public interface FarmPlayer {
     long getExp();
 
     void setExp(long exp);
+
+    long getRequireExp();
 
     long getCrystal();
 

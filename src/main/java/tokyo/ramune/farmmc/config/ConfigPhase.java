@@ -5,5 +5,7 @@ public enum ConfigPhase {
     MYSQL_USERNAME,
     MYSQL_PASSWORD,
     MYSQL_DATABASE,
-    MYSQL_PORT
+    MYSQL_PORT,
+
+    WORLD_ASSETS_WORLD_NAME
 }

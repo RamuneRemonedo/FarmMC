@@ -11,13 +11,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
-import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.cursor.event.CursorMoveEvent;
 import tokyo.ramune.farmmc.player.FarmPlayer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class CursorManager {
 
@@ -39,7 +38,7 @@ public class CursorManager {
 
     public boolean isExistsCursor(@Nonnull Player player) {
         for (Cursor cursor : cursors) {
-            if (cursor.getPlayer().getPlayer().equals(player)) return true;
+            if (cursor.getPlayer().equals(player)) return true;
         }
         return false;
     }
@@ -48,13 +47,23 @@ public class CursorManager {
     public Cursor getCursor(@Nonnull Player player) {
         if (!isExistsCursor(player)) return createCursor(player);
         for (Cursor cursor : cursors) {
-            if (cursor.getPlayer().getPlayer().equals(player)) return cursor;
+            if (cursor.getPlayer().equals(player)) return cursor;
+        }
+        return null;
+    }
+
+    @Nullable
+    public Cursor getCursor(@Nonnull FarmPlayer player) {
+        if (isExistsCursor(player.getPlayer())) return createCursor(player.getPlayer());
+        for (Cursor cursor : cursors) {
+            if (cursor.getPlayer().equals(player.getPlayer())) return cursor;
         }
         return null;
     }
 
     @Nullable
     public Cursor getCursor(@Nonnull Entity entity) {
+        if (!entity.getType().equals(EntityType.ARMOR_STAND)) return null;
         for (Cursor cursor : cursors) {
             if (cursor.getCursorEntity().equals(entity)) return cursor;
         }
@@ -73,7 +82,7 @@ public class CursorManager {
 
             @Override
             public void spawn() {
-                cursor = (ArmorStand) Objects.requireNonNull(linkedPlayer.getPlayer()).getWorld().spawnEntity(linkedPlayer.getPlayer().getLocation(), EntityType.ARMOR_STAND);
+                cursor = (ArmorStand) linkedPlayer.getWorld().spawnEntity(linkedPlayer.getLocation(), EntityType.ARMOR_STAND);
                 this.location = cursor.getLocation().getBlock().getLocation();
                 cursor.getEquipment().setHelmet(headItem);
                 cursor.setHeadPose(headPose);
@@ -81,6 +90,7 @@ public class CursorManager {
                 cursor.setMarker(true);
                 cursor.setSmall(true);
                 cursor.setVisible(false);
+                cursor.setCustomName(player.getName());
             }
 
             @Override
@@ -94,8 +104,8 @@ public class CursorManager {
             }
 
             @Override
-            public FarmPlayer getPlayer() {
-                return FarmMC.getFarmPlayerManager().getFarmPlayer(player);
+            public Player getPlayer() {
+                return player;
             }
 
             @Override

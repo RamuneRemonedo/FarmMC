@@ -4,10 +4,10 @@ import java.util.Calendar;
 
 public class SQLDate {
 
-    private Calendar cal = Calendar.getInstance();
-    private int year;
-    private int month;
-    private int dayOfMonth;
+    private final Calendar cal = Calendar.getInstance();
+    private final int year;
+    private final int month;
+    private final int dayOfMonth;
 
     public SQLDate(int year, int month, int dayOfMonth) {
         this.year = year;

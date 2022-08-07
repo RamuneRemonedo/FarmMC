@@ -3,6 +3,7 @@ package tokyo.ramune.farmmc.cursor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
@@ -19,7 +20,7 @@ public interface Cursor {
 
     ArmorStand getCursorEntity();
 
-    FarmPlayer getPlayer();
+    Player getPlayer();
 
     void setHeadPose(@Nonnull EulerAngle headPose);
 

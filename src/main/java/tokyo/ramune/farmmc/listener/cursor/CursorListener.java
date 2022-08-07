@@ -1,6 +1,5 @@
 package tokyo.ramune.farmmc.listener.cursor;
 
-import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,10 +12,13 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.cursor.Cursor;
-import tokyo.ramune.farmmc.cursor.CursorClickEvent;
+import tokyo.ramune.farmmc.cursor.event.CursorClickEvent;
 import tokyo.ramune.farmmc.player.FarmPlayer;
+
+import java.util.Objects;
 
 public class CursorListener implements Listener {
 
@@ -53,6 +55,7 @@ public class CursorListener implements Listener {
         Action action = event.getAction();
 
         if (!player.getCursor().isVisible()) return;
+        if (Objects.equals(event.getHand(), EquipmentSlot.OFF_HAND)) return;
         CursorClickEvent cursorClickEvent = new CursorClickEvent(player.getCursor(), action);
         Bukkit.getPluginManager().callEvent(cursorClickEvent);
         event.setCancelled(cursorClickEvent.isCancelled());

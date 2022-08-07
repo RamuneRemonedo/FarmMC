@@ -11,11 +11,6 @@ public class Config {
         configFile.saveDefaultConfig();
         configFile.getConfig().options().copyDefaults(true);
         configFile.saveConfig();
-        load();
-    }
-
-    public void load() {
-
     }
 
     public int getInt(ConfigPhase configPhase) {

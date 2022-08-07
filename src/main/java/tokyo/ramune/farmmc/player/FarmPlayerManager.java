@@ -6,15 +6,21 @@ import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.bossbar.FarmBossBar;
 import tokyo.ramune.farmmc.cursor.Cursor;
 import tokyo.ramune.farmmc.database.SQL;
+import tokyo.ramune.farmmc.player.event.FarmPlayerExpChangeEvent;
+import tokyo.ramune.farmmc.player.event.FarmPlayerLevelUpEvent;
+import tokyo.ramune.farmmc.event.FarmEvent;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FarmPlayerManager {
 
     private final ArrayList<FarmPlayer> players = new ArrayList<>();
 
     public FarmPlayerManager() {
+        Bukkit.getOnlinePlayers().forEach(this::createPlayer);
     }
 
     public FarmPlayer getFarmPlayer(Player player) {
@@ -37,7 +43,7 @@ public class FarmPlayerManager {
         SQL.insertData("uuid, name, level, exp, crystal, coin",
                 surroundQuotation(player.getUniqueId().toString()) + "," +
                         surroundQuotation(player.getName()) + "," +
-                        surroundQuotation("0") + "," +
+                        surroundQuotation("1") + "," +
                         surroundQuotation("0") + "," +
                         surroundQuotation("0") + "," +
                         surroundQuotation("0"),
@@ -56,10 +62,16 @@ public class FarmPlayerManager {
         updateDBPlayerName(player);
         FarmPlayer farmPlayer = new FarmPlayer() {
             private boolean isAllowFixedHeight = false;
+            private final ArrayDeque<FarmEvent> farmEventArrayDeque = new ArrayDeque<>();
 
             @Override
             public Player getPlayer() {
                 return player;
+            }
+
+            @Override
+            public ArrayDeque<FarmEvent> getFarmEventDeque() {
+                return farmEventArrayDeque;
             }
 
             @Override
@@ -69,7 +81,9 @@ public class FarmPlayerManager {
 
             @Override
             public void setLevel(long level) {
+                if (level == getLevel()) return;
                 SQL.set("level", level, "uuid", "=", player.getUniqueId().toString(), "players");
+                getExpBossBar().update();
             }
 
             @Override
@@ -79,7 +93,34 @@ public class FarmPlayerManager {
 
             @Override
             public void setExp(long exp) {
+                if (exp == getExp()) return;
+                long currentExp = getExp();
+                FarmPlayerExpChangeEvent farmPlayerExpChangeEvent = new FarmPlayerExpChangeEvent(this, currentExp, exp);
+                Bukkit.getPluginManager().callEvent(farmPlayerExpChangeEvent);
+                if (farmPlayerExpChangeEvent.isCancelled()) return;
+
+                long requireExp = getRequireExp();
+
+                if (exp >= requireExp) {
+                    long level = getLevel();
+                    FarmPlayerLevelUpEvent farmPlayerLevelUpEvent = new FarmPlayerLevelUpEvent(this, level, level + 1);
+
+                    Bukkit.getPluginManager().callEvent(farmPlayerLevelUpEvent);
+                    if (farmPlayerLevelUpEvent.isCancelled()) {
+                        SQL.set("exp", exp, "uuid", "=", player.getUniqueId().toString(), "players");
+                        getExpBossBar().update();
+                        return;
+                    }
+                    exp = exp - requireExp;
+                    setLevel(level + 1);
+                }
                 SQL.set("exp", exp, "uuid", "=", player.getUniqueId().toString(), "players");
+                getExpBossBar().update();
+            }
+
+            @Override
+            public long getRequireExp() {
+                return getLevel() * 15;
             }
 
             @Override
@@ -126,8 +167,13 @@ public class FarmPlayerManager {
         return farmPlayer;
     }
 
-    protected void removePlayer(FarmPlayer farmPlayer) {
+    public void removePlayer(FarmPlayer farmPlayer) {
         farmPlayer.getCursor().remove();
+        while (farmPlayer.getFarmEventDeque().size() > 0) {
+            Objects.requireNonNull(farmPlayer.getFarmEventDeque().poll()).onCancel();
+        }
+        farmPlayer.getCursor().remove();
+        farmPlayer.getExpBossBar().remove();
         players.remove(farmPlayer);
     }
 

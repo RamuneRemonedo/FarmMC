@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.cursor.Cursor;
-import tokyo.ramune.farmmc.cursor.CursorClickEvent;
+import tokyo.ramune.farmmc.cursor.event.CursorClickEvent;
 import tokyo.ramune.farmmc.player.FarmPlayer;
 
 public class CursorClickListener implements Listener {
@@ -24,5 +24,14 @@ public class CursorClickListener implements Listener {
             cursor.setCursorItemStack(new ItemStack(Material.QUARTZ_STAIRS));
             cursor.getCursorEntity().setGlowing(false);
         }, 3);
+        if (event.getAction().isRightClick()) {
+            player.getExpBossBar().setAutoHide(false);
+            player.getExpBossBar().setVisible(true);
+            player.setExp(player.getExp() + 1);
+        } else {
+            player.getExpBossBar().setAutoHide(true);
+            player.getExpBossBar().setVisible(true);
+            player.setExp(player.getExp() - 1);
+        }
     }
 }

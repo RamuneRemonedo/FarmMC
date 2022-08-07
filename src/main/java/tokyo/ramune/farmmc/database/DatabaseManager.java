@@ -10,7 +10,7 @@ public class DatabaseManager {
         if (!SQL.tableExists("players")) {
             SQL.createTable("players", "uuid TEXT NOT NULL," +
                     "name TEXT NOT NULL," +
-                    "level BIGINT DEFAULT 0," +
+                    "level BIGINT DEFAULT 1," +
                     "exp BIGINT DEFAULT 0," +
                     "crystal BIGINT DEFAULT 0," +
                     "coin BIGINT DEFAULT 0");

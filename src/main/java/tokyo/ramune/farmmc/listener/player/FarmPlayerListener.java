@@ -18,12 +18,13 @@ public class FarmPlayerListener implements Listener {
 
         FarmPlayer farmPlayer =  FarmMC.getFarmPlayerManager().getFarmPlayer(player);
         farmPlayer.getCursor().spawn();
+        FarmMC.getBossBarManager().createExpBossBar(farmPlayer);
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        Objects.requireNonNull(FarmMC.getCursorManager().getCursor(player)).remove();
+        FarmMC.getFarmPlayerManager().removePlayer(FarmMC.getFarmPlayerManager().getFarmPlayer(player));
     }
 }
