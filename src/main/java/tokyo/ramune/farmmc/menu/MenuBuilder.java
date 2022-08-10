@@ -1,10 +1,12 @@
 package tokyo.ramune.farmmc.menu;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
+import tokyo.ramune.farmmc.player.FarmPlayer;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -13,7 +15,7 @@ public class MenuBuilder {
 
     private String title = "MenuTitle";
     private int inventorySize = 27;
-    private ArrayList<MenuItem> menuItemList = new ArrayList<>();
+    private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
     private Consumer<? super InventoryOpenEvent> onOpen = (event -> {});
     private Consumer<? super InventoryCloseEvent> onClose = (event -> {});
 
@@ -40,8 +42,18 @@ public class MenuBuilder {
         return menuItemList;
     }
 
-    public void setMenuItemList(ArrayList<MenuItem> menuItemList) {
-        this.menuItemList = menuItemList;
+    public void addMenuItem(MenuItem menuItem) {
+        if (menuItemList.contains(menuItem)) return;
+        menuItemList.removeIf(item -> item.getSlot() == menuItem.getSlot());
+        menuItemList.add(menuItem);
+    }
+
+    public void removeMenuItem(int menuSlot) {
+        menuItemList.removeIf(menuItem -> menuItem.getSlot() == menuSlot);
+    }
+
+    public void removeMenuItem(MenuItem menuItem) {
+        menuItemList.remove(menuItem);
     }
 
     public void setOnOpen(Consumer<? super InventoryOpenEvent> onOpen) {
@@ -53,18 +65,17 @@ public class MenuBuilder {
     }
 
     public Menu build() {
-        Menu menu = new Menu() {
-            Inventory inventory = Bukkit.createInventory(null, inventorySize, title);
-
+        return new Menu() {
             @Override
-            public Inventory getInventory() {
-
+            public Inventory getInventory(FarmPlayer farmPlayer) {
+                Inventory inventory = Bukkit.createInventory(null, inventorySize, ChatColor.GOLD + ChatColor.YELLOW.toString() + ChatColor.RESET + title);
+                getMenuItemList().forEach(menuItem -> inventory.setItem(menuItem.getSlot(), menuItem.getItem(farmPlayer)));
                 return inventory;
             }
 
             @Override
             public String getTitle() {
-                return title;
+                return ChatColor.GOLD + ChatColor.YELLOW.toString() + ChatColor.RESET + title;
             }
 
             @Override
@@ -88,7 +99,5 @@ public class MenuBuilder {
                 onClose.accept(event);
             }
         };
-        // TODO: 2022/08/07
-        return menu;
     }
 }

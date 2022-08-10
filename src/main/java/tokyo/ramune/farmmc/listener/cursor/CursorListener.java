@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.cursor.Cursor;
-import tokyo.ramune.farmmc.cursor.event.CursorClickEvent;
+import tokyo.ramune.farmmc.event.cursor.CursorClickEvent;
 import tokyo.ramune.farmmc.player.FarmPlayer;
 
 import java.util.Objects;
@@ -25,7 +25,7 @@ public class CursorListener implements Listener {
     @EventHandler
     public void onEntityRemove(EntityDeathEvent event) {
         if (!event.getEntityType().equals(EntityType.ARMOR_STAND)) return;
-        if (FarmMC.getCursorManager().getCursor(event.getEntity()) == null) return;
+        if (FarmMC.getCursorManager().castCursor(event.getEntity()) == null) return;
         event.setCancelled(true);
     }
 
@@ -35,16 +35,19 @@ public class CursorListener implements Listener {
         Block targetBlock = event.getPlayer().getTargetBlock(50);
 
         if (targetBlock == null) return;
-        while (targetBlock.getType().equals(Material.AIR)) {
-            targetBlock = targetBlock.getLocation().clone().add(0, -1, 0).getBlock();
+        Cursor cursor = Objects.requireNonNull(FarmMC.getCursorManager().getCursor(player));
+
+        if (targetBlock.getType().equals(Material.AIR) && cursor.isVisible()) {
+            cursor.setVisible(false);
+        } else if (!targetBlock.getType().equals(Material.AIR) && !cursor.isVisible()) {
+            cursor.setVisible(true);
         }
         while (!targetBlock.getLocation().clone().add(0, 1, 0).getBlock().getType().equals(Material.AIR)) {
             targetBlock = targetBlock.getLocation().clone().add(0, 1, 0).getBlock();
         }
         Location loc = targetBlock.getLocation().clone();
         loc.setYaw(player.getLocation().getYaw() + 90);
-        Cursor cursor = FarmMC.getCursorManager().getCursor(player);
-        assert cursor != null;
+
         cursor.setLocation(loc);
         cursor.teleport();
     }

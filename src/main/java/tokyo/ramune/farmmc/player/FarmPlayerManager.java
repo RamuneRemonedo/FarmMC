@@ -6,8 +6,8 @@ import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.bossbar.FarmBossBar;
 import tokyo.ramune.farmmc.cursor.Cursor;
 import tokyo.ramune.farmmc.database.SQL;
-import tokyo.ramune.farmmc.player.event.FarmPlayerExpChangeEvent;
-import tokyo.ramune.farmmc.player.event.FarmPlayerLevelUpEvent;
+import tokyo.ramune.farmmc.event.player.FarmPlayerExpChangeEvent;
+import tokyo.ramune.farmmc.event.player.FarmPlayerLevelUpEvent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ public class FarmPlayerManager {
     }
 
     public FarmPlayer getFarmPlayer(Player player) {
+        if (!player.isOnline()) return null;
         if (!isExistsPlayer(player)) return createPlayer(player);
         for (FarmPlayer farmPlayer : players) {
             if (farmPlayer.getPlayer().equals(player)) return farmPlayer;

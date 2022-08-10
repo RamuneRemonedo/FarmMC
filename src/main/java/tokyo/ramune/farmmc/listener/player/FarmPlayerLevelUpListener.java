@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.meta.FireworkMeta;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.player.FarmPlayer;
-import tokyo.ramune.farmmc.player.event.FarmPlayerLevelUpEvent;
+import tokyo.ramune.farmmc.event.player.FarmPlayerLevelUpEvent;
 
 public class FarmPlayerLevelUpListener implements Listener {
 

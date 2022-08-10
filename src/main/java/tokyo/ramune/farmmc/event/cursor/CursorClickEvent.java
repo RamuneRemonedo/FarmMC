@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.cursor.event;
+package tokyo.ramune.farmmc.event.cursor;
 
 import org.bukkit.Location;
 import org.bukkit.event.Cancellable;

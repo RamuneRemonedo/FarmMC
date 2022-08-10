@@ -3,27 +3,21 @@ package tokyo.ramune.farmmc.menu;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import tokyo.ramune.farmmc.player.FarmPlayer;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class MenuItemBuilder {
-    private ItemStack item = new ItemStack(Material.GRASS_BLOCK);
+    private Function<FarmPlayer, ItemStack> item = farmPlayer -> new ItemStack(Material.GRASS_BLOCK);
     private int slot = 0;
     private Consumer<? super InventoryClickEvent> onClick = (event -> {});
     
     public MenuItemBuilder() {
     }
 
-    public ItemStack getItem() {
-        return item;
-    }
-
-    public void setItem(ItemStack item) {
+    public void setItem(Function<FarmPlayer, ItemStack> item) {
         this.item = item;
-    }
-
-    public int getSlot() {
-        return slot;
     }
 
     public void setSlot(int slot) {
@@ -34,15 +28,11 @@ public class MenuItemBuilder {
         this.onClick = onClick;
     }
 
-    public Consumer<? super InventoryClickEvent> getOnClick() {
-        return onClick;
-    }
-
     public MenuItem build() {
-        MenuItem menuItem = new MenuItem() {
+        return new MenuItem() {
             @Override
-            public ItemStack getItem() {
-                return item;
+            public ItemStack getItem(FarmPlayer farmPlayer) {
+                return item.apply(farmPlayer);
             }
 
             @Override
@@ -55,6 +45,5 @@ public class MenuItemBuilder {
                 onClick.accept(event);
             }
         };
-        return menuItem;
     }
 }

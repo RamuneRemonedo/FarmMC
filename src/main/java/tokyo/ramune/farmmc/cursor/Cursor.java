@@ -14,10 +14,11 @@ import javax.annotation.Nullable;
 
 public interface Cursor {
 
-    void spawn();
+    void spawn(@Nonnull Location location);
 
     Block getTargetBlock();
 
+    @Nullable
     ArmorStand getCursorEntity();
 
     Player getPlayer();

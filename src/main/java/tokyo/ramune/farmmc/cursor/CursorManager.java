@@ -11,12 +11,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
-import tokyo.ramune.farmmc.cursor.event.CursorMoveEvent;
+import tokyo.ramune.farmmc.event.cursor.CursorMoveEvent;
 import tokyo.ramune.farmmc.player.FarmPlayer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CursorManager {
 
@@ -62,12 +63,16 @@ public class CursorManager {
     }
 
     @Nullable
-    public Cursor getCursor(@Nonnull Entity entity) {
+    public Cursor castCursor(@Nonnull Entity entity) {
         if (!entity.getType().equals(EntityType.ARMOR_STAND)) return null;
         for (Cursor cursor : cursors) {
             if (cursor.getCursorEntity().equals(entity)) return cursor;
         }
         return null;
+    }
+
+    public boolean isCursor(@Nonnull Entity entity) {
+        return castCursor(entity) != null;
     }
 
     protected Cursor createCursor(@Nonnull Player player) {
@@ -81,9 +86,9 @@ public class CursorManager {
             private Vector positionCorrection = new Vector(0.45, 1, 0.6);
 
             @Override
-            public void spawn() {
-                cursor = (ArmorStand) linkedPlayer.getWorld().spawnEntity(linkedPlayer.getLocation(), EntityType.ARMOR_STAND);
-                this.location = cursor.getLocation().getBlock().getLocation();
+            public void spawn(@Nonnull Location location) {
+                cursor = (ArmorStand) linkedPlayer.getWorld().spawnEntity(location.getBlock().getLocation(), EntityType.ARMOR_STAND);
+                this.location = location.getBlock().getLocation();
                 cursor.getEquipment().setHelmet(headItem);
                 cursor.setHeadPose(headPose);
                 cursor.setGravity(false);
@@ -144,7 +149,7 @@ public class CursorManager {
             public void setVisible(boolean visible) {
                 if (visible == (cursor != null)) return;
                 if (visible) {
-                    spawn();
+                    spawn(Objects.requireNonNull(linkedPlayer.getTargetBlock(50)).getLocation());
                 } else {
                     cursor.remove();
                     cursor = null;

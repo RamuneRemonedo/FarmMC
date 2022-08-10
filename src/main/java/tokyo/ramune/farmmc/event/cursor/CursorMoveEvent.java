@@ -1,33 +1,44 @@
-package tokyo.ramune.farmmc.player.event;
+package tokyo.ramune.farmmc.event.cursor;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.cursor.Cursor;
 import tokyo.ramune.farmmc.player.FarmPlayer;
 
-public class FarmPlayerLevelUpEvent extends Event implements Cancellable {
+import javax.annotation.Nonnull;
+
+public class CursorMoveEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled = false;
 
-    private final FarmPlayer player;
-    private final long from, to;
+    private final Cursor cursor;
+    private final Location from, to;
 
-    public FarmPlayerLevelUpEvent(FarmPlayer player, long from, long to) {
-        this.player = player;
+    private boolean cancelled;
+
+    public CursorMoveEvent(@Nonnull Cursor cursor, @Nonnull Location from, @Nonnull Location to) {
+        this.cursor = cursor;
         this.from = from;
         this.to = to;
     }
 
-    public FarmPlayer getPlayer() {
-        return player;
+    public Cursor getCursor() {
+        return cursor;
     }
 
-    public long getFrom() {
+    public FarmPlayer getPlayer() {
+        return FarmMC.getFarmPlayerManager().getFarmPlayer(cursor.getPlayer());
+    }
+
+    public Location getFrom() {
         return from;
     }
 
-    public long getTo() {
+    public Location getTo() {
         return to;
     }
 
