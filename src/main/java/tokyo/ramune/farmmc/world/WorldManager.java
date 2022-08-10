@@ -20,7 +20,6 @@ public class WorldManager {
         String assetsWorldName = FarmMC.getConfigFile().getString(ConfigPhase.WORLD_ASSETS_WORLD_NAME);
         if (getAssetsWorld() != null) return;
         FarmMC.getPlugin().getLogger().info("Loading assets world...");
-
         new WorldCreator(assetsWorldName)
                 .type(WorldType.FLAT)
                 .generateStructures(false)
