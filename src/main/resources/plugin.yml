@@ -2,3 +2,15 @@ name: FarmMC
 version: '${project.version}'
 main: tokyo.ramune.farmmc.FarmMC
 api-version: 1.19
+
+commands:
+  farmmc:
+    description: "farmmc command"
+
+permissions:
+  FarmMC.command.change-assets:
+    default: op
+  FarmMC.command.help:
+    default: true
+  FarmMC.command.stuck:
+    default: true

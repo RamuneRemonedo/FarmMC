@@ -2,10 +2,11 @@ package tokyo.ramune.farmmc;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.farmmc.bossbar.BossBarManager;
+import tokyo.ramune.farmmc.command.CommandManager;
 import tokyo.ramune.farmmc.config.Config;
 import tokyo.ramune.farmmc.cursor.CursorManager;
 import tokyo.ramune.farmmc.database.DatabaseManager;
-import tokyo.ramune.farmmc.listener.ListenerHandler;
+import tokyo.ramune.farmmc.listener.ListenerManager;
 import tokyo.ramune.farmmc.menu.MenuManager;
 import tokyo.ramune.farmmc.player.FarmPlayerManager;
 import tokyo.ramune.farmmc.world.WorldManager;
@@ -17,6 +18,8 @@ public final class FarmMC extends JavaPlugin {
     private static Config config;
     private static WorldManager worldManager;
     private static DatabaseManager databaseManager;
+    private static ListenerManager listenerManager;
+    private static CommandManager commandManager;
 
     private static FarmPlayerManager farmPlayerManager;
     private static BossBarManager bossBarManager;
@@ -33,6 +36,8 @@ public final class FarmMC extends JavaPlugin {
         worldManager.loadAssetsWorld();
         databaseManager = new DatabaseManager();
         databaseManager.createTables();
+        listenerManager = new ListenerManager();
+        commandManager = new CommandManager();
 
         farmPlayerManager = new FarmPlayerManager();
         bossBarManager = new BossBarManager();
@@ -40,7 +45,7 @@ public final class FarmMC extends JavaPlugin {
 
         menuManager = new MenuManager();
 
-        new ListenerHandler().registerListeners();
+        new ListenerManager().registerListeners();
         getLogger().info("The plugin has been enabled.");
     }
 
@@ -64,6 +69,14 @@ public final class FarmMC extends JavaPlugin {
 
     public static DatabaseManager getDatabaseManager() {
         return databaseManager;
+    }
+
+    public static ListenerManager getListenerManager() {
+        return listenerManager;
+    }
+
+    public static CommandManager getCommandManager() {
+        return commandManager;
     }
 
     public static CursorManager getCursorManager() {

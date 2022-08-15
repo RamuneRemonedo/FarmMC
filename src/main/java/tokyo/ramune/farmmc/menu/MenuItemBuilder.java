@@ -36,11 +36,6 @@ public class MenuItemBuilder {
             }
 
             @Override
-            public int getSlot() {
-                return slot;
-            }
-
-            @Override
             public void onClick(InventoryClickEvent event) {
                 onClick.accept(event);
             }

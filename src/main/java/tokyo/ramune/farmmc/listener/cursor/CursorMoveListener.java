@@ -19,12 +19,13 @@ public class CursorMoveListener implements Listener {
         Cursor cursor = event.getPlayer().getCursor();
         ArmorStand cursorEntity = Objects.requireNonNull(cursor.getCursorEntity());
 
-        if (playerLocation.distance(to) > 10
+        if (playerLocation.distance(to) > 5
                 && cursorEntity.isSmall()) {
             cursorEntity.setSmall(false);
             cursor.setPositionCorrection(cursor.getDefaultPositionCorrection().add(new Vector(0, -1, 0)));
+            cursor.setLocation(cursor.getLocation());
         }
-        if (playerLocation.distance(to) < 10
+        if (playerLocation.distance(to) < 5
                 && !cursorEntity.isSmall()) {
             cursorEntity.setSmall(true);
             cursor.resetPositionCorrection();

@@ -5,8 +5,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import tokyo.ramune.farmmc.player.FarmPlayer;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface Menu {
 
@@ -14,10 +13,7 @@ public interface Menu {
 
     String getTitle();
 
-    int getInventorySize();
-
-    @Nonnull
-    ArrayList<MenuItem> getMenuItemList();
+    HashMap<Integer, MenuItem> getMenuItemHashMap();
 
     void onOpen(InventoryOpenEvent event);
 

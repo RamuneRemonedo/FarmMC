@@ -207,7 +207,7 @@ environment:
   treasure-maps:
     enabled: true
     find-already-discovered:
-      loot-tables: default
+      loot-tables: 'false'
       villager-trade: false
   water-over-lava-flow-speed: 5
 feature-seeds:

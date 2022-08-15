@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,18 +33,20 @@ public class CursorListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        Block targetBlock = event.getPlayer().getTargetBlock(50);
+        Block targetBlock = event.getPlayer().getTargetBlock(15);
 
         if (targetBlock == null) return;
         Cursor cursor = Objects.requireNonNull(FarmMC.getCursorManager().getCursor(player));
+        ArmorStand cursorEntity = cursor.getCursorEntity();
 
         if (targetBlock.getType().equals(Material.AIR) && cursor.isVisible()) {
             cursor.setVisible(false);
         } else if (!targetBlock.getType().equals(Material.AIR) && !cursor.isVisible()) {
             cursor.setVisible(true);
         }
-        while (!targetBlock.getLocation().clone().add(0, 1, 0).getBlock().getType().equals(Material.AIR)) {
-            targetBlock = targetBlock.getLocation().clone().add(0, 1, 0).getBlock();
+        try {
+            Objects.requireNonNull(cursorEntity).setGlowing(!targetBlock.getLocation().clone().add(0, 1, 0).getBlock().getType().equals(Material.AIR));
+        } catch (Exception ignored) {
         }
         Location loc = targetBlock.getLocation().clone();
         loc.setYaw(player.getLocation().getYaw() + 90);

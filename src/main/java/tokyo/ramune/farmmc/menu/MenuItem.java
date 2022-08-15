@@ -8,7 +8,5 @@ public interface MenuItem {
 
     ItemStack getItem(FarmPlayer farmPlayer);
 
-    int getSlot();
-
     void onClick(InventoryClickEvent event);
 }

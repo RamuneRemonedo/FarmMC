@@ -1,13 +1,17 @@
 package tokyo.ramune.farmmc.player;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.bossbar.FarmBossBar;
 import tokyo.ramune.farmmc.cursor.Cursor;
 import tokyo.ramune.farmmc.database.SQL;
 import tokyo.ramune.farmmc.event.player.FarmPlayerExpChangeEvent;
 import tokyo.ramune.farmmc.event.player.FarmPlayerLevelUpEvent;
+import tokyo.ramune.farmmc.utility.Chat;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -27,6 +31,24 @@ public class FarmPlayerManager {
             if (farmPlayer.getPlayer().equals(player)) return farmPlayer;
         }
         return null;
+    }
+
+    public void stuckTeleport(@Nonnull Player player) {
+        Bukkit.getScheduler().runTaskAsynchronously(FarmMC.getPlugin(), () -> {
+            Chat.sendMessage(player, ChatColor.RED + "救済テレポート中...", true);
+            Bukkit.getScheduler().runTask(FarmMC.getPlugin(), () -> player.setGameMode(GameMode.SPECTATOR));
+            try {
+                Thread.sleep(200);
+                while (player.getLocation().getY() < 130) {
+                    player.setVelocity(new Vector(0, 20, 0));
+                    Thread.sleep(100);
+                }
+                Bukkit.getScheduler().runTask(FarmMC.getPlugin(), () -> player.setGameMode(GameMode.SURVIVAL));
+            } catch (Exception ignored) {
+                Bukkit.getScheduler().runTask(FarmMC.getPlugin(), () -> player.setGameMode(GameMode.SURVIVAL));
+            }
+            Chat.sendMessage(player, ChatColor.GREEN + "救済テレポートが完了しました!", true);
+        });
     }
 
     private void updateDBPlayerName(Player player) {

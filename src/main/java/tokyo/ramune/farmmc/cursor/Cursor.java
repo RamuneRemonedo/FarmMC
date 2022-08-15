@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
-import tokyo.ramune.farmmc.player.FarmPlayer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
