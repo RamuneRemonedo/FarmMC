@@ -1,0 +1,19 @@
+package tokyo.ramune.farmmc.assets;
+
+public enum AssetType {
+    WHEAT_HOUSE_SMALL,
+    WHEAT_HOUSE_MEDIUM,
+    WHEAT_HOUSE_BIG,
+
+    POTATO_HOUSE_SMALL,
+    POTATO_HOUSE_MEDIUM,
+    POTATO_HOUSE_BIG,
+
+    CARROT_HOUSE_SMALL,
+    CARROT_HOUSE_MEDIUM,
+    CARROT_HOUSE_BIG,
+
+    MINER_SMALL,
+    MINER_MEDIUM,
+    MINER_BIG,
+}
