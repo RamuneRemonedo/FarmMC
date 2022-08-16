@@ -14,3 +14,7 @@ permissions:
     default: true
   FarmMC.command.stuck:
     default: true
+  FarmMC.world.edit-assets:
+    default: op
+  FarmMC.maintenance:
+    default: op

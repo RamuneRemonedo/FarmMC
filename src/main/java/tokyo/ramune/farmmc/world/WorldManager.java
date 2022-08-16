@@ -8,8 +8,17 @@ import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.config.ConfigPhase;
 
 public class WorldManager {
+    private boolean editAssetsMode = false;
 
     public WorldManager() {
+    }
+
+    public boolean isEditAssetsMode() {
+        return editAssetsMode;
+    }
+
+    public void setEditAssetsMode(boolean editAssetsMode) {
+        this.editAssetsMode = editAssetsMode;
     }
 
     public World getAssetsWorld() {

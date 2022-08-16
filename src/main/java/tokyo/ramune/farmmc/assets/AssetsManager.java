@@ -8,6 +8,6 @@ public class AssetsManager {
     }
 
     public FarmAsset getAsset(AssetType assetType) {
-        new Structure().
+        
     }
 }

@@ -15,6 +15,8 @@ public final class FarmMC extends JavaPlugin {
 
     private static JavaPlugin plugin;
 
+    private static boolean maintenanceMode = false;
+
     private static Config config;
     private static WorldManager worldManager;
     private static DatabaseManager databaseManager;
@@ -53,6 +55,18 @@ public final class FarmMC extends JavaPlugin {
     public void onDisable() {
         cursorManager.removeAllCursor();
         getLogger().info("The plugin has been disabled.");
+    }
+
+    public static boolean isMaintenanceMode() {
+        return maintenanceMode;
+    }
+
+    public static void switchMaintenanceMode() {
+        if (!maintenanceMode) {
+
+        } else {
+
+        }
     }
 
     public static JavaPlugin getPlugin() {
