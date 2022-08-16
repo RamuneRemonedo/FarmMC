@@ -10,6 +10,7 @@ import tokyo.ramune.farmmc.listener.menu.MenuListener;
 import tokyo.ramune.farmmc.listener.player.FarmPlayerLevelUpListener;
 import tokyo.ramune.farmmc.listener.player.FarmPlayerListener;
 import tokyo.ramune.farmmc.listener.player.PlayerListener;
+import tokyo.ramune.farmmc.listener.world.WorldListener;
 
 import java.util.Arrays;
 
@@ -26,7 +27,8 @@ public class ListenerManager {
                 new FarmPlayerLevelUpListener(),
                 new MenuListener(),
                 new PlayerListener(),
-                new CursorClickListener()
+                new CursorClickListener(),
+                new WorldListener()
         ).toArray(new Listener[0]);
         for (Listener listener : listeners) {
             Bukkit.getPluginManager().registerEvents(listener, FarmMC.getPlugin());

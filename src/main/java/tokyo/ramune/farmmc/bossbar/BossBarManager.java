@@ -43,7 +43,7 @@ public class BossBarManager {
                 "bossBar.exp." + player.getPlayer().getUniqueId())) == null) {
             Bukkit.createBossBar(
                     new NamespacedKey(FarmMC.getPlugin(), "bossBar.exp." + player.getPlayer().getUniqueId())
-                    , "Exp"
+                    , "FarmMC:bossBar.exp"
                     , BarColor.BLUE
                     , BarStyle.SOLID);
         }
@@ -63,6 +63,8 @@ public class BossBarManager {
             public void update() {
                 long value = player.getExp(), max = player.getRequireExp();
                 double progress = (double) value / (double) max;
+                if (progress > 1) progress = 1;
+                if (Double.isNaN(progress)) return;
                 if (Math.abs(progress - Objects.requireNonNull(bossBar).getProgress()) < 0.0000001) return;
                 if (isAutoHide) {
                     setVisible(true);

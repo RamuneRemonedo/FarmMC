@@ -33,7 +33,7 @@ public class CursorListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        Block targetBlock = event.getPlayer().getTargetBlock(15);
+        Block targetBlock = event.getPlayer().getTargetBlock(5);
 
         if (targetBlock == null) return;
         Cursor cursor = Objects.requireNonNull(FarmMC.getCursorManager().getCursor(player));

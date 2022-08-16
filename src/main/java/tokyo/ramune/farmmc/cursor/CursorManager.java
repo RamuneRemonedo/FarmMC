@@ -17,7 +17,6 @@ import tokyo.ramune.farmmc.player.FarmPlayer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class CursorManager {
 
@@ -95,7 +94,7 @@ public class CursorManager {
                 cursor.setMarker(true);
                 cursor.setSmall(true);
                 cursor.setVisible(false);
-                cursor.setCustomName(player.getName());
+                cursor.setCustomName("FarmMC:cursor." + player.getName());
             }
 
             @Override
@@ -147,18 +146,16 @@ public class CursorManager {
 
             @Override
             public void setVisible(boolean visible) {
-                if (visible == (cursor != null)) return;
                 if (visible) {
-                    spawn(Objects.requireNonNull(linkedPlayer.getTargetBlock(50)).getLocation());
+                    cursor.getEquipment().setHelmet(headItem);
                 } else {
-                    cursor.remove();
-                    cursor = null;
+                    cursor.getEquipment().setHelmet(new ItemStack(Material.AIR));
                 }
             }
 
             @Override
             public boolean isVisible() {
-                return cursor != null;
+                return !cursor.getEquipment().getHelmet().getType().equals(Material.AIR);
             }
 
             @Override
@@ -186,7 +183,6 @@ public class CursorManager {
 
             @Override
             public void teleport() {
-                if (cursor == null) return;
                 if (cursor.getLocation().equals(location) && cursor.getHeadPose().equals(headPose)) return;
                 Location from = cursor.getLocation();
                 Location to = location.clone().add(positionCorrection);
@@ -199,8 +195,9 @@ public class CursorManager {
 
             @Override
             public void remove() {
-                if (cursor == null) return;
-                cursor.remove();
+                if (cursor != null) {
+                    cursor.remove();
+                }
                 cursors.remove(this);
             }
         };
