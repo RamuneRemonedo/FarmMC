@@ -3,7 +3,6 @@ package tokyo.ramune.farmmc.database;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import tokyo.ramune.farmmc.FarmMC;
-import tokyo.ramune.farmmc.config.ConfigPhase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

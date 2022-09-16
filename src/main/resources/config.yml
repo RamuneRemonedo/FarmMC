@@ -1,8 +1,1 @@
 config:
-  MYSQL_HOST: "192.168.1.152"
-  MYSQL_USERNAME: "u4_EzJpH0cM7d"
-  MYSQL_PASSWORD: "x@DOebx3e2lJbGX=3QK@Yuw^"
-  MYSQL_DATABASE: "s4_FarmMC"
-  MYSQL_PORT: "3306"
-
-  WORLD_ASSETS_WORLD_NAME: "farmmc-assets"

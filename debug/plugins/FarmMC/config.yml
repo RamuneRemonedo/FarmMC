@@ -1,7 +1,0 @@
-config:
-  WORLD_ASSETS_WORLD_NAME: farmmc_assets
-  MYSQL_HOST: localhost
-  MYSQL_USERNAME: root
-  MYSQL_PASSWORD: password
-  MYSQL_DATABASE: FarmMC
-  MYSQL_PORT: '3306'
