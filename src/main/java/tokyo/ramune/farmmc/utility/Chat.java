@@ -13,7 +13,7 @@ public class Chat {
         }
     }
 
-    public static void sendRequirePermission(Player player, String permission) {
-        player.sendMessage("You need the permission to do this.  " + permission);
+    public static void sendRequirePermission(Player player, FarmPermission permission) {
+        player.sendMessage("You need the permission to do this.  " + permission.toPermission().getName());
     }
 }
