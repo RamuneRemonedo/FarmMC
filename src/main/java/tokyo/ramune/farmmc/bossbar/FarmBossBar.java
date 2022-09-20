@@ -1,6 +1,5 @@
 package tokyo.ramune.farmmc.bossbar;
 
-
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.boss.BarColor;
@@ -21,12 +20,18 @@ public interface FarmBossBar {
     @Nonnull BarColor getBarColor();
     @Nonnull BarStyle getBarStyle();
     @Nonnull String getTitle();
+    float getProgress();
     @Nonnull Player getPlayer();
     @Nonnull NamespacedKey getNamespacedKey();
-    boolean isAutoHide();
-    void setAutoHide(boolean autoHide);
-    void initialize();
-    void update();
+    default void initialize() {
+        create();
+    }
+    default void update() {
+        getBossBar().setTitle(getTitle());
+        getBossBar().setProgress(getProgress());
+        getBossBar().setStyle(getBarStyle());
+        getBossBar().setColor(getBarColor());
+    }
 
     default void create() {
         FarmBossBarHandler.create(this);
