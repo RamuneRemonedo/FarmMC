@@ -1,69 +1,52 @@
 package tokyo.ramune.farmmc;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
-import tokyo.ramune.farmmc.bossbar.BossBarManager;
-import tokyo.ramune.farmmc.command.CommandManager;
-import tokyo.ramune.farmmc.cursor.CursorManager;
-import tokyo.ramune.farmmc.listener.ListenerManager;
-import tokyo.ramune.farmmc.menu.MenuManager;
-import tokyo.ramune.farmmc.player.FarmPlayerManager;
-import tokyo.ramune.farmmc.world.WorldManager;
+import tokyo.ramune.farmmc.config.Config;
+import tokyo.ramune.farmmc.database.MySQL;
+import tokyo.ramune.farmmc.listener.ListenerHandler;
+import tokyo.ramune.farmmc.player.PlayerHandler;
+import tokyo.ramune.farmmc.utility.PluginStatus;
+import tokyo.ramune.farmmc.world.WorldHandler;
+
+import javax.annotation.Nonnull;
 
 public final class FarmMC extends JavaPlugin {
-
     private static JavaPlugin plugin;
-
-    private static boolean maintenanceMode = false;
-
+    private static PluginStatus status = PluginStatus.NORMAL;
     private static Config config;
-    private static WorldManager worldManager;
-    private static DatabaseManager databaseManager;
-    private static ListenerManager listenerManager;
-    private static CommandManager commandManager;
-
-    private static FarmPlayerManager farmPlayerManager;
-    private static BossBarManager bossBarManager;
-    private static CursorManager cursorManager;
-
-    private static MenuManager menuManager;
 
     @Override
     public void onEnable() {
         plugin = this;
 
         config = new Config();
-        worldManager = new WorldManager();
-        worldManager.loadAssetsWorld();
-        databaseManager = new DatabaseManager();
-        databaseManager.createTables();
-        listenerManager = new ListenerManager();
-        commandManager = new CommandManager();
 
-        farmPlayerManager = new FarmPlayerManager();
-        bossBarManager = new BossBarManager();
-        cursorManager = new CursorManager();
+        if (status.equals(PluginStatus.NORMAL)) {
+            WorldHandler.resetGameWorld();
+            connectMySQL();
+            PlayerHandler.createTable();
+        }
 
-        menuManager = new MenuManager();
+        ListenerHandler.registerListeners();
 
-        new ListenerManager().registerListeners();
         getLogger().info("The plugin has been enabled.");
+        getLogger().info(ChatColor.RED + "Be careful! This plugin is running under " + status.name() + " mode!");
     }
 
     @Override
     public void onDisable() {
-        cursorManager.removeAllCursor();
+        WorldHandler.unloadGameWorld();
+        WorldHandler.unloadTemplateWorld();
         getLogger().info("The plugin has been disabled.");
     }
 
-    public static boolean isMaintenanceMode() {
-        return maintenanceMode;
-    }
-
-    public static void switchMaintenanceMode() {
-        if (!maintenanceMode) {
-
-        } else {
-
+    private void connectMySQL() {
+        MySQL.connect();
+        if (!MySQL.isConnected()) {
+            getLogger().warning("Cannot connect to MySQL! This plugin require to connect MySQL.");
+            Bukkit.shutdown();
         }
     }
 
@@ -71,39 +54,8 @@ public final class FarmMC extends JavaPlugin {
         return plugin;
     }
 
-    public static Config getConfigFile() {
+    @Nonnull
+    public static Config getConfigValue() {
         return config;
-    }
-
-    public static WorldManager getWorldManager() {
-        return worldManager;
-    }
-
-    public static DatabaseManager getDatabaseManager() {
-        return databaseManager;
-    }
-
-    public static ListenerManager getListenerManager() {
-        return listenerManager;
-    }
-
-    public static CommandManager getCommandManager() {
-        return commandManager;
-    }
-
-    public static CursorManager getCursorManager() {
-        return cursorManager;
-    }
-
-    public static FarmPlayerManager getFarmPlayerManager() {
-        return farmPlayerManager;
-    }
-
-    public static BossBarManager getBossBarManager() {
-        return bossBarManager;
-    }
-
-    public static MenuManager getMenuManager() {
-        return menuManager;
     }
 }
