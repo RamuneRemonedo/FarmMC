@@ -1,1 +1,15 @@
 config:
+  MYSQL_HOST: "127.0.0.1"
+  MYSQL_PORT: "3306"
+  MYSQL_USER: "root"
+  MYSQL_PASSWORD: "password"
+  MYSQL_DATABASE: "FarmMC"
+
+  WORLD_SPAWN_LOCATION:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    yaw: 0
+    pitch: 0
+  WORLD_TEMPLATE_NAME: "farmmc-template"
+  WORLD_GAME_NAME: "farmmc-game"
