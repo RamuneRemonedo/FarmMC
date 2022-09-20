@@ -3,6 +3,7 @@ package tokyo.ramune.farmmc;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
+import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
 import tokyo.ramune.farmmc.config.Config;
 import tokyo.ramune.farmmc.database.MySQL;
 import tokyo.ramune.farmmc.listener.ListenerHandler;
@@ -22,6 +23,8 @@ public final class FarmMC extends JavaPlugin {
         plugin = this;
 
         config = new Config();
+
+        FarmBossBarHandler.initialize();
 
         if (status.equals(PluginStatus.NORMAL)) {
             WorldHandler.resetGameWorld();
