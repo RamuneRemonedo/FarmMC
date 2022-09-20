@@ -39,11 +39,11 @@ public class MySQL {
     }
 
     private static void connect(boolean message) {
-        String host = FarmMC.getConfigFile().getString(ConfigPhase.MYSQL_HOST);
-        String user = FarmMC.getConfigFile().getString(ConfigPhase.MYSQL_USERNAME);
-        String password = FarmMC.getConfigFile().getString(ConfigPhase.MYSQL_PASSWORD);
-        String database = FarmMC.getConfigFile().getString(ConfigPhase.MYSQL_DATABASE);
-        String port = FarmMC.getConfigFile().getString(ConfigPhase.MYSQL_PORT);
+        String host = FarmMC.getConfigValue().MYSQL_HOST;
+        String user = FarmMC.getConfigValue().MYSQL_USER;
+        String password = FarmMC.getConfigValue().MYSQL_PASSWORD;
+        String database = FarmMC.getConfigValue().MYSQL_DATABASE;
+        String port = FarmMC.getConfigValue().MYSQL_PORT;
         if (isConnected()) {
             if (message) {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SQL Connect Error: Already connected");
