@@ -3,12 +3,13 @@ package tokyo.ramune.farmmc.utility;
 import org.bukkit.permissions.Permission;
 
 public enum FarmPermission {
-    COMMAND_HELP;
+    COMMAND_HELP,
+    JOIN_TEMPLATE,
+    JOIN_MAINTENANCE;
 
     public Permission toPermission() {
-        switch (FarmPermission.valueOf(super.name())) {
-            case COMMAND_HELP: return new Permission("FarmMC.command.help");
-            default: return new Permission("FarmMC");
-        }
+        return new Permission("FarmMC." + super.name()
+                .toLowerCase()
+                .replace("_", "."));
     }
 }
