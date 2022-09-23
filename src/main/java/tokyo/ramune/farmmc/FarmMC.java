@@ -10,13 +10,12 @@ import tokyo.ramune.farmmc.database.MySQL;
 import tokyo.ramune.farmmc.listener.ListenerHandler;
 import tokyo.ramune.farmmc.player.PlayerHandler;
 import tokyo.ramune.farmmc.utility.PluginStatus;
-import tokyo.ramune.farmmc.world.WorldHandler;
 
 import javax.annotation.Nonnull;
 
 public final class FarmMC extends JavaPlugin {
     private static JavaPlugin plugin;
-    private static PluginStatus status = PluginStatus.NORMAL;
+    private static PluginStatus status = PluginStatus.MAINTENANCE;
     private static Config config;
 
     @Override
@@ -28,19 +27,8 @@ public final class FarmMC extends JavaPlugin {
 
         FarmBossBarHandler.initialize();
 
-        if (status.equals(PluginStatus.EDIT_TEMPLATE)) {
-            WorldHandler.resetGameWorld();
-            WorldHandler.loadTemplateWorld();
-            connectMySQL();
-            PlayerHandler.createTable();
-            ListenerHandler.registerListeners();
-        } else {
-            WorldHandler.resetGameWorld();
-            WorldHandler.unloadTemplateWorld();
-            connectMySQL();
-            PlayerHandler.createTable();
-            ListenerHandler.registerListeners();
-        }
+        PlayerHandler.createTable();
+        ListenerHandler.registerListeners();
 
         getLogger().info("The plugin has been enabled.");
         getLogger().info(ChatColor.RED + "Be careful! This plugin is running under " + status.name().toLowerCase() + " mode!");

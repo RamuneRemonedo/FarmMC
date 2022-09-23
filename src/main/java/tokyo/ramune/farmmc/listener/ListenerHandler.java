@@ -10,7 +10,7 @@ public class ListenerHandler {
             new PlayerQuitListener(),
             new FarmMenuClickListener(),
             new PlayerLoginListener(),
-            new PlayerInteractListener()
+            new BlockBreakListener()
     };
 
     public static void registerListeners() {

@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public interface FarmBossBar {
     default BossBar getBossBar() {
         if (Bukkit.getBossBar(getNamespacedKey()) == null)
-            create();
+            FarmBossBarHandler.create(this);
 
         return Bukkit.getBossBar(getNamespacedKey());
     }
@@ -20,11 +20,15 @@ public interface FarmBossBar {
     @Nonnull BarColor getBarColor();
     @Nonnull BarStyle getBarStyle();
     @Nonnull String getTitle();
-    float getProgress();
+    double getProgress();
     @Nonnull Player getPlayer();
     @Nonnull NamespacedKey getNamespacedKey();
     default void initialize() {
-        create();
+        getBossBar().addPlayer(getPlayer());
+        getBossBar().setTitle(getTitle());
+        getBossBar().setProgress(getProgress());
+        getBossBar().setStyle(getBarStyle());
+        getBossBar().setColor(getBarColor());
     }
     default void update() {
         getBossBar().setTitle(getTitle());
@@ -33,11 +37,9 @@ public interface FarmBossBar {
         getBossBar().setColor(getBarColor());
     }
 
-    default void create() {
-        FarmBossBarHandler.create(this);
-    }
+    void remove();
 
-    default void remove() {
-        FarmBossBarHandler.remove(this);
+    default boolean isCreated() {
+        return FarmBossBarHandler.isCreated(this);
     }
 }

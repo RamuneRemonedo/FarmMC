@@ -15,20 +15,7 @@ public class PlayerLoginListener implements Listener {
     public void onPlayerLogin(PlayerLoginEvent event) {
         Player player = event.getPlayer();
 
-        if (FarmMC.getStatus().equals(PluginStatus.EDIT_TEMPLATE)) {
-            event.setResult(
-                    player.hasPermission(FarmPermission.JOIN_TEMPLATE.toPermission()) ?
-                            PlayerLoginEvent.Result.ALLOWED : PlayerLoginEvent.Result.KICK_OTHER
-                    );
-            event.kickMessage(Component.text(
-                    ChatColor.RED + "\nThis server is running under edit template mode." +
-                    ChatColor.AQUA + "\ndetails: Require permission - " + FarmPermission.JOIN_TEMPLATE.toPermission().getName())
-            );
-        }
         if (FarmMC.getStatus().equals(PluginStatus.MAINTENANCE)) {
-            System.out.println(player.hasPermission(
-                    FarmPermission.JOIN_MAINTENANCE.toPermission()) ?
-                    PlayerLoginEvent.Result.ALLOWED : PlayerLoginEvent.Result.KICK_OTHER);
             event.setResult(player.hasPermission(
                     FarmPermission.JOIN_MAINTENANCE.toPermission()) ?
                     PlayerLoginEvent.Result.ALLOWED : PlayerLoginEvent.Result.KICK_OTHER

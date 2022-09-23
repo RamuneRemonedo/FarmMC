@@ -8,5 +8,3 @@ permissions:
     default: op
   FarmMC.join.maintenance:
     default: op
-  FarmMC.join.template:
-    default: op

@@ -3,7 +3,6 @@ package tokyo.ramune.farmmc.asset;
 import org.bukkit.Material;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public enum FarmAssetType {
     LOG,

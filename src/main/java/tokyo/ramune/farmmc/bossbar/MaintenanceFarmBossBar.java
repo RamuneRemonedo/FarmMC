@@ -7,28 +7,30 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
-import tokyo.ramune.farmmc.player.PlayerStatus;
 
 import javax.annotation.Nonnull;
 
-public class CoinFarmBossBar implements FarmBossBar {
+public class MaintenanceFarmBossBar implements FarmBossBar {
     private final Player player;
-    private final AutoHide autoHide = new AutoHide(this);
 
-    public CoinFarmBossBar(@Nonnull Player player) {
+    public MaintenanceFarmBossBar(@Nonnull Player player) {
         this.player = player;
     }
 
     @NotNull
     @Override
     public FarmBossBarType getType() {
-        return FarmBossBarType.COIN;
+        return FarmBossBarType.MAINTENANCE;
     }
 
     @NotNull
     @Override
     public BarColor getBarColor() {
-        return BarColor.YELLOW;
+        if (!isCreated())
+            return BarColor.RED;
+
+        return getBossBar().getColor().equals(BarColor.RED)
+                ? BarColor.YELLOW : BarColor.RED;
     }
 
     @NotNull
@@ -40,7 +42,7 @@ public class CoinFarmBossBar implements FarmBossBar {
     @NotNull
     @Override
     public String getTitle() {
-        return ChatColor.YELLOW + "所持コイン " + ChatColor.WHITE + ":" + ChatColor.BOLD + "  " + new PlayerStatus(getPlayer()).getCoin();
+        return ChatColor.RED + "現在、メンテナンスモードでプラグインが実行されています!";
     }
 
     @Override
@@ -57,13 +59,11 @@ public class CoinFarmBossBar implements FarmBossBar {
     @NotNull
     @Override
     public NamespacedKey getNamespacedKey() {
-        return new NamespacedKey(FarmMC.getPlugin(), "coin." + player.getUniqueId());
+        return new NamespacedKey(FarmMC.getPlugin(), "maintenance." + player.getUniqueId());
     }
 
     @Override
     public void initialize() {
-        autoHide.setAutoHide(true);
-        autoHide.update();
         FarmBossBar.super.initialize();
     }
 
@@ -72,14 +72,10 @@ public class CoinFarmBossBar implements FarmBossBar {
         String currentTitle = getBossBar().getTitle();
         String toTitle = getTitle();
 
-        if (!currentTitle.equals(toTitle))
-            autoHide.update();
-
         FarmBossBar.super.initialize();
     }
 
     @Override
     public void remove() {
-
     }
 }

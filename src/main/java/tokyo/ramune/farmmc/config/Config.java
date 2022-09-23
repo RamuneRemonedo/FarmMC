@@ -3,7 +3,6 @@ package tokyo.ramune.farmmc.config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import tokyo.ramune.farmmc.FarmMC;
-import tokyo.ramune.farmmc.world.WorldHandler;
 
 public class Config extends ConfigFile {
     public String MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_PORT, MYSQL_DATABASE,
@@ -30,7 +29,7 @@ public class Config extends ConfigFile {
         WORLD_GAME_NAME = getConfig().getString("config.WORLD_GAME_NAME", "farmmc-game");
 
         WORLD_SPAWN_LOCATION = new Location(
-                WorldHandler.getGameWorld(),
+                Bukkit.getWorld("world"),
                 getConfig().getDouble("config.WORLD_SPAWN_LOCATION.x", 0.0),
                 getConfig().getDouble("config.WORLD_SPAWN_LOCATION.y", 0.0),
                 getConfig().getDouble("config.WORLD_SPAWN_LOCATION.z", 0.0),
