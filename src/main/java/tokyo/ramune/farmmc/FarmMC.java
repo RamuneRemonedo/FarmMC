@@ -1,5 +1,6 @@
 package tokyo.ramune.farmmc;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,29 +24,36 @@ public final class FarmMC extends JavaPlugin {
         plugin = this;
 
         config = new Config();
+        config.load();
 
         FarmBossBarHandler.initialize();
 
-        if (status.equals(PluginStatus.NORMAL)) {
+        if (status.equals(PluginStatus.EDIT_TEMPLATE)) {
             WorldHandler.resetGameWorld();
+            WorldHandler.loadTemplateWorld();
             connectMySQL();
             PlayerHandler.createTable();
+            ListenerHandler.registerListeners();
+        } else {
+            WorldHandler.resetGameWorld();
+            WorldHandler.unloadTemplateWorld();
+            connectMySQL();
+            PlayerHandler.createTable();
+            ListenerHandler.registerListeners();
         }
 
-        ListenerHandler.registerListeners();
-
         getLogger().info("The plugin has been enabled.");
-        getLogger().info(ChatColor.RED + "Be careful! This plugin is running under " + status.name() + " mode!");
+        getLogger().info(ChatColor.RED + "Be careful! This plugin is running under " + status.name().toLowerCase() + " mode!");
     }
 
     @Override
     public void onDisable() {
-        WorldHandler.unloadGameWorld();
-        WorldHandler.unloadTemplateWorld();
+        Bukkit.getOnlinePlayers().forEach(player -> player.kick(Component.text("サーバーを再構成しています。 しばらく経過してから参加してください。")));
         getLogger().info("The plugin has been disabled.");
     }
 
     private void connectMySQL() {
+        getLogger().info("Connecting to MySQL server");
         MySQL.connect();
         if (!MySQL.isConnected()) {
             getLogger().warning("Cannot connect to MySQL! This plugin require to connect MySQL.");
@@ -60,5 +68,13 @@ public final class FarmMC extends JavaPlugin {
     @Nonnull
     public static Config getConfigValue() {
         return config;
+    }
+
+    public static PluginStatus getStatus() {
+        return status;
+    }
+
+    public static void setStatus(PluginStatus status) {
+        FarmMC.status = status;
     }
 }
