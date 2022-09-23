@@ -1,39 +1,35 @@
 package tokyo.ramune.farmmc.world;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import tokyo.ramune.farmmc.FarmMC;
 
 public class WorldHandler {
     public static World getTemplateWorld() {
-        loadTemplateWorld();
         return Bukkit.getWorld(FarmMC.getConfigValue().WORLD_TEMPLATE_NAME);
     }
 
     public static World getGameWorld() {
-        loadGameWorld();
         return Bukkit.getWorld(FarmMC.getConfigValue().WORLD_GAME_NAME);
     }
 
     public static void loadGameWorld() {
-        FarmMC.getPlugin().getLogger().info(ChatColor.RED + "Loading game world...");
         String gameWorldName = FarmMC.getConfigValue().WORLD_GAME_NAME;
         if (Bukkit.getWorld(gameWorldName) != null) return;
         new WorldCreator(gameWorldName)
                 .generateStructures(false)
+                .type(WorldType.FLAT)
+                .environment(World.Environment.NORMAL)
                 .createWorld();
-        FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "Loaded!");
+        FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "Loaded GameWorld!");
     }
 
     private static void loadCopiedGameWorld() {
-        FarmMC.getPlugin().getLogger().info(ChatColor.RED + "Copying game world...");
         String gameWorldName = FarmMC.getConfigValue().WORLD_GAME_NAME;
         if (Bukkit.getWorld(gameWorldName) != null) return;
         new WorldCreator(gameWorldName)
-                .copy(getTemplateWorld())
                 .generateStructures(false)
+                .type(WorldType.FLAT)
+                .environment(World.Environment.NORMAL)
                 .createWorld();
         FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "Copied!");
     }
@@ -42,24 +38,25 @@ public class WorldHandler {
         FarmMC.getPlugin().getLogger().info(ChatColor.RED + "Unloading game world...");
         String gameWorldName = FarmMC.getConfigValue().WORLD_GAME_NAME;
         Bukkit.unloadWorld(gameWorldName, false);
-        FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "Unloaded!");
+        FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "Unloaded GameWorld!");
     }
 
     public static void loadTemplateWorld() {
-        FarmMC.getPlugin().getLogger().info(ChatColor.RED + "Loading template world...");
         String templateWorldName = FarmMC.getConfigValue().WORLD_TEMPLATE_NAME;
         if (Bukkit.getWorld(templateWorldName) != null) return;
         new WorldCreator(templateWorldName)
                 .generateStructures(false)
+                .type(WorldType.FLAT)
+                .environment(World.Environment.NORMAL)
                 .createWorld();
-        FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "Loaded!");
+        FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "Loaded TemplateWorld!");
     }
 
     public static void unloadTemplateWorld() {
         FarmMC.getPlugin().getLogger().info(ChatColor.RED + "Unloading template world...");
         String templateWorldName = FarmMC.getConfigValue().WORLD_TEMPLATE_NAME;
         Bukkit.unloadWorld(templateWorldName, true);
-        FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "Unloaded!");
+        FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "Unloaded TemplateWorld!");
     }
 
     public static void resetGameWorld() {
@@ -67,6 +64,7 @@ public class WorldHandler {
         unloadGameWorld();
         loadTemplateWorld();
         loadCopiedGameWorld();
+        unloadTemplateWorld();
         FarmMC.getPlugin().getLogger().info(ChatColor.AQUA + "--- Game world has been reset. ---");
     }
 }
