@@ -1,8 +1,12 @@
 name: FarmMC
 version: '${project.version}'
 main: tokyo.ramune.farmmc.FarmMC
-api-version: 1.18
+api-version: 1.19
 
 permissions:
   FarmMC.command.help:
+    default: op
+  FarmMC.join.maintenance:
+    default: op
+  FarmMC.join.template:
     default: op
