@@ -1,16 +1,20 @@
 package tokyo.ramune.farmmc.config;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.world.WorldHandler;
 
 public class Config extends ConfigFile {
-    public final String MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_PORT, MYSQL_DATABASE,
+    public String MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_PORT, MYSQL_DATABASE,
             WORLD_TEMPLATE_NAME, WORLD_GAME_NAME;
-    public final Location WORLD_SPAWN_LOCATION;
+    public Location WORLD_SPAWN_LOCATION;
 
     public Config() {
         super(FarmMC.getPlugin(), "config.yml");
+    }
+
+    public void load() {
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
         saveConfig();
@@ -22,6 +26,9 @@ public class Config extends ConfigFile {
         MYSQL_PASSWORD = getConfig().getString("config.MYSQL_PASSWORD", "password");
         MYSQL_DATABASE = getConfig().getString("config.MYSQL_DATABASE", "FarmMC");
 
+        WORLD_TEMPLATE_NAME = getConfig().getString("config.WORLD_TEMPLATE_NAME", "farmmc-template");
+        WORLD_GAME_NAME = getConfig().getString("config.WORLD_GAME_NAME", "farmmc-game");
+
         WORLD_SPAWN_LOCATION = new Location(
                 WorldHandler.getGameWorld(),
                 getConfig().getDouble("config.WORLD_SPAWN_LOCATION.x", 0.0),
@@ -29,7 +36,5 @@ public class Config extends ConfigFile {
                 getConfig().getDouble("config.WORLD_SPAWN_LOCATION.z", 0.0),
                 getConfig().getInt("config.WORLD_SPAWN_LOCATION.yaw", 0),
                 getConfig().getInt("config.WORLD_SPAWN_LOCATION.pitch", 0));
-        WORLD_TEMPLATE_NAME = getConfig().getString("config.WORLD_TEMPLATE_NAME", "farmmc-template");
-        WORLD_GAME_NAME = getConfig().getString("config.WORLD_GAME_NAME", "farmmc-game");
     }
 }
