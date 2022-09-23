@@ -8,7 +8,9 @@ public class ListenerHandler {
     private static final Listener[] listeners = {
             new PlayerJoinListener(),
             new PlayerQuitListener(),
-            new FarmMenuClickListener()
+            new FarmMenuClickListener(),
+            new PlayerLoginListener(),
+            new PlayerInteractListener()
     };
 
     public static void registerListeners() {
