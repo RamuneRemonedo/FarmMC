@@ -2,9 +2,21 @@ name: FarmMC
 version: '${project.version}'
 main: tokyo.ramune.farmmc.FarmMC
 api-version: 1.19
+load: STARTUP
+
+depend:
+  - ProtocolLib
+
+commands:
+  farmmc:
+    description: "FarmMC"
 
 permissions:
   FarmMC.command.help:
+    default: true
+  FarmMC.command.maintenance:
+    default: op
+  FarmMC.command.tp-template:
     default: op
   FarmMC.join.maintenance:
     default: op

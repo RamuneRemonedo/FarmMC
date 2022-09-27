@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.listener;
+package tokyo.ramune.farmmc.listener.farm;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,10 +15,14 @@ public class FarmMenuClickListener implements Listener {
     @EventHandler
     public void onFarmMenuClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        ItemStack clickedItem = Objects.requireNonNull(event.getCurrentItem());
 
         if (!FarmMenuHandler.isFarmMenu(view.getTitle()))
             return;
+
+        if (event.getCurrentItem() == null)
+            return;
+
+        ItemStack clickedItem = event.getCurrentItem();
 
         FarmMenu menu = Objects.requireNonNull(FarmMenuHandler.getRegisteredMenu(view.getTitle()));
         event.setCancelled(true);

@@ -11,25 +11,27 @@ import tokyo.ramune.farmmc.utility.Chat;
 
 import javax.annotation.Nonnull;
 
-public class CoinFarmBossBar implements FarmBossBar {
+public class ExpFarmBossBar implements FarmBossBar {
     private final Player player;
     private final AutoHide autoHide = new AutoHide(this);
-    private long coin;
+    private final PlayerStatus playerStatus;
+    private long exp;
 
-    public CoinFarmBossBar(@Nonnull Player player) {
+    public ExpFarmBossBar(@Nonnull Player player) {
         this.player = player;
+        playerStatus = new PlayerStatus(player);
     }
 
     @NotNull
     @Override
     public FarmBossBarType getType() {
-        return FarmBossBarType.COIN;
+        return FarmBossBarType.EXP;
     }
 
     @NotNull
     @Override
     public BarColor getBarColor() {
-        return BarColor.YELLOW;
+        return BarColor.BLUE;
     }
 
     @NotNull
@@ -42,7 +44,8 @@ public class CoinFarmBossBar implements FarmBossBar {
     @Override
     public String getTitle() {
         String defaultTitle =
-                Chat.replaceColor("&e&l所持コイン &f:&f  " + new PlayerStatus(getPlayer()).getCoin(),
+                Chat.replaceColor(
+                        "&b&lExp &f:&f  " + playerStatus.getExp() + "&f / &7" + playerStatus.getRequireLevelUpExp(),
                         '&'
                 );
         String title = defaultTitle;
@@ -52,21 +55,28 @@ public class CoinFarmBossBar implements FarmBossBar {
 
         if (!getBossBar().getTitle().equals(defaultTitle)) {
             autoHide.update();
-            long currentCoin = new PlayerStatus(getPlayer()).getCoin();
+            long currentExp = playerStatus.getExp();
 
-            if (coin < currentCoin) {
-                title = defaultTitle + Chat.replaceColor("&a +" + (currentCoin - coin), '&');
-            } else if (coin > currentCoin) {
-                title = defaultTitle + Chat.replaceColor("&c -" + (coin - currentCoin), '&');;
+            if (exp < currentExp) {
+                title = defaultTitle + Chat.replaceColor("&a +" + (currentExp - exp), '&');
+            } else if (exp > currentExp) {
+                Chat.replaceColor("&c -" + (exp - currentExp), '&');
             }
-            coin = currentCoin;
+            exp = currentExp;
         }
         return title;
     }
 
     @Override
     public double getProgress() {
-        return 1.0F;
+        double progress = (double) playerStatus.getExp() / (double) playerStatus.getRequireLevelUpExp();
+
+        if (progress < 0.0) {
+            return 0.0;
+        } else if (progress > 1.0) {
+            return 1.0;
+        }
+        return progress;
     }
 
     @NotNull
@@ -78,14 +88,14 @@ public class CoinFarmBossBar implements FarmBossBar {
     @NotNull
     @Override
     public NamespacedKey getNamespacedKey() {
-        return new NamespacedKey(FarmMC.getPlugin(), "coin." + player.getUniqueId());
+        return new NamespacedKey(FarmMC.getPlugin(), "exp." + player.getUniqueId());
     }
 
     @Override
     public void initialize() {
         autoHide.setAutoHide(true);
         autoHide.update();
-        coin = new PlayerStatus(getPlayer()).getCoin();
+        exp = playerStatus.getExp();
         FarmBossBar.super.initialize();
     }
 

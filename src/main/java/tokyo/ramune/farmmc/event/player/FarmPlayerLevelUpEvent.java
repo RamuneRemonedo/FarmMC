@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.event;
+package tokyo.ramune.farmmc.event.player;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

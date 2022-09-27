@@ -1,24 +1,24 @@
-package tokyo.ramune.farmmc.event;
+package tokyo.ramune.farmmc.event.player;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import tokyo.ramune.farmmc.asset.FarmAsset;
 import tokyo.ramune.farmmc.player.PlayerStatus;
 
 import javax.annotation.Nonnull;
 
-public class FarmPlayerClickAssetEvent extends Event implements Cancellable {
+public class FarmPlayerChangeExpEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Player player;
-    private final FarmAsset farmAsset;
+    private final long from, to;
 
     private boolean cancelled;
 
-    public FarmPlayerClickAssetEvent(@Nonnull Player player, FarmAsset farmAsset) {
+    public FarmPlayerChangeExpEvent(@Nonnull Player player, long from, long to) {
         this.player = player;
-        this.farmAsset = farmAsset;
+        this.from = from;
+        this.to = to;
     }
 
     public Player getPlayer() {
@@ -29,8 +29,12 @@ public class FarmPlayerClickAssetEvent extends Event implements Cancellable {
         return new PlayerStatus(player);
     }
 
-    public FarmAsset getFarmAsset() {
-        return farmAsset;
+    public long getFrom() {
+        return from;
+    }
+
+    public long getTo() {
+        return to;
     }
 
     @Override

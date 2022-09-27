@@ -15,19 +15,19 @@ public class PlayerStatus {
         PlayerHandler.initializeDatabasePlayer(player);
     }
 
-    public long requireLevelUpExp() {
-        return requireLevelUpExp(getLevel());
-    }
-
-    public long requireLevelUpExp(long level) {
-        return level * 10;
-    }
-
-    public void updateName() {
-        PlayerHandler.updateName(player);
-    }
-
     // --- Get ---
+    public long getRequireLevelUpExp() {
+        return getRequireLevelUpExp(getLevel());
+    }
+
+    public long getRequireLevelUpExp(long level) {
+        return PlayerHandler.getRequireLevelUpExp(level);
+    }
+
+    public double getAttackDistance() {
+        return PlayerHandler.getAttackDistance(player);
+    }
+
     public long getLevel() {
         return PlayerHandler.getLevel(player);
     }
@@ -51,5 +51,14 @@ public class PlayerStatus {
 
     public void setCoin(long coin) {
         PlayerHandler.setCoin(player, coin);
+    }
+
+    // --- Update ---
+
+    public void updateName() {
+        PlayerHandler.updateName(player);
+    }
+    public void updateLevel() {
+        PlayerHandler.updateLevel(player);
     }
 }

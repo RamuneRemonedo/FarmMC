@@ -45,7 +45,6 @@ public class FarmBossBarHandler {
         if (!farmBossBars.contains(farmBossBar))
             return;
 
-        Bukkit.removeBossBar(farmBossBar.getNamespacedKey());
         farmBossBars.remove(farmBossBar);
     }
 
@@ -78,6 +77,10 @@ public class FarmBossBarHandler {
     }
 
     private static void update() {
-        farmBossBars.forEach(FarmBossBar::update);
+        farmBossBars.forEach(farmBossBar -> {
+            if (!isCreated(farmBossBar))
+                return;
+            farmBossBar.update();
+        });
     }
 }

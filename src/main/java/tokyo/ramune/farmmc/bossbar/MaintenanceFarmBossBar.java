@@ -1,12 +1,12 @@
 package tokyo.ramune.farmmc.bossbar;
 
-import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.utility.Chat;
 
 import javax.annotation.Nonnull;
 
@@ -42,7 +42,7 @@ public class MaintenanceFarmBossBar implements FarmBossBar {
     @NotNull
     @Override
     public String getTitle() {
-        return ChatColor.RED + "現在、メンテナンスモードでプラグインが実行されています!";
+        return Chat.replaceColor("&cメンテナンスモード下でプラグインが実行されています!", '&');
     }
 
     @Override
@@ -69,10 +69,7 @@ public class MaintenanceFarmBossBar implements FarmBossBar {
 
     @Override
     public void update() {
-        String currentTitle = getBossBar().getTitle();
-        String toTitle = getTitle();
-
-        FarmBossBar.super.initialize();
+        FarmBossBar.super.update();
     }
 
     @Override

@@ -2,9 +2,9 @@ package tokyo.ramune.farmmc.menu;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import tokyo.ramune.farmmc.utility.Chat;
 
 import javax.annotation.Nonnull;
 
@@ -45,7 +45,7 @@ public class FarmMenu {
         Inventory menu = Bukkit.createInventory(
                 null,
                 size,
-                Component.text(ChatColor.RESET + ChatColor.GREEN.toString() + ChatColor.RESET + title)
+                Component.text(Chat.replaceColor("&r&a&r" + title, '&'))
         );
 
         for (FarmMenuItem menuItem : menuItems) {

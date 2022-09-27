@@ -1,6 +1,6 @@
 package tokyo.ramune.farmmc.menu;
 
-import org.bukkit.ChatColor;
+import tokyo.ramune.farmmc.utility.Chat;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,6 +29,6 @@ public class FarmMenuHandler {
     }
 
     public static boolean isFarmMenu(@Nonnull String title) {
-        return title.startsWith(ChatColor.RESET + ChatColor.GREEN.toString() + ChatColor.RESET);
+        return title.startsWith(Chat.replaceColor("&r&a&r", '&'));
     }
 }

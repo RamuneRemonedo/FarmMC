@@ -1,7 +1,6 @@
 package tokyo.ramune.farmmc.database;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import tokyo.ramune.farmmc.FarmMC;
 
 import java.sql.Connection;
@@ -27,7 +26,7 @@ public class MySQL {
                 String driver = "mysql";
                 con = DriverManager.getConnection("jdbc:" + driver + "://" + host + ":" + port + "/" + database, user, password);
             } catch (Exception var7) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SQL Connect Error: " + var7.getMessage());
+                Bukkit.getConsoleSender().sendMessage("&c" + "SQL Connect Error: " + var7.getMessage());
                 var7.printStackTrace();
             }
 
@@ -46,18 +45,18 @@ public class MySQL {
         String port = FarmMC.getConfigValue().MYSQL_PORT;
         if (isConnected()) {
             if (message) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SQL Connect Error: Already connected");
+                Bukkit.getConsoleSender().sendMessage("&c" + "SQL Connect Error: Already connected");
             }
         } else if (host.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: Host is blank");
+            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: Host is blank");
         } else if (user.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: User is blank");
+            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: User is blank");
         } else if (password.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: Password is blank");
+            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: Password is blank");
         } else if (database.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: Database is blank");
+            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: Database is blank");
         } else if (port.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: Port is blank");
+            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: Port is blank");
         } else {
             setConnection(host, user, password, database, port);
         }
@@ -73,14 +72,14 @@ public class MySQL {
             if (isConnected()) {
                 con.close();
                 if (message) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "SQL disconnected.");
+                    Bukkit.getConsoleSender().sendMessage("&a" + "SQL disconnected.");
                 }
             } else if (message) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SQL Disconnect Error: No existing connection");
+                Bukkit.getConsoleSender().sendMessage("&c" + "SQL Disconnect Error: No existing connection");
             }
         } catch (Exception var2) {
             if (message) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SQL Disconnect Error: " + var2.getMessage());
+                Bukkit.getConsoleSender().sendMessage("&c" + "SQL Disconnect Error: " + var2.getMessage());
             }
         }
 
@@ -97,8 +96,8 @@ public class MySQL {
             try {
                 return !con.isClosed();
             } catch (Exception var1) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SQL Connection:");
-                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Error: " + var1.getMessage());
+                Bukkit.getConsoleSender().sendMessage("&c" + "SQL Connection:");
+                Bukkit.getConsoleSender().sendMessage("&c" + "Error: " + var1.getMessage());
             }
         }
 
@@ -122,9 +121,9 @@ public class MySQL {
             } catch (Exception var4) {
                 String message = var4.getMessage();
                 if (message != null) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SQL Update:");
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Command: " + command);
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Error: " + message);
+                    Bukkit.getConsoleSender().sendMessage("&c" + "SQL Update:");
+                    Bukkit.getConsoleSender().sendMessage("&c" + "Command: " + command);
+                    Bukkit.getConsoleSender().sendMessage("&c" + "Error: " + message);
                 }
             }
 
@@ -148,9 +147,9 @@ public class MySQL {
             } catch (Exception var4) {
                 String message = var4.getMessage();
                 if (message != null) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SQL Query:");
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Command: " + command);
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Error: " + message);
+                    Bukkit.getConsoleSender().sendMessage("&c" + "SQL Query:");
+                    Bukkit.getConsoleSender().sendMessage("&c" + "Command: " + command);
+                    Bukkit.getConsoleSender().sendMessage("&c" + "Error: " + message);
                 }
             }
 

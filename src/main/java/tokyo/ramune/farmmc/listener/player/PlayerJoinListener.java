@@ -1,17 +1,18 @@
-package tokyo.ramune.farmmc.listener;
+package tokyo.ramune.farmmc.listener.player;
 
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.bossbar.CoinFarmBossBar;
+import tokyo.ramune.farmmc.bossbar.ExpFarmBossBar;
 import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
 import tokyo.ramune.farmmc.bossbar.MaintenanceFarmBossBar;
 import tokyo.ramune.farmmc.player.PlayerStatus;
+import tokyo.ramune.farmmc.utility.Chat;
 import tokyo.ramune.farmmc.utility.PluginStatus;
 
 public class PlayerJoinListener implements Listener {
@@ -20,19 +21,25 @@ public class PlayerJoinListener implements Listener {
         Player player = event.getPlayer();
 
         // Join message
-        event.joinMessage(Component.text(ChatColor.GRAY + "[" + ChatColor.GREEN + ChatColor.BOLD + "+" + ChatColor.GRAY + "] " + ChatColor.GRAY + player.getName() + " joined."));
+        event.joinMessage(
+                Component.text(
+                        Chat.replaceColor(
+                                "&7[&a&l+&7] &7" + player.getName() + " joined.",
+                                '&'
+                        )
+                )
+        );
 
         // Initialize player database & Update name
         PlayerStatus status = new PlayerStatus(player);
         status.initializeDatabasePlayer();
         status.updateName();
 
-        // Teleport to spawn
-        Location spawnLocation = FarmMC.getConfigValue().WORLD_SPAWN_LOCATION;
-
-        Bukkit.getScheduler().runTaskLater(FarmMC.getPlugin(), () -> {
-            player.teleport(spawnLocation);
-        }, 10);
+        // Add Coin & Exp BossBar
+        if (FarmMC.getStatus().equals(PluginStatus.NORMAL)) {
+            FarmBossBarHandler.create(new CoinFarmBossBar(player));
+            FarmBossBarHandler.create(new ExpFarmBossBar(player));
+        }
 
         // Add Maintenance BossBar
         if (FarmMC.getStatus().equals(PluginStatus.MAINTENANCE))

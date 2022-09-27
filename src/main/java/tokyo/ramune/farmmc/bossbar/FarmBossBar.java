@@ -10,9 +10,14 @@ import org.bukkit.entity.Player;
 import javax.annotation.Nonnull;
 
 public interface FarmBossBar {
+
     default BossBar getBossBar() {
         if (Bukkit.getBossBar(getNamespacedKey()) == null)
-            FarmBossBarHandler.create(this);
+            Bukkit.createBossBar(
+                    getNamespacedKey(),
+                    getTitle(),
+                    getBarColor(),
+                    getBarStyle());
 
         return Bukkit.getBossBar(getNamespacedKey());
     }

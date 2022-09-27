@@ -2,20 +2,24 @@ package tokyo.ramune.farmmc;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
+import tokyo.ramune.farmmc.command.CommandHandler;
 import tokyo.ramune.farmmc.config.Config;
 import tokyo.ramune.farmmc.database.MySQL;
+import tokyo.ramune.farmmc.event.plugin.PluginStatusChangeEvent;
 import tokyo.ramune.farmmc.listener.ListenerHandler;
 import tokyo.ramune.farmmc.player.PlayerHandler;
+import tokyo.ramune.farmmc.utility.Chat;
 import tokyo.ramune.farmmc.utility.PluginStatus;
+import tokyo.ramune.farmmc.world.FarmWorldHandler;
 
 import javax.annotation.Nonnull;
 
 public final class FarmMC extends JavaPlugin {
     private static JavaPlugin plugin;
-    private static PluginStatus status = PluginStatus.MAINTENANCE;
+    private static PluginStatus status = PluginStatus.NORMAL;
     private static Config config;
 
     @Override
@@ -25,18 +29,34 @@ public final class FarmMC extends JavaPlugin {
         config = new Config();
         config.load();
 
+        FarmWorldHandler.copyTemplate();
+
+        connectMySQL();
+        PlayerHandler.initialize();
+
         FarmBossBarHandler.initialize();
 
-        PlayerHandler.createTable();
         ListenerHandler.registerListeners();
 
+        CommandHandler.registerCommand();
+        CommandHandler.registerSubCommands();
+        CommandHandler.registerTabCompleter();
+
         getLogger().info("The plugin has been enabled.");
-        getLogger().info(ChatColor.RED + "Be careful! This plugin is running under " + status.name().toLowerCase() + " mode!");
+        getLogger().info(
+                Chat.replaceColor(
+                        "&cBe careful! This plugin is running under " + status.name().toLowerCase() + " mode!",
+                        '&'
+                )
+        );
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getOnlinePlayers().forEach(player -> player.kick(Component.text("サーバーを再構成しています。 しばらく経過してから参加してください。")));
+        Bukkit.getOnlinePlayers().forEach(player -> player.kick(Component.text("サーバーを再構成しています。 しばらく経過してから参加してください。"), PlayerKickEvent.Cause.TIMEOUT));
+
+        FarmWorldHandler.unloadTemplate();
+
         getLogger().info("The plugin has been disabled.");
     }
 
@@ -63,6 +83,15 @@ public final class FarmMC extends JavaPlugin {
     }
 
     public static void setStatus(PluginStatus status) {
+        if (FarmMC.status.equals(status))
+            return;
+
+        PluginStatusChangeEvent event = new PluginStatusChangeEvent(FarmMC.status, status);
+        Bukkit.getPluginManager().callEvent(event);
+
+        if (event.isCancelled())
+            return;
+
         FarmMC.status = status;
     }
 }

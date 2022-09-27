@@ -2,14 +2,24 @@ package tokyo.ramune.farmmc.player;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
+import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.database.SQL;
-import tokyo.ramune.farmmc.event.FarmPlayerChangeExpEvent;
-import tokyo.ramune.farmmc.event.FarmPlayerLevelUpEvent;
+import tokyo.ramune.farmmc.event.player.FarmPlayerChangeExpEvent;
+import tokyo.ramune.farmmc.event.player.FarmPlayerLevelUpEvent;
 
 import javax.annotation.Nonnull;
 
 public class PlayerHandler {
-    public static void createTable() {
+    private static BukkitTask updateLevelTimerTask;
+
+
+    public static void initialize() {
+        createTable();
+        startUpdateLevelTimer();
+    }
+
+    private static void createTable() {
         if (SQL.tableExists("player_status")) return;
         SQL.createTable("player_status",
                 "uuid TEXT NOT NULL, " +
@@ -24,8 +34,21 @@ public class PlayerHandler {
         SQL.insertData("uuid, name", "'" + player.getUniqueId() + "', '" + player.getName() + "'", "player_status");
     }
 
+    private static void startUpdateLevelTimer() {
+        if (updateLevelTimerTask != null)
+            updateLevelTimerTask.cancel();
+
+        updateLevelTimerTask = Bukkit.getScheduler().runTaskTimer(FarmMC.getPlugin(), ()
+                -> Bukkit.getOnlinePlayers().forEach(PlayerHandler::updateLevel), 60, 60);
+    }
+
+    // --- Get ---
     public static PlayerStatus getStatus(@Nonnull Player player) {
         return new PlayerStatus(player);
+    }
+
+    public static double getAttackDistance(@Nonnull Player player) {
+        return 1.5;
     }
 
     public static long getRequireLevelUpExp(@Nonnull Player player) {
@@ -33,47 +56,9 @@ public class PlayerHandler {
     }
 
     public static long getRequireLevelUpExp(long level) {
-        return level * 10;
+        return level * 20;
     }
 
-    public static void updateName(@Nonnull Player player) {
-        Object name = SQL.get("name", "uuid", "=", player.getUniqueId().toString(), "player_status");
-
-        if (name == null)
-            return;
-
-        if (name.equals(player.getName()))
-            return;
-
-        SQL.set("name", player.getName(), "uuid", "=", player.getUniqueId().toString(), "player_status");
-    }
-
-    private static void updateLevel(@Nonnull Player player, long currentLevel, long currentExp) {
-        if (getRequireLevelUpExp(currentLevel) < currentExp)
-            return;
-
-        long toLevel = currentLevel;
-
-        while (getRequireLevelUpExp(toLevel) <= currentExp) {
-            currentExp -= getRequireLevelUpExp(toLevel);
-            toLevel ++;
-        }
-
-        FarmPlayerLevelUpEvent event = new FarmPlayerLevelUpEvent(player, currentLevel, toLevel);
-        Bukkit.getPluginManager().callEvent(event);
-        if (event.isCancelled())
-            return;
-
-        setExp(player, currentExp);
-        setLevel(player, currentLevel);
-    }
-
-    private static void updateExpBar(@Nonnull Player player, long currentExp, long currentLevel) {
-        player.setLevel((int) currentLevel);
-        player.setExp((float) (currentExp / getRequireLevelUpExp(currentLevel)));
-    }
-
-    // --- Get ---
     public static long getLevel(@Nonnull Player player) {
         Object value = SQL.get("level", "uuid", "=", player.getUniqueId().toString(), "player_status");
         return value != null ? (Long) value : 0;
@@ -116,5 +101,45 @@ public class PlayerHandler {
             return;
 
         SQL.set("coin", coin, "uuid", "=", player.getUniqueId().toString(), "player_status");
+    }
+
+    // --- Update ---
+    public static void updateName(@Nonnull Player player) {
+        Object name = SQL.get("name", "uuid", "=", player.getUniqueId().toString(), "player_status");
+
+        if (name == null)
+            return;
+
+        if (name.equals(player.getName()))
+            return;
+
+        SQL.set("name", player.getName(), "uuid", "=", player.getUniqueId().toString(), "player_status");
+    }
+
+    public static void updateLevel(@Nonnull Player player) {
+        updateLevel(player, getLevel(player), getExp(player));
+    }
+
+    private static void updateLevel(@Nonnull Player player, long currentLevel, long currentExp) {
+        if (getRequireLevelUpExp(currentLevel) > currentExp)
+            return;
+
+        player.sendMessage("checked");
+
+        long toLevel = currentLevel;
+
+        while (getRequireLevelUpExp(toLevel) <= currentExp) {
+            currentExp -= getRequireLevelUpExp(toLevel);
+            toLevel++;
+        }
+
+        FarmPlayerLevelUpEvent event = new FarmPlayerLevelUpEvent(player
+                , currentLevel, toLevel);
+        Bukkit.getPluginManager().callEvent(event);
+        if (event.isCancelled())
+            return;
+
+        setLevel(player, toLevel);
+        setExp(player, currentExp);
     }
 }

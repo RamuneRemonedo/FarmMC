@@ -30,6 +30,7 @@ public class AutoHide {
         if (autoHideTask != null)
             autoHideTask.cancel();
 
+        farmBossBar.getBossBar().setVisible(true);
         autoHideTask = Bukkit.getScheduler().runTaskLaterAsynchronously(FarmMC.getPlugin(), () -> {
             if (isAutoHide) farmBossBar.getBossBar().setVisible(false);
         }, 60);
