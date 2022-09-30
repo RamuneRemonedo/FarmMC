@@ -12,7 +12,6 @@ public class EntityDeathListener implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         LivingEntity dead = event.getEntity();
 
-
         if (dead.getKiller() == null)
             return;
 

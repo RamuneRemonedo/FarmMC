@@ -20,6 +20,9 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        // Send packet
+
+
         // Join message
         event.joinMessage(
                 Component.text(

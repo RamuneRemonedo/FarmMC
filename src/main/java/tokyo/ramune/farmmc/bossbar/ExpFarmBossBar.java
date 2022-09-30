@@ -75,6 +75,8 @@ public class ExpFarmBossBar implements FarmBossBar {
             return 0.0;
         } else if (progress > 1.0) {
             return 1.0;
+        } else if (Double.isNaN(progress)) {
+            return 0.0;
         }
         return progress;
     }
