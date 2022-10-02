@@ -7,6 +7,29 @@ import org.bukkit.entity.Player;
 import javax.annotation.Nonnull;
 
 public class Notice {
+    public static void noticeFirstJoinPlayer(@Nonnull Player player) {
+        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.sendMessage(
+                Chat.replaceColor(
+                "&7[&a&l+&7] &7" + player.getName() + " がこのサーバーで初参加です! 歓迎しましょう!",
+                '&'
+                )
+        ));
+    }
+
+    public static String getJoinMessage(@Nonnull Player player) {
+        return Chat.replaceColor(
+                "&7[&a&l+&7] &7" + player.getName() + " joined.",
+                '&'
+        );
+    }
+
+    public static String getQuitMessage(@Nonnull Player player) {
+        return Chat.replaceColor(
+                "&7[&c&l-&7] &7" + player.getName() + " left.",
+                '&'
+        );
+    }
+
     public static void noticeLevelUp(@Nonnull Player player, long from, long to) {
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE, 1, 1);

@@ -11,7 +11,7 @@ import tokyo.ramune.farmmc.bossbar.ExpFarmBossBar;
 import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
 import tokyo.ramune.farmmc.bossbar.MaintenanceFarmBossBar;
 import tokyo.ramune.farmmc.player.PlayerStatus;
-import tokyo.ramune.farmmc.utility.Chat;
+import tokyo.ramune.farmmc.utility.Notice;
 import tokyo.ramune.farmmc.utility.PluginStatus;
 
 public class PlayerJoinListener implements Listener {
@@ -19,16 +19,13 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        // Send packet
-
+        // First join message
+        Notice.noticeFirstJoinPlayer(player);
 
         // Join message
         event.joinMessage(
                 Component.text(
-                        Chat.replaceColor(
-                                "&7[&a&l+&7] &7" + player.getName() + " joined.",
-                                '&'
-                        )
+                        Notice.getJoinMessage(player)
                 )
         );
 

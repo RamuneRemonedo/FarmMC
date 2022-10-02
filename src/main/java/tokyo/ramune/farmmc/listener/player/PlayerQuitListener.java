@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
-import tokyo.ramune.farmmc.utility.Chat;
+import tokyo.ramune.farmmc.utility.Notice;
 
 public class PlayerQuitListener implements Listener {
     @EventHandler
@@ -14,13 +14,9 @@ public class PlayerQuitListener implements Listener {
         Player player = event.getPlayer();
 
         // Quit message
-
         event.quitMessage(
                 Component.text(
-                        Chat.replaceColor(
-                                "&7[&c&l-&7] &7" + player.getName() + " left.",
-                                '&'
-                        )
+                        Notice.getQuitMessage(player)
                 )
         );
 
