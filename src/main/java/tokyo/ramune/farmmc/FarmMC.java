@@ -1,9 +1,8 @@
 package tokyo.ramune.farmmc;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
@@ -15,7 +14,6 @@ import tokyo.ramune.farmmc.listener.ListenerHandler;
 import tokyo.ramune.farmmc.player.PlayerHandler;
 import tokyo.ramune.farmmc.utility.Chat;
 import tokyo.ramune.farmmc.utility.PluginStatus;
-import tokyo.ramune.farmmc.world.FarmWorldHandler;
 
 import javax.annotation.Nonnull;
 
@@ -30,8 +28,6 @@ public final class FarmMC extends JavaPlugin {
 
         config = new Config();
         config.load();
-
-        FarmWorldHandler.copyTemplate();
 
         connectMySQL();
         PlayerHandler.initialize();
@@ -56,8 +52,6 @@ public final class FarmMC extends JavaPlugin {
     @Override
     public void onDisable() {
         Bukkit.getOnlinePlayers().forEach(player -> player.kick(Component.text("サーバーを再構成しています。 しばらく経過してから参加してください。"), PlayerKickEvent.Cause.TIMEOUT));
-
-        FarmWorldHandler.unloadTemplate();
 
         getLogger().info("The plugin has been disabled.");
     }

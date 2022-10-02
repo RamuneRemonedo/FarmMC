@@ -40,6 +40,10 @@ public class PlayerStatus {
         return PlayerHandler.getCoin(player);
     }
 
+    public double getTemperature() {
+        return Math.round(player.getLocation().getBlock().getTemperature() * 10.0) / 10.0;
+    }
+
     // --- Set ---
     public void setLevel(long level) {
         PlayerHandler.setLevel(player, level);
