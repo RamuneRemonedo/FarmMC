@@ -2,7 +2,6 @@ package tokyo.ramune.farmmc;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
