@@ -3,13 +3,15 @@ package tokyo.ramune.farmmc.utility;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import tokyo.ramune.farmmc.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.language.Phase;
 
 import javax.annotation.Nonnull;
 
 public class Chat {
     public static void sendMessage(Player player, String message, boolean addPrefix) {
         if (addPrefix) {
-            player.sendMessage( Chat.replaceColor("&f[&bFramMC&f] &r", '&') + message);
+            player.sendMessage(FarmLanguageHandler.getPhase(player, Phase.CHAT_PREFIX) + message);
         } else {
             player.sendMessage(message);
         }
@@ -17,18 +19,22 @@ public class Chat {
 
     public static void sendMessage(CommandSender sender, String message, boolean addPrefix) {
         if (addPrefix) {
-            sender.sendMessage( Chat.replaceColor("&f[&bFramMC&f] &r", '&') + message);
+            sender.sendMessage( FarmLanguageHandler.getPhase(sender, Phase.CHAT_PREFIX) + message);
         } else {
             sender.sendMessage(message);
         }
     }
 
     public static void sendRequirePermission(Player player, FarmPermission permission) {
-        player.sendMessage("You need the permission to do this.  " + permission.toPermission().getName());
+        player.sendMessage(FarmLanguageHandler.getPhase(player, Phase.CHAT_REQUIRE_PERMISSION)
+                .replace("{0}", permission.toPermission().getName())
+        );
     }
 
     public static void sendRequirePermission(CommandSender sender, FarmPermission permission) {
-        sender.sendMessage("You need the permission to do this.  " + permission.toPermission().getName());
+        sender.sendMessage(FarmLanguageHandler.getPhase(sender, Phase.CHAT_REQUIRE_PERMISSION)
+                .replace("{0}", permission.toPermission().getName())
+        );
     }
 
     public static String replaceColor(@Nonnull String message, char prefix) {

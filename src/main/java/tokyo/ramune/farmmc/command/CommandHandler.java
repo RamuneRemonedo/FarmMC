@@ -9,6 +9,8 @@ import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.command.subCommand.HelpSubCommand;
 import tokyo.ramune.farmmc.command.subCommand.MaintenanceCommand;
 import tokyo.ramune.farmmc.command.subCommand.SubCommand;
+import tokyo.ramune.farmmc.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.language.Phase;
 import tokyo.ramune.farmmc.utility.Chat;
 
 import javax.annotation.Nonnull;
@@ -57,7 +59,7 @@ class FarmCommandExecutor implements CommandExecutor {
             }
         }
 
-        Chat.sendMessage(commandSender, Chat.replaceColor("&c指定されたサブコマンドが見つかりませんでした。", '&'), true);
+        Chat.sendMessage(commandSender, FarmLanguageHandler.getPhase(commandSender, Phase.COMMAND_NOT_FOUND), true);
         new HelpSubCommand().runCommand(commandSender, args);
 
         return true;

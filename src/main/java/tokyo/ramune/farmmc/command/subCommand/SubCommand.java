@@ -34,9 +34,9 @@ public interface SubCommand {
     @Nonnull
     String getSubCommand();
 
-    String getDescription();
+    String getDescription(CommandSender sender);
 
-    String getHelp();
+    String getHelp(CommandSender sender);
 
     boolean isRequirePlayer();
 

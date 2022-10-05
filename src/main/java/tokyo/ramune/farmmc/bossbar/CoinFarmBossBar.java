@@ -6,6 +6,8 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.language.Phase;
 import tokyo.ramune.farmmc.player.PlayerStatus;
 import tokyo.ramune.farmmc.utility.Chat;
 
@@ -41,10 +43,10 @@ public class CoinFarmBossBar implements FarmBossBar {
     @NotNull
     @Override
     public String getTitle() {
-        String defaultTitle =
-                Chat.replaceColor("&e&l所持コイン &f:&f  " + new PlayerStatus(getPlayer()).getCoin(),
-                        '&'
-                );
+        PlayerStatus playerStatus = new PlayerStatus(player);
+
+        String defaultTitle = FarmLanguageHandler.getPhase(player, Phase.BOSSBAR_COIN_TITLE)
+                .replace("{0}", String.valueOf(playerStatus.getCoin()));
         String title = defaultTitle;
 
         if (!isCreated())
@@ -52,7 +54,7 @@ public class CoinFarmBossBar implements FarmBossBar {
 
         if (!getBossBar().getTitle().equals(defaultTitle)) {
             autoHide.update();
-            long currentCoin = new PlayerStatus(getPlayer()).getCoin();
+            long currentCoin = playerStatus.getCoin();
 
             if (coin < currentCoin) {
                 title = defaultTitle + Chat.replaceColor("&a +" + (currentCoin - coin), '&');

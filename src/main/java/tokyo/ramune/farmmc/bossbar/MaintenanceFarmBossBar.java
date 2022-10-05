@@ -6,6 +6,8 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.language.Phase;
 import tokyo.ramune.farmmc.utility.Chat;
 
 import javax.annotation.Nonnull;
@@ -42,7 +44,7 @@ public class MaintenanceFarmBossBar implements FarmBossBar {
     @NotNull
     @Override
     public String getTitle() {
-        return Chat.replaceColor("&cメンテナンスモード下でプラグインが実行されています!", '&');
+        return FarmLanguageHandler.getPhase(player, Phase.BOSSBAR_MAINTENANCE_TITLE);
     }
 
     @Override

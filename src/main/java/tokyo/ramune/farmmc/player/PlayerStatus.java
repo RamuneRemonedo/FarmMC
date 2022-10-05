@@ -28,6 +28,10 @@ public class PlayerStatus {
         return PlayerHandler.getAttackDistance(player);
     }
 
+    public String getLanguage() {
+        return PlayerHandler.getLanguage(player);
+    }
+
     public long getLevel() {
         return PlayerHandler.getLevel(player);
     }
@@ -45,6 +49,10 @@ public class PlayerStatus {
     }
 
     // --- Set ---
+    public void setLanguage(String language) {
+        PlayerHandler.setLanguage(player, language);
+    }
+
     public void setLevel(long level) {
         PlayerHandler.setLevel(player, level);
     }

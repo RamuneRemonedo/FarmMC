@@ -23,11 +23,7 @@ public class PlayerJoinListener implements Listener {
         Notice.noticeFirstJoinPlayer(player);
 
         // Join message
-        event.joinMessage(
-                Component.text(
-                        Notice.getJoinMessage(player)
-                )
-        );
+        Notice.noticeJoinMessage(player);
 
         // Initialize player database & Update name
         PlayerStatus status = new PlayerStatus(player);

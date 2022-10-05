@@ -6,6 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.language.Phase;
 import tokyo.ramune.farmmc.utility.Chat;
 import tokyo.ramune.farmmc.utility.FarmPermission;
 import tokyo.ramune.farmmc.utility.PluginStatus;
@@ -22,11 +24,10 @@ public class PlayerLoginListener implements Listener {
                     PlayerLoginEvent.Result.ALLOWED : PlayerLoginEvent.Result.KICK_OTHER
             );
 
-            event.kickMessage(Component.text(
-                    Chat.replaceColor(
-                            "&c\nThis server is running under maintenance mode." +
-                                    "&b\ndetails: Require permission - " + FarmPermission.JOIN_MAINTENANCE.toPermission().getName(),
-                            '&')
+            event.kickMessage(
+                    Component.text(
+                            FarmLanguageHandler.getPhase(player, Phase.LOGIN_MAINTENANCE_MODE)
+                                    .replace("{0}", FarmPermission.JOIN_MAINTENANCE.toPermission().getName())
                     )
             );
         }

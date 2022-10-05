@@ -31,8 +31,6 @@ public class EntityDamageByEntityListener implements Listener {
 
         double damage = event.getDamage() - farmEntityType.getDefencePower();
 
-        sourcePlayer.sendMessage(event.getDamage() - farmEntityType.getDefencePower() + " damaged to entity");
-
         if (damage <= 0) {
             event.setCancelled(true);
             return;
@@ -55,8 +53,6 @@ public class EntityDamageByEntityListener implements Listener {
 
         if (farmEntityType == null)
             return;
-
-        targetPlayer.sendMessage(event.getDamage() + "  damage from entity");
 
         event.setDamage(farmEntityType.getAttackPower());
     }

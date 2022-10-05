@@ -6,6 +6,8 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.language.Phase;
 import tokyo.ramune.farmmc.player.PlayerStatus;
 import tokyo.ramune.farmmc.utility.Chat;
 
@@ -44,10 +46,9 @@ public class ExpFarmBossBar implements FarmBossBar {
     @Override
     public String getTitle() {
         String defaultTitle =
-                Chat.replaceColor(
-                        "&b&lExp &f:&f  " + playerStatus.getExp() + "&f / &7" + playerStatus.getRequireLevelUpExp(),
-                        '&'
-                );
+                FarmLanguageHandler.getPhase(player, Phase.BOSSBAR_EXP_TITLE)
+                        .replace("{0}", String.valueOf(playerStatus.getExp()))
+                        .replace("{1}", String.valueOf(playerStatus.getRequireLevelUpExp()));
         String title = defaultTitle;
 
         if (!isCreated())

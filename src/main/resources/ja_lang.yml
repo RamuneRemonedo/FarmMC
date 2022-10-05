@@ -1,0 +1,29 @@
+lang:
+  LANG_COLOR_PREFIX: "&"
+  LANG_NAME: "日本語"
+
+  NOTICE_FIRST_JOIN_PLAYER: "&7[&a&l+&7] &7{0} がこのサーバーで初参加です! 歓迎しましょう!"
+  NOTICE_JOIN_MESSAGE: "&7[&a&l+&7] &7{0} joined."
+  NOTICE_QUITE_MESSAGE: "&7[&c&l-&7] &7{0} left."
+  NOTICE_LEVEL_UP_MESSAGE: "&a&lおめでとう! レベルアップしたよ!\n&b{0} &f> &b&l{1}"
+  NOTICE_LEVEL_UP_TITLE: "&a&lレベルアップ!!"
+  NOTICE_AUTO_RESTART_MESSAGE: "&l[&c&lお知らせ 重要&l] &cこのサーバーは{0}秒後に自動で再起動されます。\n再起動時はすべてのプレイヤーがキックされるので注意してください。\n再起動後、しばらく経つと再びサーバーに参加できるようになります。"
+  NOTICE_AUTO_RESTART_TITLE": "&e&lサーバー 再起動!"
+  NOTICE_AUTO_RESTART_SUB_TITLE: "&a定期再起動が行われます &7(あと &e{0}秒&7)"
+
+  CHAT_PREFIX: "&f[&bFramMC&f] &r"
+  CHAT_REQUIRE_PERMISSION: "それを実行するには権限が必要です  {0}"
+
+  LOGIN_MAINTENANCE_MODE: "&c\nこのサーバーはメンテナンス中です。&b\n詳細: Require permission - {0}"
+
+  COMMAND_NOT_FOUND: "&c指定されたサブコマンドが見つかりませんでした。"
+  COMMAND_HELP_DESCRIPTION: "このヘルプを表示します"
+  COMMAND_HELP_HELP: "&l/farmmc help [サブコマンド] &f&l:  でヘルプを表示"
+  COMMAND_HELP_LIST: "\n&l[&b&lコマンド ヘルプ&f&l]\n{0} \n\n\n&f&l[&d&lサブコマンド 一覧&f&l]\n"
+  COMMAND_MAINTENANCE_DESCRIPTION: "メンテナンスモードに切り替えます"
+  COMMAND_MAINTENANCE_HELP: "&l/farmmc maintenance [true / false] &f&l:  でメンテナンスモードを有効/無効にするかの切り替え"
+  COMMAND_MAINTENANCE_ALREADY: "&cすでにその設定になっています。"
+
+  BOSSBAR_MAINTENANCE_TITLE: "&cメンテナンスモード下でプラグインが実行されています!"
+  BOSSBAR_EXP_TITLE: "&b&l経験値 &f:&f  {0}&f / &7{1}"
+  BOSSBAR_COIN_TITLE: "&e&l所持コイン &f:&f  {0}"

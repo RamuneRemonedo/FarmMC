@@ -1,6 +1,5 @@
 package tokyo.ramune.farmmc.listener.player;
 
-import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,11 +13,7 @@ public class PlayerQuitListener implements Listener {
         Player player = event.getPlayer();
 
         // Quit message
-        event.quitMessage(
-                Component.text(
-                        Notice.getQuitMessage(player)
-                )
-        );
+        Notice.noticeQuitMessage(player);
 
         // Remove boss bars
         FarmBossBarHandler.remove(FarmBossBarHandler.getBossBar(player));

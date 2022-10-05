@@ -24,6 +24,7 @@ public class PlayerHandler {
         SQL.createTable("player_status",
                 "uuid TEXT NOT NULL, " +
                         "name TEXT NOT NULL, " +
+                        "language TEXT NULL, " +
                         "level BIGINT DEFAULT 1, " +
                         "exp BIGINT DEFAULT 0, " +
                         "coin BIGINT DEFAULT 0");
@@ -31,7 +32,7 @@ public class PlayerHandler {
 
     public static void initializeDatabasePlayer(@Nonnull Player player) {
         if (SQL.exists("uuid", player.getUniqueId().toString(), "player_status")) return;
-        SQL.insertData("uuid, name", "'" + player.getUniqueId() + "', '" + player.getName() + "'", "player_status");
+        SQL.insertData("uuid, name, language", "'" + player.getUniqueId() + "', '" + player.getName() + "', 'en'", "player_status");
     }
 
     private static void startUpdateLevelTimer() {
@@ -59,6 +60,10 @@ public class PlayerHandler {
         return level * 20;
     }
 
+    public static String getLanguage(@Nonnull Player player) {
+        return (String) SQL.get("language", "uuid", "=", player.getUniqueId().toString(), "player_status");
+    }
+
     public static long getLevel(@Nonnull Player player) {
         Object value = SQL.get("level", "uuid", "=", player.getUniqueId().toString(), "player_status");
         return value != null ? (Long) value : 0;
@@ -75,6 +80,13 @@ public class PlayerHandler {
     }
 
     // --- Set ---
+    public static void setLanguage(@Nonnull Player player, String language) {
+        if (getLanguage(player).equals(language))
+            return;
+
+        SQL.set("language", language, "uuid", "=", player.getUniqueId().toString(), "player_status");
+    }
+
     public static void setLevel(@Nonnull Player player, long level) {
         if (getLevel(player) == level)
             return;

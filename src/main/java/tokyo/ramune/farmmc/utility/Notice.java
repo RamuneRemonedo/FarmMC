@@ -3,43 +3,45 @@ package tokyo.ramune.farmmc.utility;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import tokyo.ramune.farmmc.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.language.Phase;
 
 import javax.annotation.Nonnull;
 
 public class Notice {
     public static void noticeFirstJoinPlayer(@Nonnull Player player) {
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.sendMessage(
-                Chat.replaceColor(
-                "&7[&a&l+&7] &7" + player.getName() + " がこのサーバーで初参加です! 歓迎しましょう!",
-                '&'
-                )
+                FarmLanguageHandler.getPhase(onlinePlayer, Phase.NOTICE_FIRST_JOIN_PLAYER)
+                        .replace("{0}", player.getName())
         ));
     }
 
-    public static String getJoinMessage(@Nonnull Player player) {
-        return Chat.replaceColor(
-                "&7[&a&l+&7] &7" + player.getName() + " joined.",
-                '&'
-        );
+    public static void noticeJoinMessage(@Nonnull Player player) {
+        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.sendMessage(
+                FarmLanguageHandler.getPhase(onlinePlayer, Phase.NOTICE_JOIN_MESSAGE)
+                        .replace("{0}", player.getName())
+        ));
     }
 
-    public static String getQuitMessage(@Nonnull Player player) {
-        return Chat.replaceColor(
-                "&7[&c&l-&7] &7" + player.getName() + " left.",
-                '&'
-        );
+    public static void noticeQuitMessage(@Nonnull Player player) {
+        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.sendMessage(
+                FarmLanguageHandler.getPhase(onlinePlayer, Phase.NOTICE_QUITE_MESSAGE)
+                        .replace("{0}", player.getName())
+        ));
     }
 
     public static void noticeLevelUp(@Nonnull Player player, long from, long to) {
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE, 1, 1);
-        Chat.sendMessage(player, Chat.replaceColor("&a&lおめでとう! レベルアップしたよ!" +
-                                "\n&b" + from + " &f→ &b&l" + to,
-                        '&'),
+        Chat.sendMessage(
+                player,
+                FarmLanguageHandler.getPhase(player, Phase.NOTICE_LEVEL_UP_MESSAGE)
+                        .replace("{0}", String.valueOf(from))
+                        .replace("{1}", String.valueOf(to)),
                 true
         );
         player.sendTitle(Chat.replaceColor("&r", '&')
-                , Chat.replaceColor("&a&lレベルアップ!!", '&'));
+                , FarmLanguageHandler.getPhase(player, Phase.NOTICE_LEVEL_UP_TITLE));
     }
 
     public static void noticeAutoRestart(long time) {
@@ -47,15 +49,13 @@ public class Notice {
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
             Chat.sendMessage(player,
-                    Chat.replaceColor(
-                            "&l[&c&lお知らせ 重要&l] &cこのサーバーは" + time + "秒後に自動で再起動されます。" +
-                                    "\n再起動時はすべてのプレイヤーがキックされるので注意してください。" +
-                                    "\n再起動後、しばらく経つと再びサーバーに参加できるようになります。",
-                            '&'),
+                    FarmLanguageHandler.getPhase(player, Phase.NOTICE_AUTO_RESTART_MESSAGE)
+                            .replace("{0}", String.valueOf(time)),
                     true);
             player.sendTitle(
-                    Chat.replaceColor("&e&lサーバー 再起動!", '&'),
-                    Chat.replaceColor("&a定期再起動が行われます &7(あと &e" + time + "秒&7)", '&'));
+                    FarmLanguageHandler.getPhase(player, Phase.NOTICE_AUTO_RESTART_TITLE),
+                    FarmLanguageHandler.getPhase(player, Phase.NOTICE_AUTO_RESTART_SUB_TITLE)
+                            .replace("{0}", String.valueOf(time)));
         });
     }
 }
