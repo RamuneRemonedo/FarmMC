@@ -1,0 +1,29 @@
+lang:
+  LANG_COLOR_PREFIX: "&"
+  LANG_NAME: "English"
+
+  NOTICE_FIRST_JOIN_PLAYER: "&7[&a&l+&7] &7{0} has joined for the first time! Welcome!"
+  NOTICE_JOIN_MESSAGE: "&7[&a&l+&7] &7{0} joined."
+  NOTICE_QUITE_MESSAGE: "&7[&c&l-&7] &7{0} left."
+  NOTICE_LEVEL_UP_MESSAGE: "&a&lGood! You've leveled up!\n&b{0} &f> &b&l{1}"
+  NOTICE_LEVEL_UP_TITLE: "&a&lLevel Up!!"
+  NOTICE_AUTO_RESTART_MESSAGE: "&l[&c&lNotice IMPORTANT&l] &cThis server will be restarted after {0} seconds.\nBe careful! All player be kicked when it start restarting.\nAfter a wile, you can join the server."
+  NOTICE_AUTO_RESTART_TITLE": "&e&lServer Restart!"
+  NOTICE_AUTO_RESTART_SUB_TITLE: "&aServer will be restarted scheduled. &7(after &e{0}seconds&7)"
+
+  CHAT_PREFIX: "&f[&bFramMC&f] &r"
+  CHAT_REQUIRE_PERMISSION: "You need the permission to do this  {0}"
+
+  LOGIN_MAINTENANCE_MODE: "&c\nThis server is under maintenance&b\nDetails: Require permission - {0}"
+
+  COMMAND_NOT_FOUND: "&cThe specified subcommand could not be found."
+  COMMAND_HELP_DESCRIPTION: "Show this help"
+  COMMAND_HELP_HELP: "&l/farmmc help [SubCommand] &f&l:  Show this help"
+  COMMAND_HELP_LIST: "\n&l[&b&lCommand Help&f&l]\n{0} \n\n\n&f&l[&d&lSubCommand List&f&l]\n"
+  COMMAND_MAINTENANCE_DESCRIPTION: "Switch to maintenance mode."
+  COMMAND_MAINTENANCE_HELP: "&l/farmmc maintenance [true / false] &f&l:  Toggle to enable/disable maintenance mode"
+  COMMAND_MAINTENANCE_ALREADY: "&cIt's already set up that way."
+
+  BOSSBAR_MAINTENANCE_TITLE: "&cThis plugin are running under maintenance mode!"
+  BOSSBAR_EXP_TITLE: "&b&lExp &f:&f  {0}&f / &7{1}"
+  BOSSBAR_COIN_TITLE: "&e&lCoin &f:&f  {0}"
