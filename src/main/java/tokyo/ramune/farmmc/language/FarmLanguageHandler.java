@@ -1,5 +1,6 @@
 package tokyo.ramune.farmmc.language;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.FarmMC;
@@ -28,15 +29,27 @@ public class FarmLanguageHandler {
             languageConfigs.put(langCode, languageConfig);
             FarmMC.getPlugin().getLogger().info(langCode + "_lang.yml loaded!");
         }
+
+        if (!existsDefaultLanguage()) {
+            throw new IllegalStateException("There is no supported language: \"" + FarmMC.getConfigValue().LANGUAGE_DEFAULT + "\"");
+        }
+    }
+
+    private static boolean existsDefaultLanguage() {
+        String defaultLanguage = FarmMC.getConfigValue().LANGUAGE_DEFAULT;
+
+        for (String supportedLangCode : supportedLangCodes) {
+            if (supportedLangCode.equals(defaultLanguage))
+                return true;
+        }
+
+        return false;
     }
 
     public static String getPhase(@Nonnull Player player, Phase phase) {
         String langCode = new PlayerStatus(player).getLanguageCode();
 
-        return Chat.replaceColor(
-                getRawPhase(langCode, phase),
-                getRawPhase(langCode, Phase.LANG_COLOR_PREFIX).toCharArray()[0]
-        );
+        return getPhase(langCode, phase);
     }
 
     public static String getPhase(@Nonnull CommandSender sender, Phase phase) {
@@ -48,13 +61,14 @@ public class FarmLanguageHandler {
             langCode = "en";
         }
 
-        return Chat.replaceColor(
-                getRawPhase(langCode, phase),
-                getRawPhase(langCode, Phase.LANG_COLOR_PREFIX).toCharArray()[0]
-        );
+        return getPhase(langCode, phase);
     }
 
     public static String getPhase(String langCode, Phase phase) {
+        if (langCode.equals("default")) {
+            langCode = FarmMC.getConfigValue().LANGUAGE_DEFAULT;
+        }
+
         return Chat.replaceColor(
                 getRawPhase(langCode, phase),
                 getRawPhase(langCode, Phase.LANG_COLOR_PREFIX).toCharArray()[0]

@@ -5,21 +5,4 @@ config:
   MYSQL_PASSWORD: "password"
   MYSQL_DATABASE: "FarmMC"
 
-
-  WORLD_TEMPLATE_NAME: "farmmc-template"
-  WORLD_SPAWN_LOCATION:
-    x: 0.0
-    y: -65.0
-    z: 0.0
-    yaw: 0
-    pitch: 0
-
-  WORLD_VILLAGE_LOCATION:
-    from:
-      x: 0.0
-      y: 0.0
-      z: 0.0
-    to:
-      x: 0.0
-      y: 0.0
-      z: 0.0
+  LANGUAGE_DEFAULT: "ja"

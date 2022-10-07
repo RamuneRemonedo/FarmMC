@@ -9,6 +9,7 @@ import tokyo.ramune.farmmc.command.CommandHandler;
 import tokyo.ramune.farmmc.config.Config;
 import tokyo.ramune.farmmc.database.MySQL;
 import tokyo.ramune.farmmc.event.plugin.PluginStatusChangeEvent;
+import tokyo.ramune.farmmc.language.FarmLanguageHandler;
 import tokyo.ramune.farmmc.listener.ListenerHandler;
 import tokyo.ramune.farmmc.player.PlayerHandler;
 import tokyo.ramune.farmmc.utility.Chat;
@@ -27,6 +28,8 @@ public final class FarmMC extends JavaPlugin {
 
         config = new Config();
         config.load();
+
+        FarmLanguageHandler.load();
 
         connectMySQL();
         PlayerHandler.initialize();

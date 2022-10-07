@@ -6,8 +6,7 @@ import tokyo.ramune.farmmc.FarmMC;
 
 public class Config extends ConfigFile {
     public String MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_PORT, MYSQL_DATABASE,
-            WORLD_TEMPLATE_NAME;
-    public Location WORLD_SPAWN_LOCATION;
+            LANGUAGE_DEFAULT;
 
     public Config() {
         super(FarmMC.getPlugin(), "config.yml");
@@ -25,13 +24,6 @@ public class Config extends ConfigFile {
         MYSQL_PASSWORD = getConfig().getString("config.MYSQL_PASSWORD", "password");
         MYSQL_DATABASE = getConfig().getString("config.MYSQL_DATABASE", "FarmMC");
 
-        WORLD_TEMPLATE_NAME = getConfig().getString("config.WORLD_TEMPLATE_NAME", "farmmc-template");
-        WORLD_SPAWN_LOCATION = new Location(
-                Bukkit.getWorld("world"),
-                getConfig().getDouble("config.WORLD_SPAWN_LOCATION.x", 0.0),
-                getConfig().getDouble("config.WORLD_SPAWN_LOCATION.y", 0.0),
-                getConfig().getDouble("config.WORLD_SPAWN_LOCATION.z", 0.0),
-                getConfig().getInt("config.WORLD_SPAWN_LOCATION.yaw", 0),
-                getConfig().getInt("config.WORLD_SPAWN_LOCATION.pitch", 0));
+        LANGUAGE_DEFAULT = getConfig().getString("config.LANGUAGE_DEFAULT", "ja");
     }
 }
