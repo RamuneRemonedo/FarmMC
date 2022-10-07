@@ -35,6 +35,19 @@ public class FarmLanguageHandler {
         }
     }
 
+    public static String[] getSupportedLangCodes() {
+        return supportedLangCodes;
+    }
+
+    public static boolean isSupportedLangCode(String languageCode) {
+        for (String supportedLangCode : supportedLangCodes) {
+            if (supportedLangCode.equals(languageCode))
+                return true;
+        }
+
+        return false;
+    }
+
     private static boolean existsDefaultLanguage() {
         String defaultLanguage = FarmMC.getConfigValue().LANGUAGE_DEFAULT;
 

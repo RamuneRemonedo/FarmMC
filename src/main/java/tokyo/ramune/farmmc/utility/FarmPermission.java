@@ -5,6 +5,7 @@ import org.bukkit.permissions.Permission;
 public enum FarmPermission {
     COMMAND_HELP,
     COMMAND_MAINTENANCE,
+    COMMAND_LANGUAGE,
     COMMAND_TP$TEMPLATE,
 
     JOIN_TEMPLATE,

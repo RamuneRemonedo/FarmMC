@@ -49,7 +49,7 @@ public class PlayerStatus {
     }
 
     // --- Set ---
-    public void setLanguage(String language) {
+    public void setLanguageCode(String language) {
         PlayerHandler.setLanguageCode(player, language);
     }
 

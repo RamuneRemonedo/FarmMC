@@ -7,6 +7,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.command.subCommand.HelpSubCommand;
+import tokyo.ramune.farmmc.command.subCommand.LanguageSubCommand;
 import tokyo.ramune.farmmc.command.subCommand.MaintenanceCommand;
 import tokyo.ramune.farmmc.command.subCommand.SubCommand;
 import tokyo.ramune.farmmc.language.FarmLanguageHandler;
@@ -35,6 +36,7 @@ public class CommandHandler {
         subCommands.addAll(new ArrayList<>(){{
             add(new HelpSubCommand());
             add(new MaintenanceCommand());
+            add(new LanguageSubCommand());
         }});
     }
 
