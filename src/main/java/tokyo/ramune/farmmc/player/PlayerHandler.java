@@ -60,7 +60,7 @@ public class PlayerHandler {
         return level * 20;
     }
 
-    public static String getLanguage(@Nonnull Player player) {
+    public static String getLanguageCode(@Nonnull Player player) {
         return (String) SQL.get("language", "uuid", "=", player.getUniqueId().toString(), "player_status");
     }
 
@@ -80,8 +80,8 @@ public class PlayerHandler {
     }
 
     // --- Set ---
-    public static void setLanguage(@Nonnull Player player, String language) {
-        if (getLanguage(player).equals(language))
+    public static void setLanguageCode(@Nonnull Player player, String language) {
+        if (getLanguageCode(player).equals(language))
             return;
 
         SQL.set("language", language, "uuid", "=", player.getUniqueId().toString(), "player_status");

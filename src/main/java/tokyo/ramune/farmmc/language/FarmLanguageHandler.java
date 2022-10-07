@@ -31,7 +31,7 @@ public class FarmLanguageHandler {
     }
 
     public static String getPhase(@Nonnull Player player, Phase phase) {
-        String langCode = new PlayerStatus(player).getLanguage();
+        String langCode = new PlayerStatus(player).getLanguageCode();
 
         return Chat.replaceColor(
                 getRawPhase(langCode, phase),
@@ -43,7 +43,7 @@ public class FarmLanguageHandler {
         String langCode;
 
         if (sender instanceof Player) {
-            langCode = new PlayerStatus((Player) sender).getLanguage();
+            langCode = new PlayerStatus((Player) sender).getLanguageCode();
         } else {
             langCode = "en";
         }
