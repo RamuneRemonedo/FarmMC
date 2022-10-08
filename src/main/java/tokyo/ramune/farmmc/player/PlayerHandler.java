@@ -24,15 +24,17 @@ public class PlayerHandler {
         SQL.createTable("player_status",
                 "uuid TEXT NOT NULL, " +
                         "name TEXT NOT NULL, " +
-                        "language TEXT NULL, " +
+                        "language TEXT NOT NULL, " +
                         "level BIGINT DEFAULT 1, " +
                         "exp BIGINT DEFAULT 0, " +
                         "coin BIGINT DEFAULT 0");
     }
 
     public static void initializeDatabasePlayer(@Nonnull Player player) {
-        if (SQL.exists("uuid", player.getUniqueId().toString(), "player_status")) return;
-        SQL.insertData("uuid, name, language", "'" + player.getUniqueId() + "', '" + player.getName() + "', 'en'", "player_status");
+        if (SQL.exists("uuid", player.getUniqueId().toString(), "player_status"))
+            return;
+
+        SQL.insertData("uuid, name, language", "'" + player.getUniqueId() + "', '" + player.getName() + "', 'default'", "player_status");
     }
 
     private static void startUpdateLevelTimer() {
@@ -57,11 +59,12 @@ public class PlayerHandler {
     }
 
     public static long getRequireLevelUpExp(long level) {
-        return level * 20;
+        return level * 100;
     }
 
     public static String getLanguageCode(@Nonnull Player player) {
-        return (String) SQL.get("language", "uuid", "=", player.getUniqueId().toString(), "player_status");
+        String code = (String) SQL.get("language", "uuid", "=", player.getUniqueId().toString(), "player_status");
+        return code == null ? "default" : code;
     }
 
     public static long getLevel(@Nonnull Player player) {

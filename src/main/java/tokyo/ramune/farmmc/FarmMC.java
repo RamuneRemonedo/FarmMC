@@ -10,8 +10,10 @@ import tokyo.ramune.farmmc.config.Config;
 import tokyo.ramune.farmmc.database.MySQL;
 import tokyo.ramune.farmmc.event.plugin.PluginStatusChangeEvent;
 import tokyo.ramune.farmmc.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.language.Phase;
 import tokyo.ramune.farmmc.listener.ListenerHandler;
 import tokyo.ramune.farmmc.player.PlayerHandler;
+import tokyo.ramune.farmmc.player.PlayerStatus;
 import tokyo.ramune.farmmc.utility.Chat;
 import tokyo.ramune.farmmc.utility.PluginStatus;
 
@@ -53,7 +55,14 @@ public final class FarmMC extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Bukkit.getOnlinePlayers().forEach(player -> player.kick(Component.text("サーバーを再構成しています。 しばらく経過してから参加してください。"), PlayerKickEvent.Cause.TIMEOUT));
+        Bukkit.getOnlinePlayers().forEach(
+                player -> player.kick(
+                        Component.text(
+                                FarmLanguageHandler.getPhase(player, Phase.PLUGIN_RESTART)
+                        ),
+                        PlayerKickEvent.Cause.TIMEOUT
+                )
+        );
 
         getLogger().info("The plugin has been disabled.");
     }

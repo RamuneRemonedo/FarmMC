@@ -25,7 +25,7 @@ public class LanguageSubCommand implements SubCommand {
 
     @Override
     public String getHelp(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_LANGUAGE_HELP) + "\n" + Arrays.toString(FarmLanguageHandler.getSupportedLangCodes());
+        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_LANGUAGE_HELP) + Arrays.toString(FarmLanguageHandler.getSupportedLangCodes());
     }
 
     @Override

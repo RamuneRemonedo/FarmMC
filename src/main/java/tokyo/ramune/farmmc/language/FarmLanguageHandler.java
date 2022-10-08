@@ -78,9 +78,8 @@ public class FarmLanguageHandler {
     }
 
     public static String getPhase(String langCode, Phase phase) {
-        if (langCode.equals("default")) {
+        if (langCode.equals("default"))
             langCode = FarmMC.getConfigValue().LANGUAGE_DEFAULT;
-        }
 
         return Chat.replaceColor(
                 getRawPhase(langCode, phase),
@@ -89,8 +88,8 @@ public class FarmLanguageHandler {
     }
 
     public static String getRawPhase(String langCode, Phase phase) {
-        if (languageConfigs.containsKey(langCode))
-            return "-Config File Missing.-";
+        if (!languageConfigs.containsKey(langCode))
+            return "Config File Missing.";
 
         ConfigFile languageConfig = languageConfigs.get(langCode);
 

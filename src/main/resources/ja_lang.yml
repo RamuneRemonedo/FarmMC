@@ -2,6 +2,8 @@ lang:
   LANG_COLOR_PREFIX: "&"
   LANG_NAME: "日本語"
 
+  PLUGIN_RESTART: "サーバーを再起動しています。 しばらく経ってからまた参加してください。"
+
   NOTICE_FIRST_JOIN_PLAYER: "&7[&a&l+&7] &7{0} がこのサーバーで初参加です! 歓迎しましょう!"
   NOTICE_JOIN_MESSAGE: "&7[&a&l+&7] &7{0} joined."
   NOTICE_QUITE_MESSAGE: "&7[&c&l-&7] &7{0} left."
@@ -21,12 +23,15 @@ lang:
   COMMAND_HELP_HELP: "&l/farmmc help [サブコマンド] &f&l:  でヘルプを表示"
   COMMAND_HELP_LIST: "\n&l[&b&lコマンド ヘルプ&f&l]\n{0} \n\n\n&f&l[&d&lサブコマンド 一覧&f&l]\n"
   COMMAND_LANGUAGE_DESCRIPTION: "サーバー内で表示される言語を変更します"
-  COMMAND_LANGUAGE_HELP: "&l/farmmc lang [言語] &f&l:  で言語を変更"
+  COMMAND_LANGUAGE_HELP: "&l/farmmc lang [言語] &f&l:  で言語を変更\n言語一覧:"
   COMMAND_LANGUAGE_IS_NOT_SUPPORTED: "&cその言語には対応していません"
   COMMAND_LANGUAGE_SUCCESS: "&a言語が日本語に変更されました!"
   COMMAND_MAINTENANCE_DESCRIPTION: "メンテナンスモードに切り替えます"
   COMMAND_MAINTENANCE_HELP: "&l/farmmc maintenance [true / false] &f&l:  でメンテナンスモードを有効/無効にするかの切り替え"
   COMMAND_MAINTENANCE_ALREADY: "&cすでにその設定になっています。"
+
+  WORLD_BONE_MEAL_DISABLED: "[&c&l注意&f] &cこのサーバーでは骨粉は利用できません"
+  WORLD_CROP_TEMPERATURE_MISMATCH: "[&c&l注意&f] &c今植えた植物の適温がその土地の温度と異なります。 植物がうまく育たない可能性があります。\nこの注意は設定から無効化できます"
 
   BOSSBAR_MAINTENANCE_TITLE: "&cメンテナンスモード下でプラグインが実行されています!"
   BOSSBAR_EXP_TITLE: "&b&l経験値 &f:&f  {0}&f / &7{1}"

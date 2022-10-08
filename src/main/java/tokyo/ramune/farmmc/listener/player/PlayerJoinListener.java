@@ -19,16 +19,19 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        // First join message
-        Notice.noticeFirstJoinPlayer(player);
-
-        // Join message
-        Notice.noticeJoinMessage(player);
-
         // Initialize player database & Update name
         PlayerStatus status = new PlayerStatus(player);
         status.initializeDatabasePlayer();
         status.updateName();
+
+        // First join message
+        if (!player.hasPlayedBefore())
+            Notice.noticeFirstJoinPlayer(player);
+
+        // Join message
+        Notice.noticeJoinMessage(player);
+        event.joinMessage(Component.text("\n"));
+
 
         // Add Coin & Exp BossBar
         if (FarmMC.getStatus().equals(PluginStatus.NORMAL)) {
