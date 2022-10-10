@@ -18,77 +18,77 @@ public enum FarmCropType {
             Range.closed(0.5, 0.8)
     ),
     BEETROOT(
-            List.of(),
+            List.of(Material.BEETROOT, Material.BEETROOTS, Material.BEETROOT_SEEDS),
             List.of(World.Environment.NORMAL),
             Range.closed(-0.5, 0.2)
     ),
     CARROT(
-            List.of(),
+            List.of(Material.CARROT, Material.CARROTS),
             List.of(World.Environment.NORMAL),
             Range.closed(0.2, 1.0)
     ),
     POTATO(
-            List.of(),
+            List.of(Material.POTATO, Material.POTATOES, Material.POISONOUS_POTATO),
             List.of(World.Environment.NORMAL),
             Range.closed(0.2, 1.0)
     ),
     MELON(
-            List.of(),
+            List.of(Material.MELON, Material.MELON_SEEDS, Material.MELON_STEM),
             List.of(World.Environment.NORMAL),
             Range.closed(0.9, 1.2)
     ),
     PUMPKIN(
-            List.of(),
+            List.of(Material.PUMPKIN, Material.PUMPKIN_SEEDS, Material.PUMPKIN_STEM),
             List.of(World.Environment.NORMAL),
             Range.closed(0.2, 1.0)
     ),
     BAMBOO(
-            List.of(),
+            List.of(Material.BAMBOO, Material.BAMBOO_SAPLING),
             List.of(World.Environment.NORMAL),
             Range.closed(0.8, 0.9)
     ),
-    CACAO_BEAN(
-            List.of(),
+    COCOA_BEAN(
+            List.of(Material.COCOA, Material.COCOA_BEANS),
             List.of(World.Environment.NORMAL),
             Range.closed(0.9, 0.9)
     ),
     SUGAR_CANE(
-            List.of(),
+            List.of(Material.SUGAR_CANE),
             List.of(World.Environment.NORMAL),
             Range.closed(0.8, 1.2)
     ),
     SWEET_BERRY(
-            List.of(),
+            List.of(Material.SWEET_BERRIES, Material.SWEET_BERRY_BUSH),
             List.of(World.Environment.NORMAL),
             Range.closed(0.2, 0.3)
     ),
     CACTUS(
-            List.of(),
+            List.of(Material.CACTUS),
             List.of(World.Environment.NORMAL),
             Range.closed(0.2, 1.2)
     ),
     MUSHROOM(
-            List.of(),
+            List.of(Material.BROWN_MUSHROOM, Material.RED_MUSHROOM),
             List.of(World.Environment.NORMAL),
             Range.closed(0.2, 1.2)
     ),
     KELP(
-            List.of(),
+            List.of(Material.KELP, Material.KELP_PLANT),
             List.of(World.Environment.NORMAL),
             Range.closed(0.5, 0.5)
     ),
     SEA_PICKLE(
-            List.of(),
+            List.of(Material.SEA_PICKLE),
             List.of(World.Environment.NORMAL),
             Range.closed(0.5, 0.5)
     ),
     NETHER_WART(
-            List.of(),
+            List.of(Material.NETHER_WART),
             List.of(World.Environment.NETHER),
             Range.closed(2.0, 2.0)
     ),
     CHORUS_FRUIT(
-            List.of(),
+            List.of(Material.CHORUS_FRUIT, Material.CHORUS_FLOWER, Material.CHORUS_PLANT),
             List.of(World.Environment.THE_END),
             Range.closed(0.5, 0.5)
     );
