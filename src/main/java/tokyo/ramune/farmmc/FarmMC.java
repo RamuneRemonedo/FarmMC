@@ -25,6 +25,8 @@ public final class FarmMC extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        //this is a test
+
         plugin = this;
 
         config = new Config();
