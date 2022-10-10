@@ -30,7 +30,7 @@ public class PlayerJoinListener implements Listener {
 
         // Join message
         Notice.noticeJoinMessage(player);
-        event.joinMessage(Component.text("\n"));
+        event.joinMessage(Component.empty());
 
 
         // Add Coin & Exp BossBar

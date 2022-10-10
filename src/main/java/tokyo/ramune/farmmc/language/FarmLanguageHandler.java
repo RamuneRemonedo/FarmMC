@@ -1,6 +1,5 @@
 package tokyo.ramune.farmmc.language;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.FarmMC;

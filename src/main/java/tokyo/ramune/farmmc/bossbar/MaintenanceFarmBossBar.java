@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.language.FarmLanguageHandler;
 import tokyo.ramune.farmmc.language.Phase;
-import tokyo.ramune.farmmc.utility.Chat;
 
 import javax.annotation.Nonnull;
 

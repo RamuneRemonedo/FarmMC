@@ -1,7 +1,5 @@
 package tokyo.ramune.farmmc.config;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import tokyo.ramune.farmmc.FarmMC;
 
 public class Config extends ConfigFile {

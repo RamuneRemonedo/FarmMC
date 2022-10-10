@@ -13,7 +13,6 @@ import tokyo.ramune.farmmc.language.FarmLanguageHandler;
 import tokyo.ramune.farmmc.language.Phase;
 import tokyo.ramune.farmmc.listener.ListenerHandler;
 import tokyo.ramune.farmmc.player.PlayerHandler;
-import tokyo.ramune.farmmc.player.PlayerStatus;
 import tokyo.ramune.farmmc.utility.Chat;
 import tokyo.ramune.farmmc.utility.PluginStatus;
 

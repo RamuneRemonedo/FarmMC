@@ -3,6 +3,7 @@ package tokyo.ramune.farmmc.listener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.listener.entity.EntityBlockChangeListener;
 import tokyo.ramune.farmmc.listener.entity.EntityDamageByEntityListener;
 import tokyo.ramune.farmmc.listener.entity.EntityDeathListener;
 import tokyo.ramune.farmmc.listener.farm.FarmMenuClickListener;
@@ -31,7 +32,8 @@ public class ListenerHandler {
             new BlockBreakListener(),
             new BlockPreDispenseListener(),
             new BlockGrowListener(),
-            new BlockFertilizeListener()
+            new BlockFertilizeListener(),
+            new EntityBlockChangeListener()
     };
 
     public static void registerListeners() {

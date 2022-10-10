@@ -8,7 +8,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.language.FarmLanguageHandler;
 import tokyo.ramune.farmmc.language.Phase;
-import tokyo.ramune.farmmc.utility.Chat;
 import tokyo.ramune.farmmc.utility.FarmPermission;
 import tokyo.ramune.farmmc.utility.PluginStatus;
 

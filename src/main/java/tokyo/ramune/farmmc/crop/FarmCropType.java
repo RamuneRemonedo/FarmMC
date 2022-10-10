@@ -13,7 +13,7 @@ public enum FarmCropType {
             Range.closed(0.2, 1.2)
     ),
     WHEAT(
-            List.of(),
+            List.of(Material.WHEAT_SEEDS, Material.WHEAT_SEEDS),
             List.of(World.Environment.NORMAL),
             Range.closed(0.5, 0.8)
     ),
@@ -103,6 +103,9 @@ public enum FarmCropType {
         this.temperatureRange = temperatureRange;
     }
 
+    public List<Material> getCropTypes() {
+        return cropTypes;
+    }
 
     public List<World.Environment> getGrowEnvironment() {
         return growEnvironment;
