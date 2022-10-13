@@ -92,6 +92,6 @@ public class FarmLanguageHandler {
 
         ConfigFile languageConfig = languageConfigs.get(langCode);
 
-        return languageConfig.getConfig().getString("lang." + phase.name(), "null");
+        return languageConfig.getConfig().getString("lang." + phase.name(), "\"Cannot find " + phase.name() + " phase\"");
     }
 }

@@ -18,6 +18,7 @@ lang:
 
   LOGIN_MAINTENANCE_MODE: "&c\nこのサーバーはメンテナンス中です。&b\n詳細: Require permission - {0}"
 
+  COMMAND_RATE_LIMIT: "&cコマンド処理のリクエスト数に制限が掛かっています。 少し待ってから再度リクエストしてください。\nこの警告が出続ける場合は、運営に連絡をしてください。"
   COMMAND_NOT_FOUND: "&c指定されたサブコマンドが見つかりませんでした。"
   COMMAND_HELP_DESCRIPTION: "このヘルプを表示します"
   COMMAND_HELP_HELP: "&l/farmmc help [サブコマンド] &f&l:  でヘルプを表示"
@@ -30,8 +31,9 @@ lang:
   COMMAND_MAINTENANCE_HELP: "&l/farmmc maintenance [true / false] &f&l:  でメンテナンスモードを有効/無効にするかの切り替え"
   COMMAND_MAINTENANCE_ALREADY: "&cすでにその設定になっています。"
 
-  WORLD_BONE_MEAL_DISABLED: "[&c&l注意&f] &cこのサーバーでは骨粉は利用できません"
-  WORLD_CROP_TEMPERATURE_MISMATCH: "[&c&l注意&f] &c今植えた植物の適温がその土地の温度と異なります。 植物がうまく育たない可能性があります。\nこの注意は設定から無効化できます"
+  WORLD_BONE_MEAL_DISABLED: "[&c&l注意&f] &cこのサーバーでは骨粉は利用できません\nこのメッセージは設定から無効化できます"
+  WORLD_CROP_TEMPERATURE_MISMATCH: "[&c&l注意&f] &c今植えた植物の適温がその土地の温度と異なります。 植物がうまく育たない可能性があります。\nこのメッセージは設定から無効化できます"
+  WORLD_CANNOT_PLACE: "[&c&l注意&f] &cそのブロックは設置可能ではありません。\nこのメッセージは設定から無効化できます"
 
   BOSSBAR_MAINTENANCE_TITLE: "&cメンテナンスモード下でプラグインが実行されています!"
   BOSSBAR_EXP_TITLE: "&b&l経験値 &f:&f  {0}&f / &7{1}"

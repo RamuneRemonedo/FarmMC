@@ -18,6 +18,7 @@ lang:
 
   LOGIN_MAINTENANCE_MODE: "&c\nThis server is under maintenance&b\nDetails: Require permission - {0}"
 
+  COMMAND_RATE_LIMIT: "&cThe number of requests for command processing is limited. Please wait a little and request again.\nIf you continue to receive this warning, please contact the staff."
   COMMAND_NOT_FOUND: "&cThe specified subcommand could not be found."
   COMMAND_HELP_DESCRIPTION: "Show this help"
   COMMAND_HELP_HELP: "&l/farmmc help [SubCommand] &f&l:  Show this help"
@@ -29,6 +30,10 @@ lang:
   COMMAND_MAINTENANCE_DESCRIPTION: "Switch to maintenance mode."
   COMMAND_MAINTENANCE_HELP: "&l/farmmc maintenance [true / false] &f&l:  Toggle to enable/disable maintenance mode"
   COMMAND_MAINTENANCE_ALREADY: "&cIt's already set up that way."
+
+  WORLD_BONE_MEAL_DISABLED: "[&c&lWarning&f] &cYou cannot use &f&lbone meal&c in this server.\nThis warning can be disabled from the settings."
+  WORLD_CROP_TEMPERATURE_MISMATCH: "[&c&lWarning&f] &cCrops planted are not at the proper temperature for the block. The plant may not grow well. \nThis warning can be disabled from the settings."
+  WORLD_CANNOT_PLACE: "[&c&lWarning&f] &cThis block is not placeable in this server. \nThis warning can be disabled from the settings."
 
   BOSSBAR_MAINTENANCE_TITLE: "&cThis plugin are running under maintenance mode!"
   BOSSBAR_EXP_TITLE: "&b&lExp &f:&f  {0}&f / &7{1}"

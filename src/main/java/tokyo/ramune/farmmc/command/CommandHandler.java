@@ -1,5 +1,6 @@
 package tokyo.ramune.farmmc.command;
 
+import com.google.common.util.concurrent.RateLimiter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,6 +23,7 @@ import java.util.Objects;
 
 public class CommandHandler {
     private static List<SubCommand> subCommands;
+    private static final RateLimiter rateLimiter = RateLimiter.create(3);
 
     public static void registerCommand() {
         Objects.requireNonNull(FarmMC.getPlugin().getCommand("farmmc")).setExecutor(new FarmCommandExecutor());
@@ -33,7 +35,7 @@ public class CommandHandler {
 
     public static void registerSubCommands() {
         subCommands = new ArrayList<>();
-        subCommands.addAll(new ArrayList<>(){{
+        subCommands.addAll(new ArrayList<>() {{
             add(new HelpSubCommand());
             add(new MaintenanceCommand());
             add(new LanguageSubCommand());
@@ -43,12 +45,21 @@ public class CommandHandler {
     public static List<SubCommand> getSubCommands() {
         return subCommands;
     }
+
+    public static RateLimiter getRateLimiter() {
+        return rateLimiter;
+    }
 }
 
 class FarmCommandExecutor implements CommandExecutor {
 
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
+        if (!CommandHandler.getRateLimiter().tryAcquire()) {
+            Chat.sendMessage(commandSender, FarmLanguageHandler.getPhase(commandSender, Phase.COMMAND_RATE_LIMIT), true);
+            return true;
+        }
+
         if (args.length == 0) {
             new HelpSubCommand().runCommand(commandSender, args);
             return true;

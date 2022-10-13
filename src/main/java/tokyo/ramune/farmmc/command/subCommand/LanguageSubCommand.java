@@ -1,5 +1,6 @@
 package tokyo.ramune.farmmc.command.subCommand;
 
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -51,10 +52,12 @@ public class LanguageSubCommand implements SubCommand {
             return;
         }
 
-        PlayerStatus playerStatus = new PlayerStatus((Player) sender);
+        Player player = (Player) sender;
+        PlayerStatus playerStatus = new PlayerStatus(player);
 
         playerStatus.setLanguageCode(args[1]);
 
         Chat.sendMessage(sender, FarmLanguageHandler.getPhase(sender, Phase.COMMAND_LANGUAGE_SUCCESS), true);
+        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 2);
     }
 }
