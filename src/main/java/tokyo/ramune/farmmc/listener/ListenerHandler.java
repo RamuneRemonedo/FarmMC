@@ -14,10 +14,7 @@ import tokyo.ramune.farmmc.listener.player.PlayerLoginListener;
 import tokyo.ramune.farmmc.listener.player.PlayerMoveListener;
 import tokyo.ramune.farmmc.listener.player.PlayerQuitListener;
 import tokyo.ramune.farmmc.listener.plugin.PluginStatusChangeListener;
-import tokyo.ramune.farmmc.listener.world.BlockBreakListener;
-import tokyo.ramune.farmmc.listener.world.BlockFertilizeListener;
-import tokyo.ramune.farmmc.listener.world.BlockGrowListener;
-import tokyo.ramune.farmmc.listener.world.BlockPreDispenseListener;
+import tokyo.ramune.farmmc.listener.world.*;
 
 public class ListenerHandler {
     private static final Listener[] listeners = {
@@ -35,7 +32,8 @@ public class ListenerHandler {
             new BlockGrowListener(),
             new BlockFertilizeListener(),
             new EntityBlockChangeListener(),
-            new FarmPlayerChangeExpListener()
+            new FarmPlayerChangeExpListener(),
+            new BlockPlaceListener()
     };
 
     public static void registerListeners() {
