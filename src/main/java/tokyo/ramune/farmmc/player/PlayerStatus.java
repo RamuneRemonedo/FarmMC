@@ -32,6 +32,10 @@ public class PlayerStatus {
         return PlayerHandler.getLanguageCode(player);
     }
 
+    public long getStamina() {
+        return PlayerHandler.getStamina(player);
+    }
+
     public long getLevel() {
         return PlayerHandler.getLevel(player);
     }
@@ -51,6 +55,10 @@ public class PlayerStatus {
     // --- Set ---
     public void setLanguageCode(String language) {
         PlayerHandler.setLanguageCode(player, language);
+    }
+
+    public void setStamina(long stamina) {
+        PlayerHandler.setStamina(player, stamina);
     }
 
     public void setLevel(long level) {

@@ -25,6 +25,7 @@ public class PlayerHandler {
                 "uuid TEXT NOT NULL, " +
                         "name TEXT NOT NULL, " +
                         "language TEXT NOT NULL, " +
+                        "stamina BIGINT DEFAULT " + getDefaultStamina() + ", " +
                         "level BIGINT DEFAULT 1, " +
                         "exp BIGINT DEFAULT 0, " +
                         "coin BIGINT DEFAULT 0");
@@ -67,6 +68,23 @@ public class PlayerHandler {
         return code == null ? "default" : code;
     }
 
+    public static long getStamina(@Nonnull Player player) {
+        Object value = SQL.get("stamina", "uuid", "=", player.getUniqueId().toString(), "player_status");
+        return value != null ? (Long) value : 0;
+    }
+
+    public static long getDefaultStamina() {
+        return 100;
+    }
+
+    public static long getMaxStamina(@Nonnull Player player) {
+        return getMaxStamina(getLevel(player));
+    }
+
+    public static long getMaxStamina(long level) {
+        return getDefaultStamina() + (level * 10);
+    }
+
     public static long getLevel(@Nonnull Player player) {
         Object value = SQL.get("level", "uuid", "=", player.getUniqueId().toString(), "player_status");
         return value != null ? (Long) value : 0;
@@ -88,6 +106,13 @@ public class PlayerHandler {
             return;
 
         SQL.set("language", language, "uuid", "=", player.getUniqueId().toString(), "player_status");
+    }
+
+    public static void setStamina(@Nonnull Player player, long stamina) {
+        if (getStamina(player) == stamina)
+            return;
+
+        SQL.set("stamina", stamina, "uuid", "=", player.getUniqueId().toString(), "player_status");
     }
 
     public static void setLevel(@Nonnull Player player, long level) {
