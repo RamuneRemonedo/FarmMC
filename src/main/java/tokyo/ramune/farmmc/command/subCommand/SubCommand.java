@@ -42,6 +42,5 @@ public interface SubCommand {
 
     FarmPermission getPermission();
 
-    @Deprecated
     void onCommand(CommandSender sender, String[] args);
 }
