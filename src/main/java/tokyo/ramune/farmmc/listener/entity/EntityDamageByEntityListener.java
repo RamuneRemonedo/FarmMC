@@ -25,10 +25,6 @@ public class EntityDamageByEntityListener implements Listener {
         if (farmEntityType == null)
             return;
 
-        if (sourcePlayer.getLocation().distance(targetEntity.getLocation())
-                > new PlayerStatus(sourcePlayer).getAttackDistance())
-            event.setCancelled(true);
-
         double damage = event.getDamage() - farmEntityType.getDefencePower();
 
         if (damage <= 0) {

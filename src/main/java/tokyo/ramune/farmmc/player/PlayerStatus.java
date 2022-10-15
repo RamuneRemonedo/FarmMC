@@ -24,10 +24,6 @@ public class PlayerStatus {
         return PlayerHandler.getRequireLevelUpExp(level);
     }
 
-    public double getAttackDistance() {
-        return PlayerHandler.getAttackDistance(player);
-    }
-
     public String getLanguageCode() {
         return PlayerHandler.getLanguageCode(player);
     }
