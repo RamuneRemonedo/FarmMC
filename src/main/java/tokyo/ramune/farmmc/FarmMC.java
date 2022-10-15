@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
 import tokyo.ramune.farmmc.command.CommandHandler;
 import tokyo.ramune.farmmc.config.Config;
+import tokyo.ramune.farmmc.crop.CropArtificialHandler;
 import tokyo.ramune.farmmc.database.MySQL;
 import tokyo.ramune.farmmc.event.plugin.PluginStatusChangeEvent;
 import tokyo.ramune.farmmc.language.FarmLanguageHandler;
@@ -34,6 +35,7 @@ public final class FarmMC extends JavaPlugin {
 
         connectMySQL();
         PlayerHandler.initialize();
+        CropArtificialHandler.initialize();
 
         FarmBossBarHandler.initialize();
 
@@ -57,6 +59,7 @@ public final class FarmMC extends JavaPlugin {
 
     @Override
     public void onDisable() {
+
         Bukkit.getOnlinePlayers().forEach(
                 player -> player.kick(
                         Component.text(
@@ -66,16 +69,20 @@ public final class FarmMC extends JavaPlugin {
                 )
         );
 
+        MySQL.disconnect();
+
         getLogger().info("The plugin has been disabled.");
     }
 
     private void connectMySQL() {
-        getLogger().info("Connecting to MySQL server");
+        getLogger().info("Connecting to SQLite database...");
         MySQL.connect();
         if (!MySQL.isConnected()) {
-            getLogger().warning("Cannot connect to MySQL! This plugin require to connect MySQL.");
+            getLogger().warning("Cannot connect to SQLite! This plugin require to connect SQLite.");
             Bukkit.shutdown();
         }
+
+        getLogger().info("Connected to SQLite database!");
     }
 
     public static JavaPlugin getPlugin() {

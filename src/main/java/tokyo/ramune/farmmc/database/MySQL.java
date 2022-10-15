@@ -18,18 +18,15 @@ public class MySQL {
         return con;
     }
 
-    public static void setConnection(String host, String user, String password, String database, String port) {
-        if (host != null && user != null && password != null && database != null) {
-            disconnect(false);
+    public static void setConnection() {
+        disconnect(false);
 
-            try {
-                String driver = "mysql";
-                con = DriverManager.getConnection("jdbc:" + driver + "://" + host + ":" + port + "/" + database, user, password);
-            } catch (Exception var7) {
-                Bukkit.getConsoleSender().sendMessage("&c" + "SQL Connect Error: " + var7.getMessage());
-                var7.printStackTrace();
-            }
-
+        try {
+            String driver = "sqlite";
+            con = DriverManager.getConnection("jdbc:" + driver + ":FarmMC.db");
+        } catch (Exception var7) {
+            Bukkit.getConsoleSender().sendMessage("&c" + "SQL Connect Error: " + var7.getMessage());
+            var7.printStackTrace();
         }
     }
 
@@ -38,29 +35,13 @@ public class MySQL {
     }
 
     private static void connect(boolean message) {
-        String host = FarmMC.getConfigValue().MYSQL_HOST;
-        String user = FarmMC.getConfigValue().MYSQL_USER;
-        String password = FarmMC.getConfigValue().MYSQL_PASSWORD;
-        String database = FarmMC.getConfigValue().MYSQL_DATABASE;
-        String port = FarmMC.getConfigValue().MYSQL_PORT;
         if (isConnected()) {
             if (message) {
                 Bukkit.getConsoleSender().sendMessage("&c" + "SQL Connect Error: Already connected");
             }
-        } else if (host.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: Host is blank");
-        } else if (user.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: User is blank");
-        } else if (password.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: Password is blank");
-        } else if (database.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: Database is blank");
-        } else if (port.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage("&c" + "Config Error: Port is blank");
         } else {
-            setConnection(host, user, password, database, port);
+            setConnection();
         }
-
     }
 
     public static void disconnect() {

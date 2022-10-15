@@ -5,8 +5,27 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SQL {
+    public static String toRawConditional(Map<String, String> conditional) {
+        ArrayList<String> conditionalList = new ArrayList<>();
+
+        conditional.forEach((key, value) -> {
+            if (conditionalList.size() % 2 != 0 && conditional.size() != 0)
+                conditionalList.add(" AND ");
+
+            conditionalList.add(key + "=" + value);
+        });
+
+        String rawConditional = "";
+
+        for (String s : conditionalList) {
+            rawConditional += s;
+        }
+
+        return rawConditional;
+    }
 
     public static boolean tableExists(String table) {
         try {
@@ -41,6 +60,10 @@ public class SQL {
         return MySQL.update("DELETE FROM " + table + " WHERE " + column + logic_gate + data + ";");
     }
 
+    public static boolean deleteData(Map<String, String> conditional, String table) {
+        return MySQL.update("DELETE FROM " + table + " WHERE " + toRawConditional(conditional) + ";");
+    }
+
     public static boolean exists(String column, String data, String table) {
         if (data != null) {
             data = "'" + data + "'";
@@ -52,6 +75,19 @@ public class SQL {
                 return true;
             }
         } catch (Exception ignored) {
+        }
+
+        return false;
+    }
+
+    public static boolean exists(Map<String, String> conditional, String table) {
+        try {
+            ResultSet rs = MySQL.query("SELECT * FROM " + table + " WHERE " + toRawConditional(conditional) + ";");
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return false;
