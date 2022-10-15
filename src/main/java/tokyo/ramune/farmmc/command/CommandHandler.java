@@ -1,6 +1,5 @@
 package tokyo.ramune.farmmc.command;
 
-import com.google.common.util.concurrent.RateLimiter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,6 +13,7 @@ import tokyo.ramune.farmmc.command.subCommand.SubCommand;
 import tokyo.ramune.farmmc.language.FarmLanguageHandler;
 import tokyo.ramune.farmmc.language.Phase;
 import tokyo.ramune.farmmc.utility.Chat;
+import tokyo.ramune.farmmc.utility.FarmRateLimiter;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -23,6 +23,16 @@ import java.util.Objects;
 
 public class CommandHandler {
     private static List<SubCommand> subCommands;
+
+    public static FarmRateLimiter<CommandSender> rateLimiter;
+
+    public static void initialize() {
+        rateLimiter = new FarmRateLimiter<>(1);
+    }
+
+    public static FarmRateLimiter<CommandSender> getRateLimiter() {
+        return rateLimiter;
+    }
 
     public static void registerCommand() {
         Objects.requireNonNull(FarmMC.getPlugin().getCommand("farmmc")).setExecutor(new FarmCommandExecutor());
@@ -50,7 +60,7 @@ class FarmCommandExecutor implements CommandExecutor {
 
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
-        if (!CommandRateLimiter.tryAcquire(commandSender)) {
+        if (!CommandHandler.getRateLimiter().tryAcquire(commandSender)) {
             Chat.sendMessage(commandSender, FarmLanguageHandler.getPhase(commandSender, Phase.COMMAND_RATE_LIMIT), true);
             return true;
         }
@@ -81,9 +91,14 @@ class FarmTabCompleter implements TabCompleter {
 
         if (args.length == 1) {
             for (SubCommand _command : CommandHandler.getSubCommands()) {
+                if (!sender.hasPermission(_command.getPermission().toPermission()))
+                    continue;
+
                 StringUtil.copyPartialMatches(args[0], Collections.singleton(_command.getSubCommand()), completions);
             }
+
             Collections.sort(completions);
+
             return completions;
         }
         return null;

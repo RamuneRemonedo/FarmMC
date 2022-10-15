@@ -18,7 +18,7 @@ public class BlockPlaceListener implements Listener {
 
         if (block.getType().equals(Material.PUMPKIN)
                 || block.getType().equals(Material.MELON)) {
-            Chat.sendMessage(player, FarmLanguageHandler.getPhase(player, Phase.WORLD_CANNOT_PLACE), true);
+            Chat.sendMessage(player, FarmLanguageHandler.getPhase(player, Phase.WORLD_CANNOT_PLACE), true, true);
             event.setCancelled(true);
         }
     }

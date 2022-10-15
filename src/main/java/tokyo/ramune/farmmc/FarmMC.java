@@ -6,7 +6,6 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
 import tokyo.ramune.farmmc.command.CommandHandler;
-import tokyo.ramune.farmmc.command.CommandRateLimiter;
 import tokyo.ramune.farmmc.config.Config;
 import tokyo.ramune.farmmc.database.MySQL;
 import tokyo.ramune.farmmc.event.plugin.PluginStatusChangeEvent;
@@ -40,10 +39,12 @@ public final class FarmMC extends JavaPlugin {
 
         ListenerHandler.registerListeners();
 
+        CommandHandler.initialize();
         CommandHandler.registerCommand();
         CommandHandler.registerSubCommands();
         CommandHandler.registerTabCompleter();
-        CommandRateLimiter.initialize();
+
+        Chat.initialize();
 
         getLogger().info("The plugin has been enabled.");
         getLogger().info(

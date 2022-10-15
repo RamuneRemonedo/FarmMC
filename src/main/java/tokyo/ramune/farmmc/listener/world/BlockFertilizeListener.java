@@ -14,7 +14,7 @@ public class BlockFertilizeListener implements Listener {
         Player player = event.getPlayer();
 
         if (player != null)
-            Chat.sendMessage(player, FarmLanguageHandler.getPhase(player, Phase.WORLD_BONE_MEAL_DISABLED), true);
+            Chat.sendMessage(player, FarmLanguageHandler.getPhase(player, Phase.WORLD_BONE_MEAL_DISABLED), true, true);
 
         event.setCancelled(true);
     }
