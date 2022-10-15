@@ -30,8 +30,7 @@ public class ListenerHandler {
             new FarmPlayerChangeExpListener(),
             new BlockPlaceListener(),
             new FarmCropPlantListener(),
-            new FarmCropHarvestListener(),
-            new PlayerInteractListener()
+            new FarmCropHarvestListener()
     };
 
     public static void registerListeners() {
