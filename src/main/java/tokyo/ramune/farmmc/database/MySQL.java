@@ -1,7 +1,6 @@
 package tokyo.ramune.farmmc.database;
 
 import org.bukkit.Bukkit;
-import tokyo.ramune.farmmc.FarmMC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

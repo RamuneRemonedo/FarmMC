@@ -26,7 +26,7 @@ public interface SubCommand {
             Chat.sendMessage(sender,
                     Chat.replaceColor(
                             "サブコマンド実行中にエラーが発生しました" +
-                            "\n&c" + e, '&'
+                                    "\n&c" + e, '&'
                     ), true);
         }
     }

@@ -39,7 +39,7 @@ public class SQL {
                 return false;
             }
 
-            ResultSet rs = metadata.getTables((String)null, (String)null, table, (String[])null);
+            ResultSet rs = metadata.getTables((String) null, (String) null, table, (String[]) null);
             if (rs.next()) {
                 return true;
             }
@@ -144,7 +144,7 @@ public class SQL {
         String[] var5 = where_arguments;
         int var6 = where_arguments.length;
 
-        for(int var7 = 0; var7 < var6; ++var7) {
+        for (int var7 = 0; var7 < var6; ++var7) {
             String argument = var5[var7];
             arguments = arguments + argument + " AND ";
         }
@@ -166,7 +166,7 @@ public class SQL {
         String[] var4 = where_arguments;
         int var5 = where_arguments.length;
 
-        for(int var6 = 0; var6 < var5; ++var6) {
+        for (int var6 = 0; var6 < var5; ++var6) {
             String argument = var4[var6];
             arguments = arguments + argument + " AND ";
         }
@@ -194,7 +194,7 @@ public class SQL {
         String[] var5 = where_arguments;
         int var6 = where_arguments.length;
 
-        for(int var7 = 0; var7 < var6; ++var7) {
+        for (int var7 = 0; var7 < var6; ++var7) {
             String argument = var5[var7];
             arguments = arguments + argument + " AND ";
         }
@@ -207,7 +207,7 @@ public class SQL {
             try {
                 ResultSet rs = MySQL.query("SELECT * FROM " + table + " WHERE " + arguments + ";");
 
-                while(rs.next()) {
+                while (rs.next()) {
                     array.add(rs.getObject(selected));
                 }
             } catch (Exception ignored) {
@@ -242,7 +242,7 @@ public class SQL {
         try {
             ResultSet rs = MySQL.query("SELECT * FROM " + table + " WHERE " + column + logic_gate + data + ";");
 
-            while(rs.next()) {
+            while (rs.next()) {
                 array.add(rs.getObject(selected));
             }
         } catch (Exception ignored) {
@@ -259,7 +259,7 @@ public class SQL {
             ResultSet rs = MySQL.query("SELECT * FROM " + table + ";");
 
             try {
-                while(rs.next()) {
+                while (rs.next()) {
                     ++i;
                 }
             } catch (Exception ignored) {

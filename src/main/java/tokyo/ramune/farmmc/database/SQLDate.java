@@ -18,7 +18,7 @@ public class SQLDate {
     public SQLDate(String sqlDate) {
         year = sqlDate.charAt(0) + sqlDate.charAt(1) + sqlDate.charAt(2) + sqlDate.charAt(3);
         month = sqlDate.charAt(5) + sqlDate.charAt(6);
-        dayOfMonth =  + sqlDate.charAt(8) +  + sqlDate.charAt(9);
+        dayOfMonth = +sqlDate.charAt(8) + +sqlDate.charAt(9);
     }
 
     public SQLDate() {

@@ -13,9 +13,9 @@ public class RecipeBuilder {
     private final ShapedRecipe recipe;
 
     public RecipeBuilder(@Nonnull String id,
-                      @Nonnull ItemStack resultItem,
-                      @Nonnull Map<Character, RecipeChoice> ingredient,
-                      @Nonnull String... shape) {
+                         @Nonnull ItemStack resultItem,
+                         @Nonnull Map<Character, RecipeChoice> ingredient,
+                         @Nonnull String... shape) {
         this.recipe = new ShapedRecipe(new NamespacedKey(FarmMC.getPlugin(), id), resultItem);
 
         recipe.shape(shape);

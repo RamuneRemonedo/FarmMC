@@ -24,6 +24,10 @@ public class FarmCropHarvestEvent extends Event implements Cancellable {
         this.type = type;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -50,10 +54,6 @@ public class FarmCropHarvestEvent extends Event implements Cancellable {
     }
 
     public @Nonnull HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

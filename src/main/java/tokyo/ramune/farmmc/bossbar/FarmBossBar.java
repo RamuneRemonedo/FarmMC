@@ -21,13 +21,27 @@ public interface FarmBossBar {
 
         return Bukkit.getBossBar(getNamespacedKey());
     }
-    @Nonnull FarmBossBarType getType();
-    @Nonnull BarColor getBarColor();
-    @Nonnull BarStyle getBarStyle();
-    @Nonnull String getTitle();
+
+    @Nonnull
+    FarmBossBarType getType();
+
+    @Nonnull
+    BarColor getBarColor();
+
+    @Nonnull
+    BarStyle getBarStyle();
+
+    @Nonnull
+    String getTitle();
+
     double getProgress();
-    @Nonnull Player getPlayer();
-    @Nonnull NamespacedKey getNamespacedKey();
+
+    @Nonnull
+    Player getPlayer();
+
+    @Nonnull
+    NamespacedKey getNamespacedKey();
+
     default void initialize() {
         getBossBar().addPlayer(getPlayer());
         getBossBar().setTitle(getTitle());
@@ -35,6 +49,7 @@ public interface FarmBossBar {
         getBossBar().setStyle(getBarStyle());
         getBossBar().setColor(getBarColor());
     }
+
     default void update() {
         getBossBar().setTitle(getTitle());
         getBossBar().setProgress(getProgress());

@@ -9,13 +9,16 @@ import javax.annotation.Nonnull;
 
 public class PluginStatusChangeEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
-
     private final PluginStatus from, to;
+    private boolean cancelled;
 
     public PluginStatusChangeEvent(@Nonnull PluginStatus from, @Nonnull PluginStatus to) {
         this.from = from;
         this.to = to;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     public PluginStatus getFrom() {
@@ -36,10 +39,6 @@ public class PluginStatusChangeEvent extends Event implements Cancellable {
     }
 
     public @Nonnull HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

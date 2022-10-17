@@ -59,7 +59,7 @@ public class CoinFarmBossBar implements FarmBossBar {
             if (coin < currentCoin) {
                 title = defaultTitle + Chat.replaceColor("&a +" + (currentCoin - coin), '&');
             } else if (coin > currentCoin) {
-                title = defaultTitle + Chat.replaceColor("&c -" + (coin - currentCoin), '&');;
+                title = defaultTitle + Chat.replaceColor("&c -" + (coin - currentCoin), '&');
             }
             coin = currentCoin;
         }

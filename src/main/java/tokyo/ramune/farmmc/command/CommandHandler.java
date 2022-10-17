@@ -22,13 +22,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class CommandHandler {
+    public static final FarmRateLimiter<CommandSender> rateLimiter = new FarmRateLimiter<>(1);
     private static List<SubCommand> subCommands;
-
-    public static FarmRateLimiter<CommandSender> rateLimiter;
-
-    public static void initialize() {
-        rateLimiter = new FarmRateLimiter<>(1);
-    }
 
     public static FarmRateLimiter<CommandSender> getRateLimiter() {
         return rateLimiter;

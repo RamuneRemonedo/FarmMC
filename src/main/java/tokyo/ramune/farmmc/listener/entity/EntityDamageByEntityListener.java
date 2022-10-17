@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import tokyo.ramune.farmmc.entity.FarmEntityType;
-import tokyo.ramune.farmmc.player.PlayerStatus;
 
 public class EntityDamageByEntityListener implements Listener {
 

@@ -15,11 +15,10 @@ public class PlayerHandler {
 
 
     public static void initialize() {
-        createTable();
         startUpdateLevelTimer();
     }
 
-    private static void createTable() {
+    public static void createTable() {
         if (SQL.tableExists("player_status")) return;
         SQL.createTable("player_status",
                 "uuid TEXT NOT NULL, " +

@@ -28,45 +28,45 @@ public class PlayerStatus {
         return PlayerHandler.getLanguageCode(player);
     }
 
-    public int getStamina() {
-        return PlayerHandler.getStamina(player);
-    }
-
-    public int getLevel() {
-        return PlayerHandler.getLevel(player);
-    }
-
-    public int getExp() {
-        return PlayerHandler.getExp(player);
-    }
-
-    public int getCoin() {
-        return PlayerHandler.getCoin(player);
-    }
-
-    public double getTemperature() {
-        return Math.round(player.getLocation().getBlock().getTemperature() * 10.0) / 10.0;
-    }
-
     // --- Set ---
     public void setLanguageCode(String language) {
         PlayerHandler.setLanguageCode(player, language);
+    }
+
+    public int getStamina() {
+        return PlayerHandler.getStamina(player);
     }
 
     public void setStamina(int stamina) {
         PlayerHandler.setStamina(player, stamina);
     }
 
+    public int getLevel() {
+        return PlayerHandler.getLevel(player);
+    }
+
     public void setLevel(int level) {
         PlayerHandler.setLevel(player, level);
+    }
+
+    public int getExp() {
+        return PlayerHandler.getExp(player);
     }
 
     public void setExp(int exp) {
         PlayerHandler.setExp(player, exp);
     }
 
+    public int getCoin() {
+        return PlayerHandler.getCoin(player);
+    }
+
     public void setCoin(int coin) {
         PlayerHandler.setCoin(player, coin);
+    }
+
+    public double getTemperature() {
+        return Math.round(player.getLocation().getBlock().getTemperature() * 10.0) / 10.0;
     }
 
     // --- Update ---
@@ -74,6 +74,7 @@ public class PlayerStatus {
     public void updateName() {
         PlayerHandler.updateName(player);
     }
+
     public void updateLevel() {
         PlayerHandler.updateLevel(player);
     }

@@ -12,10 +12,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 
 public class ConfigFile {
-    private FileConfiguration config = null;
     private final File configFile;
     private final String file;
     private final Plugin plugin;
+    private FileConfiguration config = null;
 
     public ConfigFile(Plugin plugin, String fileName) {
         this.plugin = plugin;

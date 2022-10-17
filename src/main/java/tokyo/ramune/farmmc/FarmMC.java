@@ -15,6 +15,7 @@ import tokyo.ramune.farmmc.language.Phase;
 import tokyo.ramune.farmmc.listener.ListenerHandler;
 import tokyo.ramune.farmmc.player.PlayerHandler;
 import tokyo.ramune.farmmc.utility.Chat;
+import tokyo.ramune.farmmc.utility.FarmRateLimiter;
 import tokyo.ramune.farmmc.utility.PluginStatus;
 
 import javax.annotation.Nonnull;
@@ -23,67 +24,6 @@ public final class FarmMC extends JavaPlugin {
     private static JavaPlugin plugin;
     private static PluginStatus status = PluginStatus.NORMAL;
     private static Config config;
-
-    @Override
-    public void onEnable() {
-        plugin = this;
-
-        config = new Config();
-        config.load();
-
-        FarmLanguageHandler.load();
-
-        connectMySQL();
-        PlayerHandler.initialize();
-        CropArtificialHandler.initialize();
-
-        FarmBossBarHandler.initialize();
-
-        ListenerHandler.registerListeners();
-
-        CommandHandler.initialize();
-        CommandHandler.registerCommand();
-        CommandHandler.registerSubCommands();
-        CommandHandler.registerTabCompleter();
-
-        Chat.initialize();
-
-        getLogger().info("The plugin has been enabled.");
-        getLogger().info(
-                Chat.replaceColor(
-                        "&cBe careful! This plugin is running under " + status.name().toLowerCase() + " mode!",
-                        '&'
-                )
-        );
-    }
-
-    @Override
-    public void onDisable() {
-
-        Bukkit.getOnlinePlayers().forEach(
-                player -> player.kick(
-                        Component.text(
-                                FarmLanguageHandler.getPhase(player, Phase.PLUGIN_RESTART)
-                        ),
-                        PlayerKickEvent.Cause.TIMEOUT
-                )
-        );
-
-        MySQL.disconnect();
-
-        getLogger().info("The plugin has been disabled.");
-    }
-
-    private void connectMySQL() {
-        getLogger().info("Connecting to SQLite database...");
-        MySQL.connect();
-        if (!MySQL.isConnected()) {
-            getLogger().warning("Cannot connect to SQLite! This plugin require to connect SQLite.");
-            Bukkit.shutdown();
-        }
-
-        getLogger().info("Connected to SQLite database!");
-    }
 
     public static JavaPlugin getPlugin() {
         return plugin;
@@ -109,5 +49,64 @@ public final class FarmMC extends JavaPlugin {
             return;
 
         FarmMC.status = status;
+    }
+
+    @Override
+    public void onEnable() {
+        plugin = this;
+
+        config = new Config();
+        config.load();
+
+        FarmLanguageHandler.load();
+
+        connectMySQL();
+        PlayerHandler.createTable();
+        CropArtificialHandler.createTable();
+
+        FarmBossBarHandler.initialize();
+        PlayerHandler.initialize();
+
+        ListenerHandler.registerListeners();
+
+        CommandHandler.registerCommand();
+        CommandHandler.registerSubCommands();
+        CommandHandler.registerTabCompleter();
+
+        getLogger().info("The plugin has been enabled.");
+        getLogger().info(
+                Chat.replaceColor(
+                        "&cBe careful! This plugin is running under " + status.name().toLowerCase() + " mode!",
+                        '&'
+                )
+        );
+    }
+
+    @Override
+    public void onDisable() {
+        Bukkit.getOnlinePlayers().forEach(
+                player -> player.kick(
+                        Component.text(
+                                FarmLanguageHandler.getPhase(player, Phase.PLUGIN_RESTART)
+                        ),
+                        PlayerKickEvent.Cause.TIMEOUT
+                )
+        );
+
+        MySQL.disconnect();
+        FarmRateLimiter.removeInstanced();
+
+        getLogger().info("The plugin has been disabled.");
+    }
+
+    private void connectMySQL() {
+        getLogger().info("Connecting to SQLite database...");
+        MySQL.connect();
+        if (!MySQL.isConnected()) {
+            getLogger().warning("Cannot connect to SQLite! This plugin require to connect SQLite.");
+            Bukkit.shutdown();
+        }
+
+        getLogger().info("Connected to SQLite database!");
     }
 }

@@ -9,11 +9,7 @@ import tokyo.ramune.farmmc.language.Phase;
 import javax.annotation.Nonnull;
 
 public class Chat {
-    private static FarmRateLimiter<CommandSender> rateLimiter;
-
-    public static void initialize() {
-        rateLimiter = new FarmRateLimiter<>(1);
-    }
+    private static final FarmRateLimiter<CommandSender> rateLimiter = new FarmRateLimiter<>(1);
 
     public static void sendMessage(Player player, String message, boolean addPrefix) {
         if (addPrefix) {
@@ -25,7 +21,7 @@ public class Chat {
 
     public static void sendMessage(CommandSender sender, String message, boolean addPrefix) {
         if (addPrefix) {
-            sender.sendMessage( FarmLanguageHandler.getPhase(sender, Phase.CHAT_PREFIX) + message);
+            sender.sendMessage(FarmLanguageHandler.getPhase(sender, Phase.CHAT_PREFIX) + message);
         } else {
             sender.sendMessage(message);
         }

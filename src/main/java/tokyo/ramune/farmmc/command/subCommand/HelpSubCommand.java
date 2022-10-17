@@ -43,7 +43,7 @@ public class HelpSubCommand implements SubCommand {
                         .replace("{0}", getHelp(sender));
 
         for (SubCommand subCommand : CommandHandler.getSubCommands()) {
-            help += "&f&l" + subCommand.getSubCommand() + " :  &b" +subCommand.getDescription(sender) + "\n";
+            help += "&f&l" + subCommand.getSubCommand() + " :  &b" + subCommand.getDescription(sender) + "\n";
         }
 
         Chat.sendMessage(sender,

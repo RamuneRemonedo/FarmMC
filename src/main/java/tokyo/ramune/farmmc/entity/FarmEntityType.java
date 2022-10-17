@@ -23,6 +23,14 @@ public enum FarmEntityType {
     NETHER_WART(EntityType.MAGMA_CUBE, 1, 1),
     CHORUS_FRUIT(EntityType.ENDERMAN, 1, 1);
 
+    private final EntityType entityType;
+    private final double attackPower, defencePower;
+    FarmEntityType(EntityType entityType, double attackPower, double defencePower) {
+        this.entityType = entityType;
+        this.attackPower = attackPower;
+        this.defencePower = defencePower;
+    }
+
     @Nullable
     public static FarmEntityType cast(EntityType entityType) {
         for (FarmEntityType value : values()) {
@@ -30,15 +38,6 @@ public enum FarmEntityType {
                 return value;
         }
         return null;
-    }
-
-    private final EntityType entityType;
-    private final double attackPower, defencePower;
-
-    FarmEntityType(EntityType entityType, double attackPower, double defencePower) {
-        this.entityType = entityType;
-        this.attackPower = attackPower;
-        this.defencePower = defencePower;
     }
 
     public EntityType getEntityType() {

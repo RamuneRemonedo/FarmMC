@@ -21,6 +21,10 @@ public class FarmPlayerLevelUpEvent extends Event implements Cancellable {
         this.to = to;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -47,10 +51,6 @@ public class FarmPlayerLevelUpEvent extends Event implements Cancellable {
     }
 
     public @Nonnull HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

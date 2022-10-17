@@ -3,43 +3,53 @@ package tokyo.ramune.farmmc.utility;
 import com.google.common.util.concurrent.RateLimiter;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FarmRateLimiter<T> {
-    private final Map<T, RateLimiter> rateLimiter = new HashMap<>();
+    private static List<FarmRateLimiter> instancedRateLimiters = new ArrayList<>();
     private final double permitsPerSeconds;
+    private Map<T, RateLimiter> rateLimiters = new HashMap<>();
 
     public FarmRateLimiter(double permitsPerSeconds) {
         this.permitsPerSeconds = permitsPerSeconds;
+
+        instancedRateLimiters.add(this);
+    }
+
+    public static void removeInstanced() {
+        instancedRateLimiters.forEach(FarmRateLimiter::removeAll);
+        instancedRateLimiters = new ArrayList<>();
     }
 
     public void add(@Nonnull T type) {
         if (isContains(type))
             return;
 
-        rateLimiter.put(type, RateLimiter.create(permitsPerSeconds));
+        rateLimiters.put(type, RateLimiter.create(permitsPerSeconds));
     }
 
     public void remove(@Nonnull T type) {
         if (!isContains(type))
             return;
 
-        rateLimiter.remove(type);
+        rateLimiters.remove(type);
     }
 
     public void removeAll() {
-        rateLimiter.keySet().forEach(rateLimiter::remove);
+        rateLimiters = new HashMap<>();
     }
 
     public boolean tryAcquire(T type) {
         if (!isContains(type))
             add(type);
 
-        return rateLimiter.get(type).tryAcquire();
+        return rateLimiters.get(type).tryAcquire();
     }
 
     public boolean isContains(@Nonnull T type) {
-        return rateLimiter.containsKey(type);
+        return rateLimiters.containsKey(type);
     }
 }
