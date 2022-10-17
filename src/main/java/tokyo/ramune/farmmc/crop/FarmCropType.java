@@ -31,6 +31,7 @@ public enum FarmCropType {
     private final World.Environment growEnvironment;
     private final boolean placeable;
     private final Range<Double> temperatureRange;
+
     FarmCropType(World.Environment growEnvironment, Range<Double> temperatureRange, boolean placeable, List<Material> cropTypes) {
         this.growEnvironment = growEnvironment;
         this.temperatureRange = temperatureRange;

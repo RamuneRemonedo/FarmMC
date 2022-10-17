@@ -25,6 +25,7 @@ public enum FarmEntityType {
 
     private final EntityType entityType;
     private final double attackPower, defencePower;
+
     FarmEntityType(EntityType entityType, double attackPower, double defencePower) {
         this.entityType = entityType;
         this.attackPower = attackPower;
