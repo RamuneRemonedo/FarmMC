@@ -62,6 +62,7 @@ public class FarmCoreHandler implements ModeHandler {
     @Override
     public void onUnload() {
         FarmRateLimiter.removeInstanced();
+        FarmSideBarHandler.removeAll();
         MySQL.disconnect();
     }
 

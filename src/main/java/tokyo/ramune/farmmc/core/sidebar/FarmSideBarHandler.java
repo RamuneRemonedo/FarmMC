@@ -38,9 +38,10 @@ public class FarmSideBarHandler {
     }
 
     public static void remove(Player player) {
-        sideBars.forEach(sideBar -> {
-            if (sideBar.getPlayer().equals(player))
-                sideBars.remove(sideBar);
-        });
+        sideBars.removeIf(sideBar -> sideBar.getPlayer().equals(player));
+    }
+
+    public static void removeAll() {
+        sideBars = new ArrayList<>();
     }
 }

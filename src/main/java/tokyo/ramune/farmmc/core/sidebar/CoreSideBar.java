@@ -45,8 +45,8 @@ public class CoreSideBar extends FarmSideBar {
         addBlankLine();
         addLine(() -> ChatColor.GRAY.toString() + player.getPing() + "ms");
         addBlankLine();
-        addLine(() -> ChatColor.GRAY + "version: ");
-        addLine(() -> ChatColor.GRAY + FarmMC.getPlugin().getDescription().getVersion());
+        addLine(() -> ChatColor.WHITE + "version: ");
+        addLine(() -> ChatColor.WHITE + FarmMC.getPlugin().getDescription().getVersion());
         addBlankLine();
         addLine(() -> ChatColor.YELLOW + "www.farmmc.tokyo");
     }
