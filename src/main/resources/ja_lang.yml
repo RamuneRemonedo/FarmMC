@@ -14,10 +14,12 @@ lang:
   NOTICE_AUTO_RESTART_SUB_TITLE: "&a定期再起動が行われます &7(あと &e{0}秒&7)"
 
   CHAT_PREFIX: "&f[&bFramMC&f] &r"
-  CHAT_REQUIRE_PERMISSION: "それを実行するには権限が必要です  {0}"
+  CHAT_REQUIRE_PERMISSION: "&cそれを実行するには権限が必要です  {0}"
 
-  LOGIN_MAINTENANCE_MODE: "&c\nこのサーバーはメンテナンス中です。&b\n詳細: Require permission - {0}"
+  LOGIN_MAINTENANCE_MODE: "&l&cこのサーバーはメンテナンス中です。\n&b詳細: Require permission - {0}"
 
+  COMMAND_AN_ERROR_OCCURRED: "&cサブコマンド実行中にエラーが発生しました。 \n運営にこのエラーを報告してください。\n{0}"
+  COMMAND_REQUIRE_AS_PLAYER: "&cこのサブコマンドはプレイヤーとして実行する必要があります。 \nプレイヤーとしてやり直してください。"
   COMMAND_RATE_LIMIT: "&cコマンド処理のリクエスト数に制限が掛かっています。 少し待ってから再度リクエストしてください。\nこの警告が出続ける場合は、運営に連絡をしてください。"
   COMMAND_NOT_FOUND: "&c指定されたサブコマンドが見つかりませんでした。"
   COMMAND_HELP_DESCRIPTION: "このヘルプを表示します"
@@ -30,11 +32,24 @@ lang:
   COMMAND_MAINTENANCE_DESCRIPTION: "メンテナンスモードに切り替えます"
   COMMAND_MAINTENANCE_HELP: "&l/farmmc maintenance [true / false] &f&l:  でメンテナンスモードを有効/無効にするかの切り替え"
   COMMAND_MAINTENANCE_ALREADY: "&cすでにその設定になっています。"
+  COMMAND_RELOAD_DESCRIPTION: "プラグインをリロードします"
+  COMMAND_RELOAD_HELP: "&l/farmmc reload &f&l:  でこのプラグインをリロードします"
+  COMMAND_SPAWN_DESCRIPTION: "スポーン位置を設定します"
+  COMMAND_SPAWN_HELP: "&l/farmmc spawn &f&l:  で現在の位置に設定"
+  COMMAND_SPAWN_SUCCESS: "{0} &aにスポーン位置が設定されました!"
+  COMMAND_FORCE_SPAWN_DESCRIPTION: "ログイン時のスポーン位置の固定"
+  COMMAND_FORCE_SPAWN_HELP: "&l/farmmc force-spawn [true / false] &f&l:  でログイン時のスポーン位置を固定を有効/無効にするかの切り替え"
+  COMMAND_FORCE_SPAWN_ALREADY: "&cすでにその設定になっています。"
+  COMMAND_FORCE_SPAWN_SUCCESS: "&aスポーン位置の固定を{0}にしました!"
 
   WORLD_BONE_MEAL_DISABLED: "[&c&l注意&f] &cこのサーバーでは骨粉は利用できません\nこのメッセージは設定から無効化できます"
   WORLD_CROP_TEMPERATURE_MISMATCH: "[&c&l注意&f] &c今植えた植物の適温がその土地の温度と異なります。 植物がうまく育たない可能性があります。\nこのメッセージは設定から無効化できます"
   WORLD_CANNOT_PLACE: "[&c&l注意&f] &cそのブロックは設置可能ではありません。\nこのメッセージは設定から無効化できます"
 
-  BOSSBAR_MAINTENANCE_TITLE: "&cメンテナンスモード下でプラグインが実行されています!"
+  BOSSBAR_MAINTENANCE_TITLE: "&c&lメンテナンスモードで実行中!"
   BOSSBAR_EXP_TITLE: "&b&l経験値 &f:&f  {0}&f / &7{1}"
   BOSSBAR_COIN_TITLE: "&e&l所持コイン &f:&f  {0}"
+
+  QUEST_HELLO_MESSAGE: "こんにちは"
+
+  MAINTENANCE_HELP: "メンテナンスモードでは基本op持ち以外のプレイヤーのログインは制限されています。 \n"

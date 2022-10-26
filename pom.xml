@@ -6,7 +6,7 @@
 
     <groupId>tokyo.ramune</groupId>
     <artifactId>FarmMC</artifactId>
-    <version>2022.1010.2-develop</version>
+    <version>2022.1027.1-develop</version>
     <packaging>jar</packaging>
 
     <name>FarmMC</name>
@@ -65,6 +65,10 @@
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+        <repository>
+            <id>PlugMan</id>
+            <url>https://raw.githubusercontent.com/TheBlackEntity/PlugMan/repository/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -83,6 +87,12 @@
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>2.11.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.rylinaux</groupId>
+            <artifactId>PlugMan</artifactId>
+            <version>2.2.9</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

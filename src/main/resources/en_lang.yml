@@ -35,6 +35,6 @@ lang:
   WORLD_CROP_TEMPERATURE_MISMATCH: "[&c&lWarning&f] &cCrops planted are not at the proper temperature for the block. The plant may not grow well. \nThis warning can be disabled from the settings."
   WORLD_CANNOT_PLACE: "[&c&lWarning&f] &cThis block is not placeable in this server. \nThis warning can be disabled from the settings."
 
-  BOSSBAR_MAINTENANCE_TITLE: "&cThis plugin are running under maintenance mode!"
+  BOSSBAR_MAINTENANCE_TITLE: "&c&lThis plugin are running under maintenance mode!"
   BOSSBAR_EXP_TITLE: "&b&lExp &f:&f  {0}&f / &7{1}"
   BOSSBAR_COIN_TITLE: "&e&lCoin &f:&f  {0}"

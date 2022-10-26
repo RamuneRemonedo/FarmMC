@@ -1,0 +1,21 @@
+config:
+  MYSQL_TYPE: "sqlite"
+  MYSQL_HOST: "127.0.0.1"
+  MYSQL_PORT: "3306"
+  MYSQL_USER: "root"
+  MYSQL_PASSWORD: "password"
+  MYSQL_DATABASE: "FarmMC"
+
+  LANGUAGE_DEFAULT: "ja"
+
+  SPAWN_FORCE_TELEPORT: false
+  SPAWN_LOCATION:
+    world: "world"
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    yaw: 0
+    pitch: 0
+
+  PLUGIN_GAME_MODE: false
+  PLUGIN_MAINTENANCE_MODE: false

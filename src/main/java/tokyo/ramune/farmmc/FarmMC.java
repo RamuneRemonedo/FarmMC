@@ -1,85 +1,82 @@
 package tokyo.ramune.farmmc;
 
+import com.rylinaux.plugman.util.PluginUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import tokyo.ramune.farmmc.bossbar.FarmBossBarHandler;
-import tokyo.ramune.farmmc.command.CommandHandler;
-import tokyo.ramune.farmmc.config.Config;
-import tokyo.ramune.farmmc.crop.CropArtificialHandler;
-import tokyo.ramune.farmmc.database.MySQL;
-import tokyo.ramune.farmmc.event.plugin.PluginStatusChangeEvent;
-import tokyo.ramune.farmmc.language.FarmLanguageHandler;
-import tokyo.ramune.farmmc.language.Phase;
-import tokyo.ramune.farmmc.listener.ListenerHandler;
-import tokyo.ramune.farmmc.player.PlayerHandler;
-import tokyo.ramune.farmmc.utility.Chat;
-import tokyo.ramune.farmmc.utility.FarmRateLimiter;
-import tokyo.ramune.farmmc.utility.PluginStatus;
+import tokyo.ramune.farmmc.core.FarmCoreHandler;
+import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.Phase;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class FarmMC extends JavaPlugin {
-    private static JavaPlugin plugin;
-    private static PluginStatus status = PluginStatus.NORMAL;
-    private static Config config;
+    private static FarmMC plugin;
+    private static List<ModeHandler> modeHandlers = new ArrayList<>();
 
-    public static JavaPlugin getPlugin() {
+    public static FarmMC getPlugin() {
         return plugin;
     }
 
-    @Nonnull
-    public static Config getConfigValue() {
-        return config;
-    }
-
-    public static PluginStatus getStatus() {
-        return status;
-    }
-
-    public static void setStatus(PluginStatus status) {
-        if (FarmMC.status.equals(status))
+    public static void registerModeHandler(ModeHandler modeHandler) {
+        if (modeHandlers.contains(modeHandler))
             return;
 
-        PluginStatusChangeEvent event = new PluginStatusChangeEvent(FarmMC.status, status);
-        Bukkit.getPluginManager().callEvent(event);
+        modeHandlers.add(modeHandler);
+        modeHandler.onLoad();
+    }
 
-        if (event.isCancelled())
-            return;
+    public static void unregisterAllModeHandler() {
+        for (ModeHandler modeHandler : modeHandlers) {
+            if (!modeHandlers.contains(modeHandler))
+                return;
 
-        FarmMC.status = status;
+            modeHandler.onUnload();
+        }
+
+        modeHandlers = new ArrayList<>();
+    }
+
+    public static List<ModeHandler> getModeHandlers() {
+        return modeHandlers;
+    }
+
+    @Nullable
+    public static ModeHandler getModeHandler(Class<? extends ModeHandler> modeHandlerClass) {
+        for (ModeHandler modeHandler : modeHandlers) {
+            if (modeHandler.getClass().equals(modeHandlerClass))
+                return modeHandler;
+        }
+
+        return null;
+    }
+
+    public void reload() {
+        try {
+            PluginUtil.reload(this);
+        } catch (Exception e) {
+            getLogger().warning("Oops... An error occurred while reloading.");
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onEnable() {
         plugin = this;
+        modeHandlers = new ArrayList<>();
 
-        config = new Config();
-        config.load();
-
-        FarmLanguageHandler.load();
-
-        connectMySQL();
-        PlayerHandler.createTable();
-        CropArtificialHandler.createTable();
-
-        FarmBossBarHandler.initialize();
-        PlayerHandler.initialize();
-
-        ListenerHandler.registerListeners();
-
-        CommandHandler.registerCommand();
-        CommandHandler.registerSubCommands();
-        CommandHandler.registerTabCompleter();
+        registerModeHandler(new FarmCoreHandler());
 
         getLogger().info("The plugin has been enabled.");
-        getLogger().info(
-                Chat.replaceColor(
-                        "&cBe careful! This plugin is running under " + status.name().toLowerCase() + " mode!",
-                        '&'
-                )
-        );
+
+        getLogger().info("Modes: ");
+        for (ModeHandler modeHandler : modeHandlers) {
+            getLogger().info(modeHandler.getClass().getName());
+        }
+        getLogger().info(" ");
     }
 
     @Override
@@ -93,20 +90,8 @@ public final class FarmMC extends JavaPlugin {
                 )
         );
 
-        MySQL.disconnect();
-        FarmRateLimiter.removeInstanced();
+        unregisterAllModeHandler();
 
         getLogger().info("The plugin has been disabled.");
-    }
-
-    private void connectMySQL() {
-        getLogger().info("Connecting to SQLite database...");
-        MySQL.connect();
-        if (!MySQL.isConnected()) {
-            getLogger().warning("Cannot connect to SQLite! This plugin require to connect SQLite.");
-            Bukkit.shutdown();
-        }
-
-        getLogger().info("Connected to SQLite database!");
     }
 }

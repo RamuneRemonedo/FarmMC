@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+          "type": "command",
+          "name": "Build",
+          "program": "mvn",
+          "args": ["package", ""],
+          "dependsOn": [""],
+        },
+
+    ]
+}
