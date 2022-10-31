@@ -1,26 +1,24 @@
 package tokyo.ramune.farmmc.core.utility;
 
-import com.google.common.util.concurrent.RateLimiter;
-
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FarmRateLimiter<T> {
-    private static List<FarmRateLimiter> instancedRateLimiters = new ArrayList<>();
+public class RateLimiter<T> {
+    private static List<RateLimiter> instancedRateLimiters = new ArrayList<>();
     private final double permitsPerSeconds;
-    private Map<T, RateLimiter> rateLimiters = new HashMap<>();
+    private Map<T, com.google.common.util.concurrent.RateLimiter> rateLimiters = new HashMap<>();
 
-    public FarmRateLimiter(double permitsPerSeconds) {
+    public RateLimiter(double permitsPerSeconds) {
         this.permitsPerSeconds = permitsPerSeconds;
 
         instancedRateLimiters.add(this);
     }
 
     public static void removeInstanced() {
-        instancedRateLimiters.forEach(FarmRateLimiter::removeAll);
+        instancedRateLimiters.forEach(RateLimiter::removeAll);
         instancedRateLimiters = new ArrayList<>();
     }
 
@@ -28,7 +26,7 @@ public class FarmRateLimiter<T> {
         if (isContains(type))
             return;
 
-        rateLimiters.put(type, RateLimiter.create(permitsPerSeconds));
+        rateLimiters.put(type, com.google.common.util.concurrent.RateLimiter.create(permitsPerSeconds));
     }
 
     public void remove(@Nonnull T type) {

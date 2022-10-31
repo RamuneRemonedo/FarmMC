@@ -8,19 +8,19 @@ import tokyo.ramune.farmmc.core.utility.Chat;
 
 import javax.annotation.Nonnull;
 
-public class FarmMenu {
+public class Menu {
     private final String title;
     private final int size;
-    private final FarmMenuItem[] menuItems;
+    private final MenuItem[] menuItems;
 
-    public FarmMenu(@Nonnull String title, int size, FarmMenuItem[] menuItems) {
+    public Menu(@Nonnull String title, int size, MenuItem[] menuItems) {
         this.title = title;
         this.size = size;
         this.menuItems = menuItems;
     }
 
     public void register() {
-        FarmMenuHandler.registerMenu(this);
+        MenuHandler.registerMenu(this);
     }
 
     public String getTitle() {
@@ -31,15 +31,15 @@ public class FarmMenu {
         return size;
     }
 
-    public FarmMenuItem[] getMenuItems() {
+    public MenuItem[] getMenuItems() {
         return menuItems;
     }
 
     public void open(@Nonnull Player player) throws IllegalStateException {
-        if (!FarmMenuHandler.getRegisteredMenus().contains(this)) {
+        if (!MenuHandler.getRegisteredMenus().contains(this)) {
             throw new IllegalStateException(
                     "Cannot open this menu." +
-                            " it has not registered in tokyo.ramune.farmmc.core.menu.FarmMenuHandler class yet.");
+                            " it has not registered in tokyo.ramune.farmmc.core.menu.MenuHandler class yet.");
         }
 
         Inventory menu = Bukkit.createInventory(
@@ -48,7 +48,7 @@ public class FarmMenu {
                 Component.text(Chat.replaceColor("&r&a&r" + title, '&'))
         );
 
-        for (FarmMenuItem menuItem : menuItems) {
+        for (MenuItem menuItem : menuItems) {
             menu.setItem(menuItem.getSlot(), menuItem.getItemStack());
         }
 

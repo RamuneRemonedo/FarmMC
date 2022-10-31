@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class FarmLanguageHandler {
+public class LanguageHandler {
     private static final String[] supportedLangCodes = {"en", "ja"};
     private static final Map<String, ConfigFile> languageConfigs = new HashMap<>();
 

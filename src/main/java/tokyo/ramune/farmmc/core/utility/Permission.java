@@ -1,8 +1,6 @@
 package tokyo.ramune.farmmc.core.utility;
 
-import org.bukkit.permissions.Permission;
-
-public enum FarmPermission {
+public enum Permission {
     COMMAND_HELP,
     COMMAND_MAINTENANCE,
     COMMAND_LANGUAGE,
@@ -14,8 +12,8 @@ public enum FarmPermission {
     JOIN_TEMPLATE,
     JOIN_MAINTENANCE;
 
-    public Permission toPermission() {
-        return new Permission("FarmMC." + super.name()
+    public org.bukkit.permissions.Permission toPermission() {
+        return new org.bukkit.permissions.Permission("FarmMC." + super.name()
                 .toLowerCase()
                 .replace("_", ".")
                 .replace("$", "-")

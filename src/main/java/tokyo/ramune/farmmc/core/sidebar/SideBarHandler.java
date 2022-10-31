@@ -5,11 +5,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import tokyo.ramune.farmmc.core.FarmCoreHandler;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class FarmSideBarHandler {
-    private static List<FarmSideBar> sideBars = new ArrayList<>();
+public class SideBarHandler {
+    private static List<SideBar> sideBars = new ArrayList<>();
     private static BukkitTask updateTimer;
 
     public static void initialize() {
@@ -21,12 +23,27 @@ public class FarmSideBarHandler {
         if (updateTimer == null || updateTimer.isCancelled())
             updateTimer = Bukkit.getScheduler().runTaskTimerAsynchronously(
                     FarmCoreHandler.getInstance().getPlugin(),
-                    FarmSideBarHandler::updateAll,
+                    SideBarHandler::updateAll,
                     20, 5
             );
     }
 
-    public static void registerSideBar(FarmSideBar instance) {
+    @Nullable
+    public static SideBar getCurrentSideBar(Player player) {
+        try {
+            return sideBars.stream()
+                    .filter(sidebar -> sidebar.getPlayer().equals(player))
+                    .collect(Collectors.toList()).get(0);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    public static List<SideBar> getSideBars() {
+        return sideBars;
+    }
+
+    public static void setSideBar(SideBar instance) {
         if (sideBars.contains(instance))
             return;
 
@@ -34,7 +51,7 @@ public class FarmSideBarHandler {
     }
 
     public static void updateAll() {
-        sideBars.forEach(FarmSideBar::update);
+        sideBars.forEach(SideBar::update);
     }
 
     public static void remove(Player player) {

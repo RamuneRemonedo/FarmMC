@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.utility.Chat;
 import tokyo.ramune.farmmc.game.utility.PlayerUtil;
@@ -17,7 +17,7 @@ public class BlockPreDispenseListener implements Listener {
             Player nearestPlayer = PlayerUtil.getNearestPlayer(event.getBlock().getLocation(), 5);
 
             if (nearestPlayer != null)
-                Chat.sendMessage(nearestPlayer, FarmLanguageHandler.getPhase(nearestPlayer, Phase.WORLD_BONE_MEAL_DISABLED), true, true);
+                Chat.sendMessage(nearestPlayer, LanguageHandler.getPhase(nearestPlayer, Phase.WORLD_BONE_MEAL_DISABLED), true, true);
 
             event.setCancelled(true);
         }

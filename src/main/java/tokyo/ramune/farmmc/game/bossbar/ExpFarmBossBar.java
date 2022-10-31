@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.bossbar.AutoHide;
 import tokyo.ramune.farmmc.core.bossbar.FarmBossBar;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.utility.Chat;
 import tokyo.ramune.farmmc.game.player.PlayerStatus;
@@ -42,7 +42,7 @@ public class ExpFarmBossBar implements FarmBossBar {
     @Override
     public String getTitle() {
         String defaultTitle =
-                FarmLanguageHandler.getPhase(player, Phase.BOSSBAR_EXP_TITLE)
+                LanguageHandler.getPhase(player, Phase.BOSSBAR_EXP_TITLE)
                         .replace("{0}", String.valueOf(playerStatus.getExp()))
                         .replace("{1}", String.valueOf(playerStatus.getRequireLevelUpExp()));
         String title = defaultTitle;

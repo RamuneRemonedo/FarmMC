@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.bossbar.FarmBossBar;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 
 import javax.annotation.Nonnull;
@@ -38,7 +38,7 @@ public class MaintenanceFarmBossBar implements FarmBossBar {
     @NotNull
     @Override
     public String getTitle() {
-        return FarmLanguageHandler.getPhase(player, Phase.BOSSBAR_MAINTENANCE_TITLE);
+        return LanguageHandler.getPhase(player, Phase.BOSSBAR_MAINTENANCE_TITLE);
     }
 
     @Override

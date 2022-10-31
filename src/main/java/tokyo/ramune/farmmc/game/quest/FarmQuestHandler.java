@@ -3,7 +3,7 @@ package tokyo.ramune.farmmc.game.quest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import tokyo.ramune.farmmc.core.database.SQL;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 
 public class FarmQuestHandler {
     public static void createTable() {
@@ -41,7 +41,7 @@ public class FarmQuestHandler {
             insert(player);
 
         SQL.set(quest.name(), grant ? 1 : 0, "uuid", "=", player.getUniqueId().toString(), "quest");
-        System.out.println(FarmLanguageHandler.getPhase("en", quest.getTitlePhase()) + " granted!");
+        System.out.println(LanguageHandler.getPhase("en", quest.getTitlePhase()) + " granted!");
     }
 
     public static boolean alreadyGranted(Player player, FarmQuest quest) {

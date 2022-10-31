@@ -4,7 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.utility.Chat;
 import tokyo.ramune.farmmc.game.crop.CropArtificialHandler;
@@ -19,7 +19,7 @@ public class FarmCropPlantListener implements Listener {
         Location location = event.getBlockLocation();
 
         if (!type.isGrowableAt(location))
-            Chat.sendMessage(player, FarmLanguageHandler.getPhase(player, Phase.WORLD_CROP_TEMPERATURE_MISMATCH), true, true);
+            Chat.sendMessage(player, LanguageHandler.getPhase(player, Phase.WORLD_CROP_TEMPERATURE_MISMATCH), true, true);
 
         if (type.isPlaceableAsPlayer())
             CropArtificialHandler.add(location);

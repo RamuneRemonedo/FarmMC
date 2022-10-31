@@ -1,6 +1,7 @@
 package tokyo.ramune.farmmc.core.database;
 
 
+import javax.annotation.Nonnull;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -267,6 +268,12 @@ public class SQL {
 
             return i;
         }
+    }
+
+    public static String removeEscapeCharacter(@Nonnull String text) {
+        return text
+                .replaceAll("'", "")
+                .replaceAll(";", "");
     }
 }
 

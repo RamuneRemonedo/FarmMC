@@ -5,8 +5,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import tokyo.ramune.farmmc.core.bossbar.FarmBossBarHandler;
+import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
 import tokyo.ramune.farmmc.game.bossbar.ExpFarmBossBar;
 import tokyo.ramune.farmmc.game.player.PlayerStatus;
+import tokyo.ramune.farmmc.game.sidebar.GameSideBar;
 
 public class PlayerJoinListener implements Listener {
     @EventHandler
@@ -18,8 +20,10 @@ public class PlayerJoinListener implements Listener {
         status.initializeDatabasePlayer();
         status.updateName();
 
-
         // Add Coin & Exp BossBar
         FarmBossBarHandler.create(new ExpFarmBossBar(player));
+
+        // Set sidebar
+        SideBarHandler.setSideBar(new GameSideBar(player));
     }
 }

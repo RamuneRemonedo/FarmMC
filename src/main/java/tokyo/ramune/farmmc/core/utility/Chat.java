@@ -3,17 +3,17 @@ package tokyo.ramune.farmmc.core.utility;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 
 import javax.annotation.Nonnull;
 
 public class Chat {
-    private static final FarmRateLimiter<CommandSender> rateLimiter = new FarmRateLimiter<>(1);
+    private static final RateLimiter<CommandSender> rateLimiter = new RateLimiter<>(1);
 
     public static void sendMessage(Player player, String message, boolean addPrefix) {
         if (addPrefix) {
-            player.sendMessage(FarmLanguageHandler.getPhase(player, Phase.CHAT_PREFIX) + message);
+            player.sendMessage(LanguageHandler.getPhase(player, Phase.CHAT_PREFIX) + message);
         } else {
             player.sendMessage(message);
         }
@@ -21,7 +21,7 @@ public class Chat {
 
     public static void sendMessage(CommandSender sender, String message, boolean addPrefix) {
         if (addPrefix) {
-            sender.sendMessage(FarmLanguageHandler.getPhase(sender, Phase.CHAT_PREFIX) + message);
+            sender.sendMessage(LanguageHandler.getPhase(sender, Phase.CHAT_PREFIX) + message);
         } else {
             sender.sendMessage(message);
         }
@@ -41,15 +41,15 @@ public class Chat {
         sendMessage(sender, message, addPrefix);
     }
 
-    public static void sendRequirePermission(Player player, FarmPermission permission) {
-        player.sendMessage(FarmLanguageHandler.getPhase(player, Phase.CHAT_REQUIRE_PERMISSION)
+    public static void sendRequirePermission(Player player, Permission permission) {
+        player.sendMessage(LanguageHandler.getPhase(player, Phase.CHAT_REQUIRE_PERMISSION)
                 .replace("{0}", permission.toPermission().getName())
         );
     }
 
-    public static void sendRequirePermission(CommandSender sender, FarmPermission permission) {
+    public static void sendRequirePermission(CommandSender sender, Permission permission) {
         sender.sendMessage(
-                Chat.replaceColor(FarmLanguageHandler.getPhase(sender, Phase.CHAT_REQUIRE_PERMISSION)
+                Chat.replaceColor(LanguageHandler.getPhase(sender, Phase.CHAT_REQUIRE_PERMISSION)
                                 .replace("{0}", permission.toPermission().getName()
                                 ),
                         '&'

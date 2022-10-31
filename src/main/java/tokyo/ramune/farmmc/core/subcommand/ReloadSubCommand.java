@@ -4,9 +4,9 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.command.SubCommand;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.FarmPermission;
+import tokyo.ramune.farmmc.core.utility.Permission;
 
 public class ReloadSubCommand implements SubCommand {
     @NotNull
@@ -17,12 +17,12 @@ public class ReloadSubCommand implements SubCommand {
 
     @Override
     public String getDescription(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_RELOAD_DESCRIPTION);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_RELOAD_DESCRIPTION);
     }
 
     @Override
     public String getHelp(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_RELOAD_HELP);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_RELOAD_HELP);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class ReloadSubCommand implements SubCommand {
     }
 
     @Override
-    public FarmPermission getPermission() {
-        return FarmPermission.COMMAND_RELOAD;
+    public Permission getPermission() {
+        return Permission.COMMAND_RELOAD;
     }
 
     @Override

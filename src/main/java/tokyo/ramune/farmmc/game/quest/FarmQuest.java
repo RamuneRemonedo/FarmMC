@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 
 import java.util.function.Function;
@@ -29,7 +29,7 @@ public enum FarmQuest {
                 Player player = castedEvent.getPlayer();
 
                 if (castedEvent.getMessage()
-                        .contains(FarmLanguageHandler.getPhase(player, Phase.QUEST_HELLO_MESSAGE)))
+                        .contains(LanguageHandler.getPhase(player, Phase.QUEST_HELLO_MESSAGE)))
                     return player;
 
                 return null;

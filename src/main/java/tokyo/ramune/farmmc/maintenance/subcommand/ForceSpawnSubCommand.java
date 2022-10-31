@@ -5,10 +5,10 @@ import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.core.FarmCoreHandler;
 import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.FarmPermission;
+import tokyo.ramune.farmmc.core.utility.Permission;
 
 public class ForceSpawnSubCommand implements SubCommand {
     @NotNull
@@ -19,12 +19,12 @@ public class ForceSpawnSubCommand implements SubCommand {
 
     @Override
     public String getDescription(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_FORCE_SPAWN_DESCRIPTION);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_FORCE_SPAWN_DESCRIPTION);
     }
 
     @Override
     public String getHelp(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_FORCE_SPAWN_HELP);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_FORCE_SPAWN_HELP);
     }
 
     @Override
@@ -33,8 +33,8 @@ public class ForceSpawnSubCommand implements SubCommand {
     }
 
     @Override
-    public FarmPermission getPermission() {
-        return FarmPermission.COMMAND_FORCE$SPAWN;
+    public Permission getPermission() {
+        return Permission.COMMAND_FORCE$SPAWN;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ForceSpawnSubCommand implements SubCommand {
                 isCurrent = FarmCoreHandler.getInstance().getCoreConfig().FORCE_SPAWN_TELEPORT;
 
         if (isCurrent == allow) {
-            Chat.sendMessage(sender, FarmLanguageHandler.getPhase(sender, Phase.COMMAND_FORCE_SPAWN_ALREADY), true);
+            Chat.sendMessage(sender, LanguageHandler.getPhase(sender, Phase.COMMAND_FORCE_SPAWN_ALREADY), true);
             return;
         }
 
@@ -58,7 +58,7 @@ public class ForceSpawnSubCommand implements SubCommand {
         coreConfig.reload();
 
         Chat.sendMessage(sender,
-                FarmLanguageHandler.getPhase(sender, Phase.COMMAND_FORCE_SPAWN_SUCCESS)
+                LanguageHandler.getPhase(sender, Phase.COMMAND_FORCE_SPAWN_SUCCESS)
                         .replace("{0}", String.valueOf(!isCurrent)),
                 true);
     }

@@ -7,16 +7,16 @@ import tokyo.ramune.farmmc.core.bossbar.FarmBossBarHandler;
 import tokyo.ramune.farmmc.core.command.CommandHandler;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
 import tokyo.ramune.farmmc.core.database.MySQL;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.listener.ListenerHandler;
 import tokyo.ramune.farmmc.core.listener.player.PlayerJoinListener;
 import tokyo.ramune.farmmc.core.listener.player.PlayerQuitListener;
-import tokyo.ramune.farmmc.core.sidebar.FarmSideBarHandler;
+import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
 import tokyo.ramune.farmmc.core.subcommand.HelpSubCommand;
 import tokyo.ramune.farmmc.core.subcommand.LanguageSubCommand;
 import tokyo.ramune.farmmc.core.subcommand.MaintenanceSubCommand;
 import tokyo.ramune.farmmc.core.subcommand.ReloadSubCommand;
-import tokyo.ramune.farmmc.core.utility.FarmRateLimiter;
+import tokyo.ramune.farmmc.core.utility.RateLimiter;
 import tokyo.ramune.farmmc.game.FarmGameHandler;
 import tokyo.ramune.farmmc.maintenance.FarmMaintenanceHandler;
 
@@ -36,8 +36,8 @@ public class FarmCoreHandler implements ModeHandler {
         coreConfig.load();
 
         connectDatabase();
-        FarmLanguageHandler.load();
-        FarmLanguageHandler.createTable();
+        LanguageHandler.load();
+        LanguageHandler.createTable();
         FarmBossBarHandler.initialize();
         ListenerHandler.registerListeners(
                 new PlayerJoinListener(),
@@ -50,7 +50,7 @@ public class FarmCoreHandler implements ModeHandler {
                 new ReloadSubCommand());
         CommandHandler.registerTabCompleter();
 
-        FarmSideBarHandler.initialize();
+        SideBarHandler.initialize();
 
         if (coreConfig.PLUGIN_GAME_MODE)
             FarmMC.registerModeHandler(new FarmGameHandler());
@@ -61,8 +61,8 @@ public class FarmCoreHandler implements ModeHandler {
 
     @Override
     public void onUnload() {
-        FarmRateLimiter.removeInstanced();
-        FarmSideBarHandler.removeAll();
+        RateLimiter.removeInstanced();
+        SideBarHandler.removeAll();
         MySQL.disconnect();
     }
 

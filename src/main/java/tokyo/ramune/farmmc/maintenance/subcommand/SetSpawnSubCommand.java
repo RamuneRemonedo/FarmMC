@@ -7,10 +7,10 @@ import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.core.FarmCoreHandler;
 import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.FarmPermission;
+import tokyo.ramune.farmmc.core.utility.Permission;
 
 public class SetSpawnSubCommand implements SubCommand {
     @NotNull
@@ -21,12 +21,12 @@ public class SetSpawnSubCommand implements SubCommand {
 
     @Override
     public String getDescription(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_SPAWN_DESCRIPTION);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_SPAWN_DESCRIPTION);
     }
 
     @Override
     public String getHelp(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_SPAWN_HELP);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_SPAWN_HELP);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class SetSpawnSubCommand implements SubCommand {
     }
 
     @Override
-    public FarmPermission getPermission() {
-        return FarmPermission.COMMAND_SPAWN;
+    public Permission getPermission() {
+        return Permission.COMMAND_SPAWN;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class SetSpawnSubCommand implements SubCommand {
 
         Chat.sendMessage(
                 player,
-                FarmLanguageHandler.getPhase(player, Phase.COMMAND_SPAWN_SUCCESS)
+                LanguageHandler.getPhase(player, Phase.COMMAND_SPAWN_SUCCESS)
                         .replace("{0}", locationStr),
                 true);
     }

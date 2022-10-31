@@ -6,11 +6,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
 import tokyo.ramune.farmmc.FarmMC;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.subcommand.HelpSubCommand;
 import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.FarmRateLimiter;
+import tokyo.ramune.farmmc.core.utility.RateLimiter;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class CommandHandler {
-    public static final FarmRateLimiter<CommandSender> rateLimiter = new FarmRateLimiter<>(1);
+    public static final RateLimiter<CommandSender> rateLimiter = new RateLimiter<>(1);
     private static List<SubCommand> subCommands = new ArrayList<>();
 
-    public static FarmRateLimiter<CommandSender> getRateLimiter() {
+    public static RateLimiter<CommandSender> getRateLimiter() {
         return rateLimiter;
     }
 
@@ -70,7 +70,7 @@ class FarmCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
         if (!CommandHandler.getRateLimiter().tryAcquire(commandSender)) {
-            Chat.sendMessage(commandSender, FarmLanguageHandler.getPhase(commandSender, Phase.COMMAND_RATE_LIMIT), true);
+            Chat.sendMessage(commandSender, LanguageHandler.getPhase(commandSender, Phase.COMMAND_RATE_LIMIT), true);
             return true;
         }
 
@@ -86,7 +86,7 @@ class FarmCommandExecutor implements CommandExecutor {
             }
         }
 
-        Chat.sendMessage(commandSender, FarmLanguageHandler.getPhase(commandSender, Phase.COMMAND_NOT_FOUND), true);
+        Chat.sendMessage(commandSender, LanguageHandler.getPhase(commandSender, Phase.COMMAND_NOT_FOUND), true);
         new HelpSubCommand().runCommand(commandSender, args);
 
         return true;

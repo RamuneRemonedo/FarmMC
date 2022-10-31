@@ -6,7 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.farmmc.core.FarmCoreHandler;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 
 import javax.annotation.Nullable;
@@ -84,7 +84,7 @@ public final class FarmMC extends JavaPlugin {
         Bukkit.getOnlinePlayers().forEach(
                 player -> player.kick(
                         Component.text(
-                                FarmLanguageHandler.getPhase(player, Phase.PLUGIN_RESTART)
+                                LanguageHandler.getPhase(player, Phase.PLUGIN_RESTART)
                         ),
                         PlayerKickEvent.Cause.TIMEOUT
                 )

@@ -4,10 +4,10 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.core.command.CommandHandler;
 import tokyo.ramune.farmmc.core.command.SubCommand;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.FarmPermission;
+import tokyo.ramune.farmmc.core.utility.Permission;
 
 public class HelpSubCommand implements SubCommand {
     @NotNull
@@ -18,12 +18,12 @@ public class HelpSubCommand implements SubCommand {
 
     @Override
     public String getDescription(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_HELP_DESCRIPTION);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_HELP_DESCRIPTION);
     }
 
     @Override
     public String getHelp(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_HELP_HELP);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_HELP_HELP);
     }
 
     @Override
@@ -32,15 +32,15 @@ public class HelpSubCommand implements SubCommand {
     }
 
     @Override
-    public FarmPermission getPermission() {
-        return FarmPermission.COMMAND_HELP;
+    public Permission getPermission() {
+        return Permission.COMMAND_HELP;
     }
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
 
         String help =
-                FarmLanguageHandler.getPhase(sender, Phase.COMMAND_HELP_LIST)
+                LanguageHandler.getPhase(sender, Phase.COMMAND_HELP_LIST)
                         .replace("{0}", getHelp(sender));
 
         for (SubCommand subCommand : CommandHandler.getSubCommands()) {

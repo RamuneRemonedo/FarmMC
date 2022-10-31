@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.database.SQL;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.game.event.player.FarmPlayerChangeExpEvent;
 import tokyo.ramune.farmmc.game.event.player.FarmPlayerLevelUpEvent;
 
@@ -60,7 +60,7 @@ public class PlayerHandler {
     }
 
     public static String getLanguageCode(@Nonnull Player player) {
-        return FarmLanguageHandler.getLanguageCode(player.getUniqueId());
+        return LanguageHandler.getLanguageCode(player.getUniqueId());
     }
 
     public static int getStamina(@Nonnull Player player) {
@@ -97,7 +97,7 @@ public class PlayerHandler {
 
     // --- Set ---
     public static void setLanguageCode(@Nonnull Player player, String language) {
-        FarmLanguageHandler.setLanguageCode(player.getUniqueId(), language);
+        LanguageHandler.setLanguageCode(player.getUniqueId(), language);
     }
 
     public static void setStamina(@Nonnull Player player, int stamina) {

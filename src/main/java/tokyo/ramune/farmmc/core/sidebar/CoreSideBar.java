@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class CoreSideBar extends FarmSideBar {
+public class CoreSideBar extends SideBar {
     private final List<String> animatedTitle =
             Arrays.asList(
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Farm " + ChatColor.AQUA + ChatColor.BOLD + "MC",
@@ -28,8 +28,8 @@ public class CoreSideBar extends FarmSideBar {
                     ChatColor.WHITE.toString() + ChatColor.BOLD + "Farm " + ChatColor.WHITE + ChatColor.BOLD + "MC",
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Farm " + ChatColor.AQUA + ChatColor.BOLD + "MC"
             );
-    private int animatedTitleIndex = 0;
     private final int animatePlayerNameLength = 12;
+    private int animatedTitleIndex = 0;
     private String animatedPlayerName = getPlayer().getName();
     private int animatedPlayerNameIndex = -1;
 

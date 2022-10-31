@@ -12,14 +12,14 @@ import org.bukkit.scoreboard.Team;
 import java.util.*;
 import java.util.function.Supplier;
 
-public class FarmSideBar {
+public class SideBar {
     private final Scoreboard scoreboard;
     private final Objective objective;
     private final Player player;
     private final Map<Integer, Supplier<String>> lines;
     private String title;
 
-    public FarmSideBar(Player player, String title) {
+    public SideBar(Player player, String title) {
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         this.objective = scoreboard.registerNewObjective("FarmMC.SideBar", "dummy");
         this.title = title;
@@ -37,7 +37,7 @@ public class FarmSideBar {
         return player;
     }
 
-    public FarmSideBar setTitle(String title) {
+    public SideBar setTitle(String title) {
         this.title = title;
         return this;
     }
@@ -46,7 +46,7 @@ public class FarmSideBar {
         return lines;
     }
 
-    public FarmSideBar addLine(Supplier<String> line) {
+    public SideBar addLine(Supplier<String> line) {
         if (lines.isEmpty()) {
             lines.put(0, line);
             return this;
@@ -57,11 +57,11 @@ public class FarmSideBar {
         return this;
     }
 
-    public FarmSideBar addBlankLine() {
+    public SideBar addBlankLine() {
         return addLine(ChatColor.RESET::toString);
     }
 
-    public FarmSideBar setLine(int index, Supplier<String> line) {
+    public SideBar setLine(int index, Supplier<String> line) {
         lines.put(index, line);
         return this;
     }
@@ -94,7 +94,7 @@ public class FarmSideBar {
         return player.getScoreboard().equals(scoreboard);
     }
 
-    public boolean isMatchLines() {
+    private boolean isMatchLines() {
         List<Integer>
                 currentIndexList = new ArrayList<>(getFixedLines().keySet()),
                 teamIndexList = new ArrayList<>();
@@ -129,6 +129,9 @@ public class FarmSideBar {
     public void update() {
         if (!isMatchLines())
             initialize();
+
+        if (!isShowing())
+            show();
 
         objective.displayName(Component.text(title));
         getFixedLines().forEach((index, line) -> Objects.requireNonNull(scoreboard.getTeam(String.valueOf(index))).prefix(Component.text(line.get())));

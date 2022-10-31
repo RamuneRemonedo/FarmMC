@@ -2,10 +2,10 @@ package tokyo.ramune.farmmc.core.command;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.FarmPermission;
+import tokyo.ramune.farmmc.core.utility.Permission;
 
 import javax.annotation.Nonnull;
 
@@ -18,7 +18,7 @@ public interface SubCommand {
 
         if (isRequirePlayer()
                 && !(sender instanceof Player)) {
-            Chat.sendMessage(sender, FarmLanguageHandler.getPhase(sender, Phase.COMMAND_REQUIRE_AS_PLAYER), true);
+            Chat.sendMessage(sender, LanguageHandler.getPhase(sender, Phase.COMMAND_REQUIRE_AS_PLAYER), true);
             return;
         }
 
@@ -27,7 +27,7 @@ public interface SubCommand {
         } catch (Exception e) {
             e.printStackTrace();
             Chat.sendMessage(sender,
-                    FarmLanguageHandler.getPhase(sender, Phase.COMMAND_AN_ERROR_OCCURRED)
+                    LanguageHandler.getPhase(sender, Phase.COMMAND_AN_ERROR_OCCURRED)
                             .replace("{0}", e.toString())
                     , true);
         }
@@ -42,7 +42,7 @@ public interface SubCommand {
 
     boolean isRequirePlayer();
 
-    FarmPermission getPermission();
+    Permission getPermission();
 
     void onCommand(CommandSender sender, String[] args);
 }

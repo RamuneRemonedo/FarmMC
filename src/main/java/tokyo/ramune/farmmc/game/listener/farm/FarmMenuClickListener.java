@@ -5,9 +5,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
-import tokyo.ramune.farmmc.core.menu.FarmMenu;
-import tokyo.ramune.farmmc.core.menu.FarmMenuHandler;
-import tokyo.ramune.farmmc.core.menu.FarmMenuItem;
+import tokyo.ramune.farmmc.core.menu.Menu;
+import tokyo.ramune.farmmc.core.menu.MenuHandler;
+import tokyo.ramune.farmmc.core.menu.MenuItem;
 
 import java.util.Objects;
 
@@ -16,7 +16,7 @@ public class FarmMenuClickListener implements Listener {
     public void onFarmMenuClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
 
-        if (!FarmMenuHandler.isFarmMenu(view.getTitle()))
+        if (!MenuHandler.isFarmMenu(view.getTitle()))
             return;
 
         if (event.getCurrentItem() == null)
@@ -24,9 +24,9 @@ public class FarmMenuClickListener implements Listener {
 
         ItemStack clickedItem = event.getCurrentItem();
 
-        FarmMenu menu = Objects.requireNonNull(FarmMenuHandler.getRegisteredMenu(view.getTitle()));
+        Menu menu = Objects.requireNonNull(MenuHandler.getRegisteredMenu(view.getTitle()));
         event.setCancelled(true);
-        for (FarmMenuItem menuItem : menu.getMenuItems()) {
+        for (MenuItem menuItem : menu.getMenuItems()) {
             if (menuItem.getItemStack().equals(clickedItem))
                 menuItem.onClick(event);
         }

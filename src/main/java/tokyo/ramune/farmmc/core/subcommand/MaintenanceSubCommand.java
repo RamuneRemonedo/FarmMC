@@ -5,10 +5,10 @@ import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.FarmCoreHandler;
 import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.FarmPermission;
+import tokyo.ramune.farmmc.core.utility.Permission;
 
 import javax.annotation.Nonnull;
 
@@ -21,12 +21,12 @@ public class MaintenanceSubCommand implements SubCommand {
 
     @Override
     public String getDescription(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_MAINTENANCE_DESCRIPTION);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_MAINTENANCE_DESCRIPTION);
     }
 
     @Override
     public String getHelp(CommandSender sender) {
-        return FarmLanguageHandler.getPhase(sender, Phase.COMMAND_MAINTENANCE_HELP);
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_MAINTENANCE_HELP);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class MaintenanceSubCommand implements SubCommand {
     }
 
     @Override
-    public FarmPermission getPermission() {
-        return FarmPermission.COMMAND_MAINTENANCE;
+    public Permission getPermission() {
+        return Permission.COMMAND_MAINTENANCE;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MaintenanceSubCommand implements SubCommand {
                 isCurrent = FarmCoreHandler.getInstance().getCoreConfig().PLUGIN_MAINTENANCE_MODE;
 
         if (isCurrent == allow) {
-            Chat.sendMessage(sender, FarmLanguageHandler.getPhase(sender, Phase.COMMAND_MAINTENANCE_ALREADY), true);
+            Chat.sendMessage(sender, LanguageHandler.getPhase(sender, Phase.COMMAND_MAINTENANCE_ALREADY), true);
             return;
         }
 

@@ -5,9 +5,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
-import tokyo.ramune.farmmc.core.language.FarmLanguageHandler;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.FarmPermission;
+import tokyo.ramune.farmmc.core.utility.Permission;
 
 public class PlayerLoginListener implements Listener {
     @EventHandler
@@ -15,14 +15,14 @@ public class PlayerLoginListener implements Listener {
         Player player = event.getPlayer();
 
         event.setResult(player.hasPermission(
-                FarmPermission.JOIN_MAINTENANCE.toPermission()) ?
+                Permission.JOIN_MAINTENANCE.toPermission()) ?
                 PlayerLoginEvent.Result.ALLOWED : PlayerLoginEvent.Result.KICK_OTHER
         );
 
         event.kickMessage(
                 Component.text(
-                        FarmLanguageHandler.getPhase(player, Phase.LOGIN_MAINTENANCE_MODE)
-                                .replace("{0}", FarmPermission.JOIN_MAINTENANCE.toPermission().getName())
+                        LanguageHandler.getPhase(player, Phase.LOGIN_MAINTENANCE_MODE)
+                                .replace("{0}", Permission.JOIN_MAINTENANCE.toPermission().getName())
                 )
         );
     }
