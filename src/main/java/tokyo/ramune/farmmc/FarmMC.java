@@ -5,7 +5,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import tokyo.ramune.farmmc.core.FarmCoreHandler;
+import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 
@@ -68,7 +68,7 @@ public final class FarmMC extends JavaPlugin {
         plugin = this;
         modeHandlers = new ArrayList<>();
 
-        registerModeHandler(new FarmCoreHandler());
+        registerModeHandler(new CoreHandler());
 
         getLogger().info("The plugin has been enabled.");
 

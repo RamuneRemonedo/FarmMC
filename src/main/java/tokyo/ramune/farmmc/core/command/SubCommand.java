@@ -4,8 +4,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.Permission;
+import tokyo.ramune.farmmc.core.util.Chat;
+import tokyo.ramune.farmmc.core.util.Permission;
 
 import javax.annotation.Nonnull;
 

@@ -3,26 +3,30 @@ package tokyo.ramune.farmmc.core.sidebar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
-import tokyo.ramune.farmmc.core.FarmCoreHandler;
+import tokyo.ramune.farmmc.core.CoreHandler;
+import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SideBarHandler {
-    private static List<SideBar> sideBars = new ArrayList<>();
+    private static Set<SideBar> sideBars = new HashSet<>();
     private static BukkitTask updateTimer;
 
     public static void initialize() {
-        sideBars = new ArrayList<>();
+        sideBars = new HashSet<>();
         startUpdateTimer();
     }
 
     public static void startUpdateTimer() {
         if (updateTimer == null || updateTimer.isCancelled())
             updateTimer = Bukkit.getScheduler().runTaskTimerAsynchronously(
-                    FarmCoreHandler.getInstance().getPlugin(),
+                    CoreHandler.getInstance().getPlugin(),
                     SideBarHandler::updateAll,
                     20, 5
             );
@@ -39,7 +43,7 @@ public class SideBarHandler {
         }
     }
 
-    public static List<SideBar> getSideBars() {
+    public static Set<SideBar> getSideBars() {
         return sideBars;
     }
 
@@ -50,7 +54,20 @@ public class SideBarHandler {
         sideBars.add(instance);
     }
 
-    public static void updateAll() {
+    public static void updateVisible(@Nonnull Player player) {
+        SideBar sideBar = getCurrentSideBar(player);
+
+        if (sideBar == null)
+            return;
+
+        if (CoreSettingHandler.SIDEBAR_ENABLE.getData(player.getUniqueId()).getAsBoolean()) {
+            sideBar.show();
+        } else {
+            sideBar.hide();
+        }
+    }
+
+    private static void updateAll() {
         sideBars.forEach(SideBar::update);
     }
 
@@ -59,6 +76,6 @@ public class SideBarHandler {
     }
 
     public static void removeAll() {
-        sideBars = new ArrayList<>();
+        sideBars = new HashSet<>();
     }
 }

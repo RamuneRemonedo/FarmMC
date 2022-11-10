@@ -130,9 +130,6 @@ public class SideBar {
         if (!isMatchLines())
             initialize();
 
-        if (!isShowing())
-            show();
-
         objective.displayName(Component.text(title));
         getFixedLines().forEach((index, line) -> Objects.requireNonNull(scoreboard.getTeam(String.valueOf(index))).prefix(Component.text(line.get())));
     }

@@ -9,8 +9,8 @@ import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.subcommand.HelpSubCommand;
-import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.RateLimiter;
+import tokyo.ramune.farmmc.core.util.Chat;
+import tokyo.ramune.farmmc.core.util.RateLimiter;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

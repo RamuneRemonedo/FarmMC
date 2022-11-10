@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.core.utility;
+package tokyo.ramune.farmmc.core.util;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

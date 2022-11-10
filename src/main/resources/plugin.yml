@@ -25,6 +25,8 @@ permissions:
         default: op
       force-spawn:
         default: op
+      sql-query:
+        default: op
     join:
       maintenance:
         default: op

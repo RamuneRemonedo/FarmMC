@@ -9,9 +9,29 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 
-public interface FarmBossBar {
+public class FarmBossBar {
+    private boolean visible;
+    private BarColor barColor;
+    private BarStyle barStyle;
+    private String title;
+    private double progress;
+    private final Player player;
+    private final NamespacedKey namespacedKey;
 
-    default BossBar getBossBar() {
+    private final AutoHide autoHide;
+
+    public FarmBossBar(Player player, NamespacedKey namespacedKey) {
+        visible = true;
+        barColor = BarColor.RED;
+        barStyle = BarStyle.SOLID;
+        title = "title";
+        progress = 0.0;
+        this.player = player;
+        this.namespacedKey = namespacedKey;
+        autoHide = new AutoHide(this);
+    }
+
+    public BossBar getBossBar() {
         if (Bukkit.getBossBar(getNamespacedKey()) == null)
             Bukkit.createBossBar(
                     getNamespacedKey(),
@@ -22,41 +42,98 @@ public interface FarmBossBar {
         return Bukkit.getBossBar(getNamespacedKey());
     }
 
-    @Nonnull
-    BarColor getBarColor();
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+        getBossBar().setVisible(visible);
+    }
 
     @Nonnull
-    BarStyle getBarStyle();
+    public BarColor getBarColor() {
+        return barColor;
+    }
+
+    public void setBarColor(BarColor barColor) {
+        this.barColor = barColor;
+    }
 
     @Nonnull
-    String getTitle();
+    public BarStyle getBarStyle() {
+        return barStyle;
+    }
 
-    double getProgress();
+    public void setBarStyle(BarStyle barStyle) {
+        this.barStyle = barStyle;
+    }
 
     @Nonnull
-    Player getPlayer();
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public double getProgress() {
+        return progress;
+    }
+
+    public void setProgress(double progress) {
+        this.progress = progress;
+    }
 
     @Nonnull
-    NamespacedKey getNamespacedKey();
+    public Player getPlayer() {
+        return player;
+    }
 
-    default void initialize() {
+    @Nonnull
+    public NamespacedKey getNamespacedKey() {
+        return namespacedKey;
+    }
+
+    public AutoHide getAutoHide() {
+        return autoHide;
+    }
+
+    public void initialize() {
         getBossBar().addPlayer(getPlayer());
         getBossBar().setTitle(getTitle());
         getBossBar().setProgress(getProgress());
         getBossBar().setStyle(getBarStyle());
         getBossBar().setColor(getBarColor());
+
+        getAutoHide().update();
     }
 
-    default void update() {
+    public void update() {
+        double originProgress = Math.floor(getBossBar().getProgress() * 10) / 10;
+        String originTitle = getBossBar().getTitle();
+
         getBossBar().setTitle(getTitle());
         getBossBar().setProgress(getProgress());
         getBossBar().setStyle(getBarStyle());
         getBossBar().setColor(getBarColor());
+
+
+        String title = getTitle();
+        double progress = Math.floor(getProgress() * 10) / 10;
+
+        if (!originTitle.equals(title)
+                || originProgress != progress) {
+            getAutoHide().update();
+        }
     }
 
-    void remove();
+    public void remove() {
 
-    default boolean isCreated() {
+    }
+
+    public boolean isCreated() {
         return FarmBossBarHandler.isCreated(this);
     }
 }

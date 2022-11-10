@@ -16,52 +16,44 @@ public class PlayerStatus {
     }
 
     // --- Get ---
-    public int getRequireLevelUpExp() {
+    public long getRequireLevelUpExp() {
         return getRequireLevelUpExp(getLevel());
     }
 
-    public int getRequireLevelUpExp(int level) {
+    public long getRequireLevelUpExp(long level) {
         return PlayerHandler.getRequireLevelUpExp(level);
     }
 
-    public String getLanguageCode() {
-        return PlayerHandler.getLanguageCode(player);
-    }
-
     // --- Set ---
-    public void setLanguageCode(String language) {
-        PlayerHandler.setLanguageCode(player, language);
-    }
-
-    public int getStamina() {
+    public long getStamina() {
         return PlayerHandler.getStamina(player);
     }
 
-    public void setStamina(int stamina) {
+    public void setStamina(long stamina) {
         PlayerHandler.setStamina(player, stamina);
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return PlayerHandler.getLevel(player);
     }
 
-    public void setLevel(int level) {
+    public void setLevel(long level) {
         PlayerHandler.setLevel(player, level);
     }
 
-    public int getExp() {
+    public long getExp() {
         return PlayerHandler.getExp(player);
     }
 
-    public void setExp(int exp) {
+    public void setExp(long exp) {
         PlayerHandler.setExp(player, exp);
     }
 
-    public int getCoin() {
+    public long getCoin() {
         return PlayerHandler.getCoin(player);
     }
 
-    public void setCoin(int coin) {
+    public void setCoin(long coin) {
         PlayerHandler.setCoin(player, coin);
     }
 

@@ -1,14 +1,49 @@
 package tokyo.ramune.farmmc.core.database;
 
 
+import org.bukkit.command.CommandSender;
+
 import javax.annotation.Nonnull;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class SQL {
+    public static String query(String query, CommandSender sender) {
+        ResultSet rs = MySQL.query(query, sender);
+        try {
+            if (rs.next()) {
+                return toString(rs);
+            }
+        } catch (Exception ignored) {
+        }
+
+        return null;
+    }
+
+    private static String toString(ResultSet rs) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("[");
+        try {
+            ResultSetMetaData metaData = rs.getMetaData();
+            int nColumns = metaData.getColumnCount();
+            for (int i = 1; i <= nColumns; ++i) {
+                buf.append("\n");
+                buf.append(metaData.getColumnName(i));
+                buf.append(" = ");
+                buf.append(rs.getString(i));
+                if (i < nColumns)
+                    buf.append(" , ");
+            }
+        } catch (SQLException e) {
+            buf.append(e.getMessage());
+            e.printStackTrace();
+        }
+        buf.append("]");
+
+        return buf.toString();
+    }
+
     public static String toRawConditional(Map<String, String> conditional) {
         ArrayList<String> conditionalList = new ArrayList<>();
 

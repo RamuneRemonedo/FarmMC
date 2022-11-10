@@ -4,16 +4,18 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import tokyo.ramune.farmmc.core.utility.Chat;
+import tokyo.ramune.farmmc.core.util.Chat;
 
 import javax.annotation.Nonnull;
 
 public class Menu {
+    private final Player player;
     private final String title;
     private final int size;
     private final MenuItem[] menuItems;
 
-    public Menu(@Nonnull String title, int size, MenuItem[] menuItems) {
+    public Menu(@Nonnull Player player, @Nonnull String title, int size, MenuItem[] menuItems) {
+        this.player = player;
         this.title = title;
         this.size = size;
         this.menuItems = menuItems;
@@ -21,6 +23,10 @@ public class Menu {
 
     public void register() {
         MenuHandler.registerMenu(this);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public String getTitle() {
@@ -35,12 +41,8 @@ public class Menu {
         return menuItems;
     }
 
-    public void open(@Nonnull Player player) throws IllegalStateException {
-        if (!MenuHandler.getRegisteredMenus().contains(this)) {
-            throw new IllegalStateException(
-                    "Cannot open this menu." +
-                            " it has not registered in tokyo.ramune.farmmc.core.menu.MenuHandler class yet.");
-        }
+    public void open() {
+        register();
 
         Inventory menu = Bukkit.createInventory(
                 null,
@@ -49,7 +51,7 @@ public class Menu {
         );
 
         for (MenuItem menuItem : menuItems) {
-            menu.setItem(menuItem.getSlot(), menuItem.getItemStack());
+            menu.setItem(menuItem.getSlot(), menuItem.getItemStack(player));
         }
 
         player.openInventory(menu);

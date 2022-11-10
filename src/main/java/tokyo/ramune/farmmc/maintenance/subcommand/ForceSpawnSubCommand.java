@@ -2,13 +2,13 @@ package tokyo.ramune.farmmc.maintenance.subcommand;
 
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import tokyo.ramune.farmmc.core.FarmCoreHandler;
+import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.Permission;
+import tokyo.ramune.farmmc.core.util.Chat;
+import tokyo.ramune.farmmc.core.util.Permission;
 
 public class ForceSpawnSubCommand implements SubCommand {
     @NotNull
@@ -45,14 +45,14 @@ public class ForceSpawnSubCommand implements SubCommand {
         }
 
         boolean allow = Boolean.parseBoolean(args[1]),
-                isCurrent = FarmCoreHandler.getInstance().getCoreConfig().FORCE_SPAWN_TELEPORT;
+                isCurrent = CoreHandler.getInstance().getCoreConfig().FORCE_SPAWN_TELEPORT;
 
         if (isCurrent == allow) {
             Chat.sendMessage(sender, LanguageHandler.getPhase(sender, Phase.COMMAND_FORCE_SPAWN_ALREADY), true);
             return;
         }
 
-        CoreConfig coreConfig = FarmCoreHandler.getInstance().getCoreConfig();
+        CoreConfig coreConfig = CoreHandler.getInstance().getCoreConfig();
         coreConfig.getConfig().set("config.FORCE_SPAWN_TELEPORT", allow);
         coreConfig.saveConfig();
         coreConfig.reload();

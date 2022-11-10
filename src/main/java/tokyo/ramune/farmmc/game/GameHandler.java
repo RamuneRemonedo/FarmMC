@@ -2,6 +2,7 @@ package tokyo.ramune.farmmc.game;
 
 import tokyo.ramune.farmmc.ModeHandler;
 import tokyo.ramune.farmmc.core.listener.ListenerHandler;
+import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 import tokyo.ramune.farmmc.game.crop.CropArtificialHandler;
 import tokyo.ramune.farmmc.game.crop.FarmServantHandler;
 import tokyo.ramune.farmmc.game.listener.entity.*;
@@ -13,10 +14,10 @@ import tokyo.ramune.farmmc.game.player.PlayerHandler;
 import tokyo.ramune.farmmc.game.quest.FarmQuestHandler;
 import tokyo.ramune.farmmc.game.statistic.StatisticHandler;
 
-public class FarmGameHandler implements ModeHandler {
-    private static FarmGameHandler instance;
+public class GameHandler implements ModeHandler {
+    private static GameHandler instance;
 
-    public static FarmGameHandler getInstance() {
+    public static GameHandler getInstance() {
         return instance;
     }
 
@@ -29,6 +30,7 @@ public class FarmGameHandler implements ModeHandler {
         FarmQuestHandler.createTable();
         FarmServantHandler.initialize();
         CropArtificialHandler.createTable();
+        CoreSettingHandler.createTable();
         ListenerHandler.registerListeners(
                 new EntityBlockChangeListener(),
                 new EntityBreedListener(),
@@ -52,17 +54,19 @@ public class FarmGameHandler implements ModeHandler {
 
                 new FarmQuestListener(),
 
+                new AnvilTakeResultListener(),
+                new BlockBreakBlockListener(),
                 new BlockBreakListener(),
                 new BlockFertilizeListener(),
                 new BlockGrowListener(),
                 new BlockPlaceListener(),
                 new BlockPreDispenseListener(),
                 new BlockSpreadListener(),
+                new PrepareAnvilListener(),
                 new StructureGrowListener());
     }
 
     @Override
     public void onUnload() {
-        FarmServantHandler.removeAll();
     }
 }

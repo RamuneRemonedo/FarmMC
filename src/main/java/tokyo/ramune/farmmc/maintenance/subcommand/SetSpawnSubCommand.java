@@ -4,13 +4,13 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import tokyo.ramune.farmmc.core.FarmCoreHandler;
+import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.Permission;
+import tokyo.ramune.farmmc.core.util.Chat;
+import tokyo.ramune.farmmc.core.util.Permission;
 
 public class SetSpawnSubCommand implements SubCommand {
     @NotNull
@@ -50,7 +50,7 @@ public class SetSpawnSubCommand implements SubCommand {
         fixedLocation.setYaw(player.getLocation().getYaw());
         fixedLocation.setPitch(0);
 
-        CoreConfig coreConfig = FarmCoreHandler.getInstance().getCoreConfig();
+        CoreConfig coreConfig = CoreHandler.getInstance().getCoreConfig();
 
         coreConfig.setLocation("config.SPAWN_LOCATION", fixedLocation);
         coreConfig.saveConfig();

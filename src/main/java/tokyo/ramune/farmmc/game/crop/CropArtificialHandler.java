@@ -19,7 +19,7 @@ public class CropArtificialHandler {
 
         SQL.insertData(
                 "uuid, x, y, z",
-                "'" + blockLocation.getWorld().getUID() + "', '" + blockLocation.getBlockX() + "', '" + blockLocation.getBlockY() + "', '" + blockLocation.getBlockZ() + "'",
+                "'" + blockLocation.getWorld().getUID() + "', " + blockLocation.getBlockX() + ", " + blockLocation.getBlockY() + ", " + blockLocation.getBlockZ(),
                 "crop");
     }
 

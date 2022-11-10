@@ -1,6 +1,7 @@
 package tokyo.ramune.farmmc.core.menu;
 
-import tokyo.ramune.farmmc.core.utility.Chat;
+import org.bukkit.entity.Player;
+import tokyo.ramune.farmmc.core.util.Chat;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,17 +16,29 @@ public class MenuHandler {
         registeredMenu.add(menu);
     }
 
+    public static void unregisterMenu(@Nonnull Menu menu) {
+        registeredMenu.remove(menu);
+    }
+
     public static List<Menu> getRegisteredMenus() {
         return registeredMenu;
     }
 
     @Nullable
-    public static Menu getRegisteredMenu(@Nonnull String title) {
+    public static Menu getRegisteredMenu(@Nonnull String title, @Nonnull Player player) {
         for (Menu menu : registeredMenu) {
-            if (menu.getTitle().equals(title))
+            if (Chat.replaceColor("&r&a&r" + menu.getTitle(), '&').equals(title) && menu.getPlayer().equals(player))
                 return menu;
         }
         return null;
+    }
+
+    public static boolean isRegistered(@Nonnull String title, @Nonnull Player player) {
+        for (Menu menu : registeredMenu) {
+            if (menu.getTitle().equals(title) && menu.getPlayer().equals(player))
+                return true;
+        }
+        return false;
     }
 
     public static boolean isFarmMenu(@Nonnull String title) {

@@ -5,6 +5,7 @@ import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -87,10 +88,18 @@ public class FarmBossBarHandler {
         updateTimer = Bukkit.getScheduler().runTaskTimer(FarmMC.getPlugin(), FarmBossBarHandler::update, 20, 20);
     }
 
+    public static void updateVisible(@Nonnull Player player) {
+        for (FarmBossBar bossBar : getBossBar(player)) {
+            bossBar.setVisible(CoreSettingHandler.BOSSBAR_ENABLE.getData(player.getUniqueId()).getAsBoolean());
+            bossBar.getAutoHide().update();
+        }
+    }
+
     private static void update() {
         farmBossBars.forEach(farmBossBar -> {
             if (!isCreated(farmBossBar))
                 return;
+
             farmBossBar.update();
         });
     }

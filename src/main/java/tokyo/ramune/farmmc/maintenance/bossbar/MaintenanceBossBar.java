@@ -10,13 +10,9 @@ import tokyo.ramune.farmmc.core.bossbar.FarmBossBar;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 
-import javax.annotation.Nonnull;
-
-public class MaintenanceFarmBossBar implements FarmBossBar {
-    private final Player player;
-
-    public MaintenanceFarmBossBar(@Nonnull Player player) {
-        this.player = player;
+public class MaintenanceBossBar extends FarmBossBar {
+    public MaintenanceBossBar(Player player) {
+        super(player, new NamespacedKey(FarmMC.getPlugin(), "maintenance." + player.getUniqueId()));
     }
 
     @NotNull
@@ -38,7 +34,7 @@ public class MaintenanceFarmBossBar implements FarmBossBar {
     @NotNull
     @Override
     public String getTitle() {
-        return LanguageHandler.getPhase(player, Phase.BOSSBAR_MAINTENANCE_TITLE);
+        return LanguageHandler.getPhase(getPlayer(), Phase.BOSSBAR_MAINTENANCE_TITLE);
     }
 
     @Override
@@ -48,24 +44,18 @@ public class MaintenanceFarmBossBar implements FarmBossBar {
 
     @NotNull
     @Override
-    public Player getPlayer() {
-        return player;
-    }
-
-    @NotNull
-    @Override
     public NamespacedKey getNamespacedKey() {
-        return new NamespacedKey(FarmMC.getPlugin(), "maintenance." + player.getUniqueId());
+        return new NamespacedKey(FarmMC.getPlugin(), "maintenance." + getPlayer().getUniqueId());
     }
 
     @Override
     public void initialize() {
-        FarmBossBar.super.initialize();
+        super.initialize();
     }
 
     @Override
     public void update() {
-        FarmBossBar.super.update();
+        super.update();
     }
 
     @Override

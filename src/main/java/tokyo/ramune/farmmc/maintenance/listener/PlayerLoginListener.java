@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.Permission;
+import tokyo.ramune.farmmc.core.util.Permission;
 
 public class PlayerLoginListener implements Listener {
     @EventHandler

@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.game.utility;
+package tokyo.ramune.farmmc.game.util;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;

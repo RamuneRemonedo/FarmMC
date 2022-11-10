@@ -41,6 +41,12 @@ lang:
   COMMAND_FORCE_SPAWN_HELP: "&l/farmmc force-spawn [true / false] &f&l:  でログイン時のスポーン位置を固定を有効/無効にするかの切り替え"
   COMMAND_FORCE_SPAWN_ALREADY: "&cすでにその設定になっています。"
   COMMAND_FORCE_SPAWN_SUCCESS: "&aスポーン位置の固定を{0}にしました!"
+  COMMAND_SQL_QUERY_DESCRIPTION: "データベースにクエリを実行します"
+  COMMAND_SQL_QUERY_HELP: "&l/farmmc query [query] &f&l:  でデータベースにクエリを実行"
+
+  SIDEBAR_VERSION: "バージョン"
+  SIDEBAR_COIN: "コイン"
+  SIDEBAR_BIOME: "バイオーム"
 
   WORLD_BONE_MEAL_DISABLED: "[&c&l注意&f] &cこのサーバーでは骨粉は利用できません\nこのメッセージは設定から無効化できます"
   WORLD_CROP_TEMPERATURE_MISMATCH: "[&c&l注意&f] &c今植えた植物の適温がその土地の温度と異なります。 植物がうまく育たない可能性があります。\nこのメッセージは設定から無効化できます"
@@ -53,3 +59,19 @@ lang:
   QUEST_HELLO_MESSAGE: "こんにちは"
 
   MAINTENANCE_HELP: "メンテナンスモードでは基本op持ち以外のプレイヤーのログインは制限されています。 \n"
+
+  TOOL_WOODEN_HOE: ""
+  TOOL_STONE_HOE: ""
+  TOOL_IRON_HOE: ""
+  TOOL_GOLDEN_HOE: ""
+  TOOL_DIAMOND_HOE: ""
+  TOOL_NETHERITE_HOE: ""
+
+  MENU_SETTINGS_TITLE: "設定"
+
+  SETTING_LANGUAGE_TITLE: "言語設定"
+  SETTING_LANGUAGE_DESCRIPTION: "ゲーム内で表示する言語を設定します"
+  SETTING_SIDEBAR_ENABLE_TITLE: "サイドバーの表示"
+  SETTING_SIDEBAR_ENABLE_DESCRIPTION: "画面右に表示される情報を表示/非表示にします"
+  SETTING_BOSSBAR_ENABLE_TITLE: "ボスバーの表示"
+  SETTING_BOSSBAR_ENABLE_DESCRIPTION: "画面上に表示される情報を表示/非表示にします"

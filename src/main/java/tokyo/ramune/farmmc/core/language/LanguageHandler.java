@@ -3,15 +3,15 @@ package tokyo.ramune.farmmc.core.language;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.FarmMC;
-import tokyo.ramune.farmmc.core.FarmCoreHandler;
+import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.config.ConfigFile;
 import tokyo.ramune.farmmc.core.database.SQL;
-import tokyo.ramune.farmmc.core.utility.Chat;
+import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
+import tokyo.ramune.farmmc.core.util.Chat;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class LanguageHandler {
     private static final String[] supportedLangCodes = {"en", "ja"};
@@ -39,46 +39,8 @@ public class LanguageHandler {
         }
 
         if (!existsDefaultLanguage()) {
-            throw new IllegalStateException("There is no supported language: \"" + FarmCoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT + "\"");
+            throw new IllegalStateException("There is no supported language: \"" + CoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT + "\"");
         }
-    }
-
-    public static void createColum(Player player) {
-        createColum(player.getUniqueId());
-    }
-
-    public static void createColum(UUID uuid) {
-        if (existsColum(uuid))
-            return;
-
-        SQL.insertData("uuid, lang_code", "'" + uuid + "', 'default'", "language");
-    }
-
-    public static String getLanguageCode(Player player) {
-        return getLanguageCode(player.getUniqueId());
-    }
-
-    public static String getLanguageCode(UUID uuid) {
-        String langCode = (String) SQL.get("lang_code", "uuid", "=", uuid.toString(), "language");
-
-        return langCode == null ? "default" : langCode;
-    }
-
-    public static void setLanguageCode(UUID uuid, String langCode) {
-        if (!isSupportedLangCode(langCode))
-            langCode = "default";
-
-        if (!existsColum(uuid))
-            createColum(uuid);
-
-        if (getLanguageCode(uuid).equals(langCode))
-            return;
-
-        SQL.set("lang_code", langCode, "uuid", "=", uuid.toString(), "language");
-    }
-
-    public static boolean existsColum(UUID uuid) {
-        return SQL.exists("uuid", uuid.toString(), "language");
     }
 
     public static String[] getSupportedLangCodes() {
@@ -95,7 +57,7 @@ public class LanguageHandler {
     }
 
     private static boolean existsDefaultLanguage() {
-        String defaultLanguage = FarmCoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT;
+        String defaultLanguage = CoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT;
 
         for (String supportedLangCode : supportedLangCodes) {
             if (supportedLangCode.equals(defaultLanguage))
@@ -106,7 +68,7 @@ public class LanguageHandler {
     }
 
     public static String getPhase(@Nonnull Player player, Phase phase) {
-        String langCode = getLanguageCode(player.getUniqueId());
+        String langCode = CoreSettingHandler.LANGUAGE.getData(player.getUniqueId()).getAsString();
 
         return getPhase(langCode, phase);
     }
@@ -115,7 +77,7 @@ public class LanguageHandler {
         String langCode;
 
         if (sender instanceof Player) {
-            langCode = getLanguageCode(((Player) sender).getUniqueId());
+            langCode = CoreSettingHandler.LANGUAGE.getData(((Player) sender).getUniqueId()).getAsString();
         } else {
             langCode = "en";
         }
@@ -125,7 +87,7 @@ public class LanguageHandler {
 
     public static String getPhase(String langCode, Phase phase) {
         if (langCode.equals("default"))
-            langCode = FarmCoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT;
+            langCode = CoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT;
 
         return Chat.replaceColor(
                 getRawPhase(langCode, phase),

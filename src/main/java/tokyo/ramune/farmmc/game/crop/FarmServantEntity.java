@@ -9,7 +9,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
-import tokyo.ramune.farmmc.game.FarmGameHandler;
+import tokyo.ramune.farmmc.game.GameHandler;
 
 import java.util.Arrays;
 
@@ -79,7 +79,7 @@ public class FarmServantEntity {
     }
 
     public void addYaw(float yaw) {
-        Bukkit.getScheduler().runTaskAsynchronously(FarmGameHandler.getInstance().getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(GameHandler.getInstance().getPlugin(), () -> {
             try {
                 Location location = servant.getLocation();
                 for (int i = 0; i < 5; i++) {
@@ -101,7 +101,7 @@ public class FarmServantEntity {
     }
 
     public void runArmAnimation() {
-        Bukkit.getScheduler().runTaskAsynchronously(FarmGameHandler.getInstance().getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(GameHandler.getInstance().getPlugin(), () -> {
             try {
                 servant.setRightArmPose(new EulerAngle(0, 0, 0));
                 for (int i = 0; i < 3; i++) {
@@ -120,7 +120,7 @@ public class FarmServantEntity {
     }
 
     public void runSpeakAnimation(String message, Location lookAt) {
-        Bukkit.getScheduler().runTaskAsynchronously(FarmGameHandler.getInstance().getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(GameHandler.getInstance().getPlugin(), () -> {
             try {
                 setYaw((float) Math.toDegrees(Math.atan2(
                         lookAt.getZ() - servant.getLocation().getZ(), lookAt.getX() - servant.getLocation().getX())) - 90);

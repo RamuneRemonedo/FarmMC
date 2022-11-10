@@ -53,7 +53,7 @@ public class FarmQuestHandler {
         if (result == null)
             return false;
 
-        return (int) result != 0;
+        return (boolean) result;
     }
 
     private static void insert(Player player) {

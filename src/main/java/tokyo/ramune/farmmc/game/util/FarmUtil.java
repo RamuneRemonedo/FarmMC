@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.game.utility;
+package tokyo.ramune.farmmc.game.util;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -32,6 +32,4 @@ public class FarmUtil {
         }
         return locations;
     }
-
-
 }

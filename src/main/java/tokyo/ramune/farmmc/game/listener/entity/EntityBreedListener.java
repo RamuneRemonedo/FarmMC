@@ -7,6 +7,6 @@ import org.bukkit.event.entity.EntityBreedEvent;
 public class EntityBreedListener implements Listener {
     @EventHandler
     public void onEntityBreed(EntityBreedEvent event) {
-        System.out.println(event.getBreeder().getType());
+
     }
 }

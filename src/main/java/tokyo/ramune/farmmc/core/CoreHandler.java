@@ -9,22 +9,22 @@ import tokyo.ramune.farmmc.core.config.CoreConfig;
 import tokyo.ramune.farmmc.core.database.MySQL;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.listener.ListenerHandler;
+import tokyo.ramune.farmmc.core.listener.player.PlayerCommandPreprocessListener;
 import tokyo.ramune.farmmc.core.listener.player.PlayerJoinListener;
 import tokyo.ramune.farmmc.core.listener.player.PlayerQuitListener;
+import tokyo.ramune.farmmc.core.listener.player.TabCompleteListener;
+import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
-import tokyo.ramune.farmmc.core.subcommand.HelpSubCommand;
-import tokyo.ramune.farmmc.core.subcommand.LanguageSubCommand;
-import tokyo.ramune.farmmc.core.subcommand.MaintenanceSubCommand;
-import tokyo.ramune.farmmc.core.subcommand.ReloadSubCommand;
-import tokyo.ramune.farmmc.core.utility.RateLimiter;
-import tokyo.ramune.farmmc.game.FarmGameHandler;
+import tokyo.ramune.farmmc.core.subcommand.*;
+import tokyo.ramune.farmmc.core.util.RateLimiter;
+import tokyo.ramune.farmmc.game.GameHandler;
 import tokyo.ramune.farmmc.maintenance.FarmMaintenanceHandler;
 
-public class FarmCoreHandler implements ModeHandler {
-    private static FarmCoreHandler instance;
+public class CoreHandler implements ModeHandler {
+    private static CoreHandler instance;
     private CoreConfig coreConfig;
 
-    public static FarmCoreHandler getInstance() {
+    public static CoreHandler getInstance() {
         return instance;
     }
 
@@ -39,24 +39,30 @@ public class FarmCoreHandler implements ModeHandler {
         LanguageHandler.load();
         LanguageHandler.createTable();
         FarmBossBarHandler.initialize();
+        CoreSettingHandler.createTable();
         ListenerHandler.registerListeners(
+                new PlayerCommandPreprocessListener(),
                 new PlayerJoinListener(),
-                new PlayerQuitListener());
+                new PlayerQuitListener(),
+                new TabCompleteListener());
         CommandHandler.registerCommand();
         CommandHandler.registerSubCommands(
                 new HelpSubCommand(),
                 new LanguageSubCommand(),
+                new LangSubCommand(),
                 new MaintenanceSubCommand(),
-                new ReloadSubCommand());
+                new ReloadSubCommand(),
+                new SQLQuerySubCommand());
         CommandHandler.registerTabCompleter();
 
         SideBarHandler.initialize();
 
         if (coreConfig.PLUGIN_GAME_MODE)
-            FarmMC.registerModeHandler(new FarmGameHandler());
+            FarmMC.registerModeHandler(new GameHandler());
 
         if (coreConfig.PLUGIN_MAINTENANCE_MODE)
             FarmMC.registerModeHandler(new FarmMaintenanceHandler());
+
     }
 
     @Override

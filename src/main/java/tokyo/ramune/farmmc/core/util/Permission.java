@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.core.utility;
+package tokyo.ramune.farmmc.core.util;
 
 public enum Permission {
     COMMAND_HELP,
@@ -8,6 +8,7 @@ public enum Permission {
     COMMAND_TP$TEMPLATE,
     COMMAND_SPAWN,
     COMMAND_FORCE$SPAWN,
+    COMMAND_SQL$QUERY,
 
     JOIN_TEMPLATE,
     JOIN_MAINTENANCE;

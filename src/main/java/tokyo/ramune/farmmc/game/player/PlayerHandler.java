@@ -51,71 +51,63 @@ public class PlayerHandler {
         return new PlayerStatus(player);
     }
 
-    public static int getRequireLevelUpExp(@Nonnull Player player) {
+    public static long getRequireLevelUpExp(@Nonnull Player player) {
         return getRequireLevelUpExp(getLevel(player));
     }
 
-    public static int getRequireLevelUpExp(int level) {
+    public static long getRequireLevelUpExp(long level) {
         return level * 100;
     }
 
-    public static String getLanguageCode(@Nonnull Player player) {
-        return LanguageHandler.getLanguageCode(player.getUniqueId());
-    }
-
-    public static int getStamina(@Nonnull Player player) {
+    public static long getStamina(@Nonnull Player player) {
         Object value = SQL.get("stamina", "uuid", "=", player.getUniqueId().toString(), "player_status");
-        return value != null ? (int) value : 0;
+        return value != null ? (long) value : 0;
     }
 
-    public static int getDefaultStamina() {
-        return 100;
+    public static long getDefaultStamina() {
+        return 100L;
     }
 
-    public static int getMaxStamina(@Nonnull Player player) {
+    public static long getMaxStamina(@Nonnull Player player) {
         return getMaxStamina(getLevel(player));
     }
 
-    public static int getMaxStamina(int level) {
+    public static long getMaxStamina(long level) {
         return getDefaultStamina() + (level * 10);
     }
 
-    public static int getLevel(@Nonnull Player player) {
+    public static long getLevel(@Nonnull Player player) {
         Object value = SQL.get("level", "uuid", "=", player.getUniqueId().toString(), "player_status");
-        return value != null ? (Integer) value : 0;
+        return value != null ? (long) value : 0;
     }
 
-    public static int getExp(@Nonnull Player player) {
+    public static long getExp(@Nonnull Player player) {
         Object value = SQL.get("exp", "uuid", "=", player.getUniqueId().toString(), "player_status");
-        return value != null ? (Integer) value : 0;
+        return value != null ? (long) value : 0;
     }
 
-    public static int getCoin(@Nonnull Player player) {
+    public static long getCoin(@Nonnull Player player) {
         Object value = SQL.get("coin", "uuid", "=", player.getUniqueId().toString(), "player_status");
-        return value != null ? (Integer) value : 0;
+        return value != null ? (long) value : 0;
     }
 
     // --- Set ---
-    public static void setLanguageCode(@Nonnull Player player, String language) {
-        LanguageHandler.setLanguageCode(player.getUniqueId(), language);
-    }
-
-    public static void setStamina(@Nonnull Player player, int stamina) {
+    public static void setStamina(@Nonnull Player player, long stamina) {
         if (getStamina(player) == stamina)
             return;
 
         SQL.set("stamina", stamina, "uuid", "=", player.getUniqueId().toString(), "player_status");
     }
 
-    public static void setLevel(@Nonnull Player player, int level) {
+    public static void setLevel(@Nonnull Player player, long level) {
         if (getLevel(player) == level)
             return;
 
         SQL.set("level", level, "uuid", "=", player.getUniqueId().toString(), "player_status");
     }
 
-    public static void setExp(@Nonnull Player player, int exp) {
-        int currentExp = getExp(player);
+    public static void setExp(@Nonnull Player player, long exp) {
+        long currentExp = getExp(player);
         if (currentExp == exp)
             return;
 
@@ -128,7 +120,7 @@ public class PlayerHandler {
         updateLevel(player, getLevel(player), exp);
     }
 
-    public static void setCoin(@Nonnull Player player, int coin) {
+    public static void setCoin(@Nonnull Player player, long coin) {
         if (getCoin(player) == coin)
             return;
 
@@ -152,13 +144,11 @@ public class PlayerHandler {
         updateLevel(player, getLevel(player), getExp(player));
     }
 
-    private static void updateLevel(@Nonnull Player player, int currentLevel, int currentExp) {
+    private static void updateLevel(@Nonnull Player player, long currentLevel, long currentExp) {
         if (getRequireLevelUpExp(currentLevel) > currentExp)
             return;
 
-        player.sendMessage("checked");
-
-        int toLevel = currentLevel;
+        long toLevel = currentLevel;
 
         while (getRequireLevelUpExp(toLevel) <= currentExp) {
             currentExp -= getRequireLevelUpExp(toLevel);

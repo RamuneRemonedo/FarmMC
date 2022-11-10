@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFertilizeEvent;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.Chat;
+import tokyo.ramune.farmmc.core.util.Chat;
 
 public class BlockFertilizeListener implements Listener {
     @EventHandler

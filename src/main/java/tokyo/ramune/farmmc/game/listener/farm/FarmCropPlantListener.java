@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.Chat;
+import tokyo.ramune.farmmc.core.util.Chat;
 import tokyo.ramune.farmmc.game.crop.CropArtificialHandler;
 import tokyo.ramune.farmmc.game.crop.FarmCropType;
 import tokyo.ramune.farmmc.game.event.crop.FarmCropPlantEvent;

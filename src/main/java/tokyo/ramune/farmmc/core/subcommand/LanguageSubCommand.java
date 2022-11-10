@@ -7,9 +7,9 @@ import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.Chat;
-import tokyo.ramune.farmmc.core.utility.Permission;
-import tokyo.ramune.farmmc.game.player.PlayerStatus;
+import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
+import tokyo.ramune.farmmc.core.util.Chat;
+import tokyo.ramune.farmmc.core.util.Permission;
 
 import java.util.Arrays;
 
@@ -17,7 +17,7 @@ public class LanguageSubCommand implements SubCommand {
     @NotNull
     @Override
     public String getSubCommand() {
-        return "lang";
+        return "language";
     }
 
     @Override
@@ -54,9 +54,8 @@ public class LanguageSubCommand implements SubCommand {
         }
 
         Player player = (Player) sender;
-        PlayerStatus playerStatus = new PlayerStatus(player);
 
-        playerStatus.setLanguageCode(args[1]);
+        CoreSettingHandler.LANGUAGE.set(player.getUniqueId(), args[1]);
 
         Chat.sendMessage(sender, LanguageHandler.getPhase(sender, Phase.COMMAND_LANGUAGE_SUCCESS), true);
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 2);

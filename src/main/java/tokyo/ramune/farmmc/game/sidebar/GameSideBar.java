@@ -3,7 +3,11 @@ package tokyo.ramune.farmmc.game.sidebar;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
+import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.sidebar.SideBar;
+import tokyo.ramune.farmmc.core.util.Chat;
+import tokyo.ramune.farmmc.game.player.PlayerStatus;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -45,17 +49,21 @@ public class GameSideBar extends SideBar {
         if (playerName.length() >= animatePlayerNameLength)
             animatedPlayerName = animatedPlayerName.substring(0, playerName.length() - (playerName.length() - animatePlayerNameLength));
 
+        PlayerStatus playerStatus = new PlayerStatus(player);
         Calendar cal = Calendar.getInstance();
+
         addLine(() -> ChatColor.GRAY.toString() + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "  " + ChatColor.GRAY + ChatColor.ITALIC + ChatColor.BOLD + animatedPlayerName);
         addBlankLine();
         addLine(() -> ChatColor.GRAY.toString() + ChatColor.BOLD + "ping: " + player.getPing() + "ms");
-        addLine(() -> ChatColor.BOLD + "Biome: " +
-                ChatColor.AQUA + ChatColor.ITALIC + player.getWorld().getBiome(player.getLocation()).name()
+        addBlankLine();
+        addLine(() -> Chat.replaceColor("&6&l" + LanguageHandler.getPhase(player, Phase.SIDEBAR_COIN) + "&f: " + String.format("%,d", playerStatus.getCoin()), '&'));
+        addBlankLine();
+        addLine(() -> Chat.replaceColor("&l" + LanguageHandler.getPhase(player, Phase.SIDEBAR_BIOME) + "&f: &b&o" +
+                player.getWorld().getBiome(player.getLocation()).name()
                 .toLowerCase()
-                .replaceAll("_", " "));
+                .replaceAll("_", " "), '&'));
         addBlankLine();
         addLine(() -> ChatColor.GRAY + FarmMC.getPlugin().getDescription().getVersion());
-        addBlankLine();
         addLine(() -> ChatColor.YELLOW + "www.farmmc.tokyo");
     }
 

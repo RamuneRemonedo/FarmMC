@@ -3,6 +3,7 @@ package tokyo.ramune.farmmc.core.sidebar;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -55,13 +56,11 @@ public class CoreSideBar extends SideBar {
     public void update() {
         super.update();
 
-        // Title
         setTitle(animatedTitle.get(animatedTitleIndex));
         animatedTitleIndex++;
         if (animatedTitle.size() <= animatedTitleIndex)
             animatedTitleIndex = 0;
 
-        // Name
         if (getPlayer().getName().length() >= animatePlayerNameLength) {
             if (animatedPlayerNameIndex == -1) {
                 animatedPlayerName = animatedPlayerName.substring(1) + " ";

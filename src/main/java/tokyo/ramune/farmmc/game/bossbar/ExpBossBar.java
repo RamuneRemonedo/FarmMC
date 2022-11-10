@@ -6,24 +6,18 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
-import tokyo.ramune.farmmc.core.bossbar.AutoHide;
 import tokyo.ramune.farmmc.core.bossbar.FarmBossBar;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.utility.Chat;
+import tokyo.ramune.farmmc.core.util.Chat;
 import tokyo.ramune.farmmc.game.player.PlayerStatus;
 
-import javax.annotation.Nonnull;
-
-public class ExpFarmBossBar implements FarmBossBar {
-    private final Player player;
-    private final AutoHide autoHide = new AutoHide(this);
-    private final PlayerStatus playerStatus;
+public class ExpBossBar extends FarmBossBar {
     private long exp;
 
-    public ExpFarmBossBar(@Nonnull Player player) {
-        this.player = player;
-        playerStatus = new PlayerStatus(player);
+    public ExpBossBar(Player player) {
+        super(player, new NamespacedKey(FarmMC.getPlugin(), "exp." + player.getUniqueId()));
+        getAutoHide().setAutoHide(true);
     }
 
     @NotNull
@@ -41,8 +35,10 @@ public class ExpFarmBossBar implements FarmBossBar {
     @NotNull
     @Override
     public String getTitle() {
+        PlayerStatus playerStatus = new PlayerStatus(getPlayer());
+
         String defaultTitle =
-                LanguageHandler.getPhase(player, Phase.BOSSBAR_EXP_TITLE)
+                LanguageHandler.getPhase(getPlayer(), Phase.BOSSBAR_EXP_TITLE)
                         .replace("{0}", String.valueOf(playerStatus.getExp()))
                         .replace("{1}", String.valueOf(playerStatus.getRequireLevelUpExp()));
         String title = defaultTitle;
@@ -51,7 +47,6 @@ public class ExpFarmBossBar implements FarmBossBar {
             return defaultTitle;
 
         if (!getBossBar().getTitle().equals(defaultTitle)) {
-            autoHide.update();
             long currentExp = playerStatus.getExp();
 
             if (exp < currentExp) {
@@ -66,6 +61,8 @@ public class ExpFarmBossBar implements FarmBossBar {
 
     @Override
     public double getProgress() {
+        PlayerStatus playerStatus = new PlayerStatus(getPlayer());
+
         double progress = (double) playerStatus.getExp() / (double) playerStatus.getRequireLevelUpExp();
 
         if (progress < 0.0) {
@@ -78,24 +75,19 @@ public class ExpFarmBossBar implements FarmBossBar {
         return progress;
     }
 
-    @NotNull
-    @Override
-    public Player getPlayer() {
-        return player;
-    }
-
-    @NotNull
-    @Override
-    public NamespacedKey getNamespacedKey() {
-        return new NamespacedKey(FarmMC.getPlugin(), "exp." + player.getUniqueId());
-    }
-
     @Override
     public void initialize() {
-        autoHide.setAutoHide(true);
-        autoHide.update();
+        PlayerStatus playerStatus = new PlayerStatus(getPlayer());
+
+        getAutoHide().setAutoHide(true);
         exp = playerStatus.getExp();
-        FarmBossBar.super.initialize();
+
+        super.initialize();
+    }
+
+    @Override
+    public void update() {
+        super.update();
     }
 
     @Override
