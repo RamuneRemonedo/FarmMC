@@ -1,42 +1,47 @@
-package tokyo.ramune.farmmc.core.subcommand;
+package tokyo.ramune.farmmc.game.subcommand;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.command.SubCommand;
-import tokyo.ramune.farmmc.core.language.LanguageHandler;
-import tokyo.ramune.farmmc.core.language.Phase;
+import tokyo.ramune.farmmc.core.menu.Menu;
+import tokyo.ramune.farmmc.core.menu.MenuHandler;
 import tokyo.ramune.farmmc.core.util.Permission;
+import tokyo.ramune.farmmc.game.cook.CookMenu;
 
-public class ReloadSubCommand implements SubCommand {
+public class CookSubCommand implements SubCommand {
     @NotNull
     @Override
     public String getSubCommand() {
-        return "reload";
+        return "cook";
     }
 
     @Override
     public String getDescription(CommandSender sender) {
-        return LanguageHandler.getPhase(sender, Phase.COMMAND_RELOAD_DESCRIPTION);
+        return "null";
     }
 
     @Override
     public String getHelp(CommandSender sender) {
-        return LanguageHandler.getPhase(sender, Phase.COMMAND_RELOAD_HELP);
+        return "null";
     }
 
     @Override
     public boolean isRequirePlayer() {
-        return false;
+        return true;
     }
 
     @Override
     public Permission getPermission() {
-        return Permission.COMMAND_RELOAD;
+        return Permission.COMMAND_HELP;
     }
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
-        FarmMC.getPlugin().reloadScheduled(60);
+        Player player = (Player) sender;
+
+        Menu menu = new CookMenu(player).getMenu();
+        MenuHandler.registerMenu(menu);
+        menu.open();
     }
 }

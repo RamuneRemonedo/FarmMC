@@ -6,7 +6,7 @@
 
     <groupId>tokyo.ramune</groupId>
     <artifactId>FarmMC</artifactId>
-    <version>2022.1110.1-develop</version>
+    <version>2022.1120.1-develop</version>
     <packaging>jar</packaging>
 
     <name>FarmMC</name>
@@ -69,6 +69,10 @@
             <id>PlugMan</id>
             <url>https://raw.githubusercontent.com/TheBlackEntity/PlugMan/repository/</url>
         </repository>
+        <repository>
+            <id>CodeMC</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -99,6 +103,11 @@
             <artifactId>PlugMan</artifactId>
             <version>2.2.9</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bananapuncher714</groupId>
+            <artifactId>nbteditor</artifactId>
+            <version>7.18.3</version>
         </dependency>
     </dependencies>
 </project>

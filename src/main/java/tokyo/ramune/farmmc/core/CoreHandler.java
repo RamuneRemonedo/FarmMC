@@ -52,6 +52,7 @@ public class CoreHandler implements ModeHandler {
                 new LangSubCommand(),
                 new MaintenanceSubCommand(),
                 new ReloadSubCommand(),
+                new SettingSubCommand(),
                 new SQLQuerySubCommand());
         CommandHandler.registerTabCompleter();
 

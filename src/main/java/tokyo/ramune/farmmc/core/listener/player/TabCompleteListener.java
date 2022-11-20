@@ -13,6 +13,11 @@ public class TabCompleteListener implements Listener {
         if (!(event.getSender() instanceof Player))
             return;
 
+        String buffer = event.getBuffer().toLowerCase();
+        if (buffer.startsWith("/farmmc")
+                || buffer.startsWith("/farm"))
+            return;
+
         Player player = (Player) event.getSender();
 
         if (player.isOp())

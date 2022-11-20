@@ -11,6 +11,8 @@ import tokyo.ramune.farmmc.core.setting.SettingsMenu;
 import tokyo.ramune.farmmc.core.util.Chat;
 import tokyo.ramune.farmmc.core.util.Permission;
 
+import javax.annotation.Nonnull;
+
 public class HelpSubCommand implements SubCommand {
     @NotNull
     @Override
@@ -40,13 +42,22 @@ public class HelpSubCommand implements SubCommand {
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
-        new SettingsMenu((Player) sender).getMenu().open();
+        try {
+            sendSubCommandHelp(sender, args[1]);
+        } catch (Exception e) {
+            sendAllSubCommandsHelp(sender);
+        }
+    }
 
+    private void sendAllSubCommandsHelp(CommandSender sender) {
         String help =
                 LanguageHandler.getPhase(sender, Phase.COMMAND_HELP_LIST)
                         .replace("{0}", getHelp(sender));
 
         for (SubCommand subCommand : CommandHandler.getSubCommands()) {
+            if (!sender.hasPermission(subCommand.getPermission().toPermission()))
+                continue;
+
             help += "&f&l" + subCommand.getSubCommand() + " :  &b" + subCommand.getDescription(sender) + "\n";
         }
 
@@ -54,5 +65,16 @@ public class HelpSubCommand implements SubCommand {
                 Chat.replaceColor(help, '&'),
                 true
         );
+    }
+
+    private void sendSubCommandHelp(CommandSender sender, @Nonnull String subCommand) {
+        SubCommand targetSubCommand = CommandHandler.getSubCommand(subCommand);
+
+        if (targetSubCommand == null) {
+            Chat.sendMessage(sender, LanguageHandler.getPhase(sender, Phase.COMMAND_HELP_NOT_FOUND), true);
+            return;
+        }
+
+        Chat.sendMessage(sender, targetSubCommand.getHelp(sender), true);
     }
 }

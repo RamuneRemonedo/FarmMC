@@ -1,6 +1,7 @@
 package tokyo.ramune.farmmc.game;
 
 import tokyo.ramune.farmmc.ModeHandler;
+import tokyo.ramune.farmmc.core.command.CommandHandler;
 import tokyo.ramune.farmmc.core.listener.ListenerHandler;
 import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 import tokyo.ramune.farmmc.game.crop.CropArtificialHandler;
@@ -13,6 +14,7 @@ import tokyo.ramune.farmmc.game.listener.world.*;
 import tokyo.ramune.farmmc.game.player.PlayerHandler;
 import tokyo.ramune.farmmc.game.quest.FarmQuestHandler;
 import tokyo.ramune.farmmc.game.statistic.StatisticHandler;
+import tokyo.ramune.farmmc.game.subcommand.CookSubCommand;
 
 public class GameHandler implements ModeHandler {
     private static GameHandler instance;
@@ -36,7 +38,6 @@ public class GameHandler implements ModeHandler {
                 new EntityBreedListener(),
                 new EntityDamageByEntityListener(),
                 new EntityDeathListener(),
-                new EntityMoveListener(),
                 new EntityTargetListener(),
 
                 new FarmCropHarvestListener(),
@@ -64,6 +65,7 @@ public class GameHandler implements ModeHandler {
                 new BlockSpreadListener(),
                 new PrepareAnvilListener(),
                 new StructureGrowListener());
+        CommandHandler.registerSubCommands(new CookSubCommand());
     }
 
     @Override

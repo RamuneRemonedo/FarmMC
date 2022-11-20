@@ -8,6 +8,7 @@ import tokyo.ramune.farmmc.game.crop.CropArtificialHandler;
 import tokyo.ramune.farmmc.game.crop.FarmCropType;
 import tokyo.ramune.farmmc.game.event.crop.FarmCropHarvestEvent;
 import tokyo.ramune.farmmc.game.player.PlayerStatus;
+import tokyo.ramune.farmmc.game.statistic.StatisticHandler;
 
 public class FarmCropHarvestListener implements Listener {
     @EventHandler
@@ -22,5 +23,7 @@ public class FarmCropHarvestListener implements Listener {
             CropArtificialHandler.remove(location);
 
         playerStatus.setExp(playerStatus.getExp() + (type.getExp()));
+
+        StatisticHandler.addHarvestCount(player, type, 1);
     }
 }

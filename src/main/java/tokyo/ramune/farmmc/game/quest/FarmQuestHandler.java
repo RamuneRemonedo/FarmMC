@@ -5,6 +5,8 @@ import org.bukkit.event.Event;
 import tokyo.ramune.farmmc.core.database.SQL;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 
+import javax.annotation.Nonnull;
+
 public class FarmQuestHandler {
     public static void createTable() {
         if (SQL.tableExists("quest"))
@@ -22,18 +24,22 @@ public class FarmQuestHandler {
         return colum;
     }
 
-    public static void check(Event event) {
-        for (FarmQuest quest : FarmQuest.values()) {
-            if (quest.getTriggerEvent().getEventClass().getName().equals(event.getClass().getName())) {
-                Player targetPlayer = quest.getQuestCondition().apply(event);
+    public static FarmQuest getCurrentQuest(@Nonnull Player player) {
+        return null;// TODO: 2022/11/19
+    }
 
-                if (targetPlayer != null)
-                    set(targetPlayer, quest, true);
-            }
+    public static void check(@Nonnull Event event) {
+        for (FarmQuest quest : FarmQuest.values()) {
+            if (!quest.getTriggerEventClass().getName().equals(event.getClass().getName()))
+                return;
+
+            Player targetPlayer = quest.getQuestCondition().apply(event);
+            if (targetPlayer != null)
+                set(targetPlayer, quest, true);
         }
     }
 
-    public static void set(Player player, FarmQuest quest, boolean grant) {
+    public static void set(@Nonnull Player player, @Nonnull FarmQuest quest, boolean grant) {
         if (grant == alreadyGranted(player, quest))
             return;
 
@@ -44,7 +50,7 @@ public class FarmQuestHandler {
         System.out.println(LanguageHandler.getPhase("en", quest.getTitlePhase()) + " granted!");
     }
 
-    public static boolean alreadyGranted(Player player, FarmQuest quest) {
+    public static boolean alreadyGranted(@Nonnull Player player, @Nonnull FarmQuest quest) {
         if (!exists(player))
             return false;
 
@@ -56,14 +62,14 @@ public class FarmQuestHandler {
         return (boolean) result;
     }
 
-    private static void insert(Player player) {
+    private static void insert(@Nonnull Player player) {
         if (exists(player))
             return;
 
         SQL.insertData("uuid", "'" + player.getUniqueId() + "'", "quest");
     }
 
-    private static boolean exists(Player player) {
+    private static boolean exists(@Nonnull Player player) {
         return SQL.exists("uuid", player.getUniqueId().toString(), "quest");
     }
 }

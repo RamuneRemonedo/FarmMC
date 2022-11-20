@@ -9,24 +9,30 @@ depend:
 commands:
   farmmc:
     description: "FarmMC"
+    aliases:
+      - "farm"
+    permission: FarmMC.command
+    permission-message: "You fool"
 
 permissions:
-  FarmMC:
-    command:
-      help:
-        default: true
-      language:
-        default: true
-      maintenance:
-        default: op
-      reload:
-        default: op
-      spawn:
-        default: op
-      force-spawn:
-        default: op
-      sql-query:
-        default: op
-    join:
-      maintenance:
-        default: op
+  FarmMC.command:
+    default: true
+  FarmMC.command.help:
+    default: true
+  FarmMC.command.language:
+    default: true
+  FarmMC.command.setting:
+    default: true
+  FarmMC.command.maintenance:
+    default: op
+  FarmMC.command.reload:
+    default: op
+  FarmMC.command.spawn:
+    default: op
+  FarmMC.command.force-spawn:
+    default: op
+  FarmMC.command.sql-query:
+    default: op
+
+  join.maintenance:
+    default: op

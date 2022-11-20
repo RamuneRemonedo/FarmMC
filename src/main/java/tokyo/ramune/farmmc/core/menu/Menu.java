@@ -14,7 +14,7 @@ public class Menu {
     private final int size;
     private final MenuItem[] menuItems;
 
-    public Menu(@Nonnull Player player, @Nonnull String title, int size, MenuItem[] menuItems) {
+    public Menu(@Nonnull Player player, @Nonnull String title, int size, MenuItem... menuItems) {
         this.player = player;
         this.title = title;
         this.size = size;

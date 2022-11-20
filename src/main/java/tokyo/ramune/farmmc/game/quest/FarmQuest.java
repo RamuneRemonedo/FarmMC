@@ -13,7 +13,7 @@ public enum FarmQuest {
     FIRST_JOIN(
             Phase.QUEST_FIRST_JOIN_TITLE,
             Phase.QUEST_HELLO_DESCRIPTION,
-            FarmQuestEvent.PLAYER_JOIN_EVENT,
+            PlayerJoinEvent.class,
             event -> {
                 PlayerJoinEvent joinEvent = (PlayerJoinEvent) event;
                 return joinEvent.getPlayer();
@@ -23,7 +23,7 @@ public enum FarmQuest {
     HELLO(
             Phase.QUEST_HELLO_TITLE,
             Phase.QUEST_HELLO_DESCRIPTION,
-            FarmQuestEvent.PLAYER_CHAT_EVENT,
+            PlayerChatEvent.class,
             event -> {
                 PlayerChatEvent castedEvent = (PlayerChatEvent) event;
                 Player player = castedEvent.getPlayer();
@@ -39,17 +39,17 @@ public enum FarmQuest {
 
     private final Phase title;
     private final Phase description;
-    private final FarmQuestEvent triggerEvent;
+    private final Class<? extends Event> triggerEventClass;
     private final Function<Event, Player> questCondition;
     private final FarmQuestReward reward;
 
     FarmQuest(Phase title, Phase description,
-              FarmQuestEvent triggerEvent,
+              Class<? extends Event> triggerEventClass,
               Function<Event, Player> questCondition,
               FarmQuestReward reward) {
         this.title = title;
         this.description = description;
-        this.triggerEvent = triggerEvent;
+        this.triggerEventClass = triggerEventClass;
         this.questCondition = questCondition;
         this.reward = reward;
     }
@@ -70,7 +70,7 @@ public enum FarmQuest {
         return questCondition;
     }
 
-    public FarmQuestEvent getTriggerEvent() {
-        return triggerEvent;
+    public Class<? extends Event> getTriggerEventClass() {
+        return triggerEventClass;
     }
 }

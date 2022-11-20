@@ -1,9 +1,7 @@
 package tokyo.ramune.farmmc.core.command;
 
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
@@ -13,38 +11,32 @@ import tokyo.ramune.farmmc.core.util.Chat;
 import tokyo.ramune.farmmc.core.util.RateLimiter;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CommandHandler {
     public static final RateLimiter<CommandSender> rateLimiter = new RateLimiter<>(1);
-    private static List<SubCommand> subCommands = new ArrayList<>();
+    private static Set<SubCommand> subCommands = new HashSet<>();
 
     public static RateLimiter<CommandSender> getRateLimiter() {
         return rateLimiter;
     }
 
     public static void initialize() {
-        subCommands = new ArrayList<>();
+        subCommands = new HashSet<>();
     }
 
     public static void registerCommand() {
-        Objects.requireNonNull(FarmMC.getPlugin().getCommand("farmmc")).setExecutor(new FarmCommandExecutor());
+        Objects.requireNonNull(FarmMC.getPlugin().getCommand("farmmc")).setExecutor(new CommandExecutor());
     }
 
     public static void registerTabCompleter() {
-        Objects.requireNonNull(FarmMC.getPlugin().getCommand("farmmc")).setTabCompleter(new FarmTabCompleter());
+        Objects.requireNonNull(FarmMC.getPlugin().getCommand("farmmc")).setTabCompleter(new TabCompleter());
     }
 
     public static void registerSubCommands(SubCommand... subCommands) {
-        for (SubCommand subCommand : subCommands) {
-            if (isRegistered(subCommand))
-                continue;
-
-            CommandHandler.subCommands.add(subCommand);
-        }
+        CommandHandler.subCommands.addAll(Arrays.asList(subCommands));
     }
 
     private static boolean isRegistered(SubCommand subCommand) {
@@ -57,15 +49,27 @@ public class CommandHandler {
     }
 
     public static void unregisterAllSubCommands() {
-        subCommands = new ArrayList<>();
+        subCommands = new HashSet<>();
     }
 
-    public static List<SubCommand> getSubCommands() {
+    public static Set<SubCommand> getSubCommands() {
         return subCommands;
+    }
+
+    @Nullable
+    public static SubCommand getSubCommand(@Nonnull String subCommand) {
+        try {
+            return subCommands.stream()
+                    .filter(subCommand1 -> subCommand1.getSubCommand().equals(subCommand))
+                    .collect(Collectors.toList())
+                    .get(0);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
 
-class FarmCommandExecutor implements CommandExecutor {
+class CommandExecutor implements org.bukkit.command.CommandExecutor {
 
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
@@ -93,7 +97,7 @@ class FarmCommandExecutor implements CommandExecutor {
     }
 }
 
-class FarmTabCompleter implements TabCompleter {
+class TabCompleter implements org.bukkit.command.TabCompleter {
     @Override
     public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String alias, String[] args) {
         final List<String> completions = new ArrayList<>();
@@ -107,7 +111,7 @@ class FarmTabCompleter implements TabCompleter {
             }
 
             Collections.sort(completions);
-
+            
             return completions;
         }
         return null;

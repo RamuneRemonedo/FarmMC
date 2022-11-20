@@ -46,7 +46,7 @@ public class Notice {
 
     public static void noticeAutoRestart(long time) {
         Bukkit.getOnlinePlayers().forEach(player -> {
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
             Chat.sendMessage(player,
                     LanguageHandler.getPhase(player, Phase.NOTICE_AUTO_RESTART_MESSAGE)

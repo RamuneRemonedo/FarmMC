@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
+import tokyo.ramune.farmmc.core.util.Notice;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -52,6 +53,12 @@ public final class FarmMC extends JavaPlugin {
         }
 
         return null;
+    }
+
+    public void reloadScheduled(int seconds) {
+        Notice.noticeAutoRestart(seconds);
+
+
     }
 
     public void reload() {

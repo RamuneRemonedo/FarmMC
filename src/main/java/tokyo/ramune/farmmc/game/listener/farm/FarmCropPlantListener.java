@@ -10,6 +10,7 @@ import tokyo.ramune.farmmc.core.util.Chat;
 import tokyo.ramune.farmmc.game.crop.CropArtificialHandler;
 import tokyo.ramune.farmmc.game.crop.FarmCropType;
 import tokyo.ramune.farmmc.game.event.crop.FarmCropPlantEvent;
+import tokyo.ramune.farmmc.game.statistic.StatisticHandler;
 
 public class FarmCropPlantListener implements Listener {
     @EventHandler
@@ -23,5 +24,7 @@ public class FarmCropPlantListener implements Listener {
 
         if (type.isPlaceableAsPlayer())
             CropArtificialHandler.add(location);
+
+        StatisticHandler.addPlantCount(player, type, 1);
     }
 }
