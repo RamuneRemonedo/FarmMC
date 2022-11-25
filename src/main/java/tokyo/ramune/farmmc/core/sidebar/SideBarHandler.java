@@ -8,9 +8,7 @@ import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 

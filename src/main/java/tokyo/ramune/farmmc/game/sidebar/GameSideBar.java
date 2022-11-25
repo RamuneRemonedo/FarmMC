@@ -60,8 +60,8 @@ public class GameSideBar extends SideBar {
         addBlankLine();
         addLine(() -> Chat.replaceColor("&l" + LanguageHandler.getPhase(player, Phase.SIDEBAR_BIOME) + "&f: &b&o" +
                 player.getWorld().getBiome(player.getLocation()).name()
-                .toLowerCase()
-                .replaceAll("_", " "), '&'));
+                        .toLowerCase()
+                        .replaceAll("_", " "), '&'));
         addBlankLine();
         addLine(() -> ChatColor.GRAY + FarmMC.getPlugin().getDescription().getVersion());
         addLine(() -> ChatColor.YELLOW + "www.farmmc.tokyo");

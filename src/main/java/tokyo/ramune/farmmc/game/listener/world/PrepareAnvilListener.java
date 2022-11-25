@@ -13,7 +13,6 @@ import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.util.Chat;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 

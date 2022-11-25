@@ -6,18 +6,27 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import tokyo.ramune.farmmc.core.CoreHandler;
+import tokyo.ramune.farmmc.core.auth.AuthHandler;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
+import tokyo.ramune.farmmc.core.database.SQLDate;
 import tokyo.ramune.farmmc.core.sidebar.CoreSideBar;
 import tokyo.ramune.farmmc.core.sidebar.SideBar;
 import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
 import tokyo.ramune.farmmc.core.util.Notice;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
+        // Auth
+        AuthHandler.get(player.getUniqueId())
+                .setLastLoginDate(new SQLDate())
+                .setLastLoginAddress(Objects.requireNonNull(player.getAddress()).getHostName())
+                .apply();
 
         // First join message
         if (!player.hasPlayedBefore())

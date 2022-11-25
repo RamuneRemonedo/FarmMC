@@ -36,15 +36,12 @@ public class SQLDate {
     }
 
     public String getDate() {
-        if (String.valueOf(month).length() == 1) {
-            return year + "-0" + month + "-" + dayOfMonth;
-        } else {
-            return year + "-" + month + "-" + dayOfMonth;
-        }
+        return year + "-" + (String.valueOf(month).length() == 1 ? "0" : "") + month + "-" + dayOfMonth;
     }
 
     public String toString() {
-        return year + "-" + (String.valueOf(month).length() == 1 ? "0" : "") + month + "-" + dayOfMonth;
+        System.out.println(year);
+        return getDate();
     }
 
     public int getYear() {

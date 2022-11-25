@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.database.SQL;
-import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.game.event.player.FarmPlayerChangeExpEvent;
 import tokyo.ramune.farmmc.game.event.player.FarmPlayerLevelUpEvent;
 
@@ -61,7 +60,7 @@ public class PlayerHandler {
 
     public static long getStamina(@Nonnull Player player) {
         Object value = SQL.get("stamina", "uuid", "=", player.getUniqueId().toString(), "player_status");
-        return value != null ? (long) value : 0;
+        return value != null ? SQL.toLong(value) : 0;
     }
 
     public static long getDefaultStamina() {
@@ -78,17 +77,17 @@ public class PlayerHandler {
 
     public static long getLevel(@Nonnull Player player) {
         Object value = SQL.get("level", "uuid", "=", player.getUniqueId().toString(), "player_status");
-        return value != null ? (long) value : 0;
+        return value != null ? SQL.toLong(value) : 0;
     }
 
     public static long getExp(@Nonnull Player player) {
         Object value = SQL.get("exp", "uuid", "=", player.getUniqueId().toString(), "player_status");
-        return value != null ? (long) value : 0;
+        return value != null ? SQL.toLong(value) : 0;
     }
 
     public static long getCoin(@Nonnull Player player) {
         Object value = SQL.get("coin", "uuid", "=", player.getUniqueId().toString(), "player_status");
-        return value != null ? (long) value : 0;
+        return value != null ? SQL.toLong(value) : 0;
     }
 
     // --- Set ---

@@ -5,7 +5,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockSpreadEvent;
-import tokyo.ramune.farmmc.game.crop.FarmCropType;
+import tokyo.ramune.farmmc.game.crop.CropType;
 
 public class BlockSpreadListener implements Listener {
     @EventHandler
@@ -13,7 +13,7 @@ public class BlockSpreadListener implements Listener {
         boolean isGrowable = true;
         BlockState block = event.getNewState();
 
-        FarmCropType type = FarmCropType.getCropType(block.getType());
+        CropType type = CropType.getCropType(block.getType());
         Location location = block.getLocation();
 
         if (type == null)

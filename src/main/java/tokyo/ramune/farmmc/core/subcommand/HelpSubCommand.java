@@ -1,13 +1,11 @@
 package tokyo.ramune.farmmc.core.subcommand;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.core.command.CommandHandler;
 import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.setting.SettingsMenu;
 import tokyo.ramune.farmmc.core.util.Chat;
 import tokyo.ramune.farmmc.core.util.Permission;
 

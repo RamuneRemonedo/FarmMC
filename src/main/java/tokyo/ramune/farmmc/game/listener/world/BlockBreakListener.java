@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import tokyo.ramune.farmmc.game.crop.FarmCropType;
+import tokyo.ramune.farmmc.game.crop.CropType;
 import tokyo.ramune.farmmc.game.event.crop.FarmCropHarvestEvent;
 
 public class BlockBreakListener implements Listener {
@@ -17,7 +17,7 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Material material = event.getBlock().getType();
         BlockData blockData = event.getBlock().getBlockData();
-        FarmCropType cropType = FarmCropType.getCropType(material);
+        CropType cropType = CropType.getCropType(material);
 
         if (cropType == null)
             return;
@@ -33,7 +33,7 @@ public class BlockBreakListener implements Listener {
             maximumAge = blockAge.getMaximumAge();
         }
 
-        if (!cropType.isPlaceableAsPlayer() && age != maximumAge)
+        if (!cropType.isReplaceableAsPlayer() && age != maximumAge)
             return;
 
         FarmCropHarvestEvent farmEvent = new FarmCropHarvestEvent(player, blockLocation, cropType);

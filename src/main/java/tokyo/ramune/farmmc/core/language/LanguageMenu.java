@@ -2,7 +2,6 @@ package tokyo.ramune.farmmc.core.language;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import tokyo.ramune.farmmc.core.menu.Menu;
 import tokyo.ramune.farmmc.core.menu.MenuItem;
 
 import javax.annotation.Nonnull;

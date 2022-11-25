@@ -1,14 +1,19 @@
 package tokyo.ramune.farmmc.core;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
+import org.jetbrains.annotations.Nullable;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.ModeHandler;
+import tokyo.ramune.farmmc.core.auth.AuthHandler;
 import tokyo.ramune.farmmc.core.bossbar.FarmBossBarHandler;
 import tokyo.ramune.farmmc.core.command.CommandHandler;
+import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
 import tokyo.ramune.farmmc.core.database.MySQL;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
-import tokyo.ramune.farmmc.core.listener.ListenerHandler;
+import tokyo.ramune.farmmc.core.listener.inventory.InventoryClickListener;
+import tokyo.ramune.farmmc.core.listener.inventory.InventoryCloseListener;
 import tokyo.ramune.farmmc.core.listener.player.PlayerCommandPreprocessListener;
 import tokyo.ramune.farmmc.core.listener.player.PlayerJoinListener;
 import tokyo.ramune.farmmc.core.listener.player.PlayerQuitListener;
@@ -19,6 +24,8 @@ import tokyo.ramune.farmmc.core.subcommand.*;
 import tokyo.ramune.farmmc.core.util.RateLimiter;
 import tokyo.ramune.farmmc.game.GameHandler;
 import tokyo.ramune.farmmc.maintenance.FarmMaintenanceHandler;
+
+import java.util.Set;
 
 public class CoreHandler implements ModeHandler {
     private static CoreHandler instance;
@@ -40,20 +47,8 @@ public class CoreHandler implements ModeHandler {
         LanguageHandler.createTable();
         FarmBossBarHandler.initialize();
         CoreSettingHandler.createTable();
-        ListenerHandler.registerListeners(
-                new PlayerCommandPreprocessListener(),
-                new PlayerJoinListener(),
-                new PlayerQuitListener(),
-                new TabCompleteListener());
+        AuthHandler.createTable();
         CommandHandler.registerCommand();
-        CommandHandler.registerSubCommands(
-                new HelpSubCommand(),
-                new LanguageSubCommand(),
-                new LangSubCommand(),
-                new MaintenanceSubCommand(),
-                new ReloadSubCommand(),
-                new SettingSubCommand(),
-                new SQLQuerySubCommand());
         CommandHandler.registerTabCompleter();
 
         SideBarHandler.initialize();
@@ -71,6 +66,33 @@ public class CoreHandler implements ModeHandler {
         RateLimiter.removeInstanced();
         SideBarHandler.removeAll();
         MySQL.disconnect();
+    }
+
+    @Nullable
+    @Override
+    public Set<Listener> getListeners() {
+        return Set.of(
+                new InventoryClickListener(),
+                new InventoryCloseListener(),
+                new PlayerCommandPreprocessListener(),
+                new PlayerJoinListener(),
+                new PlayerQuitListener(),
+                new TabCompleteListener());
+    }
+
+    @Nullable
+    @Override
+    public Set<SubCommand> getSubCommands() {
+        return Set.of(
+                new HelpSubCommand(),
+                new LanguageSubCommand(),
+                new LangSubCommand(),
+                new MaintenanceSubCommand(),
+                new ReloadSubCommand(),
+                new SettingSubCommand(),
+                new SQLQuerySubCommand(),
+                new BanSubCommand(),
+                new UnbanSubCommand());
     }
 
     private void connectDatabase() {

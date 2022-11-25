@@ -1,20 +1,26 @@
 package tokyo.ramune.farmmc.game;
 
+import org.bukkit.event.Listener;
+import org.jetbrains.annotations.Nullable;
 import tokyo.ramune.farmmc.ModeHandler;
-import tokyo.ramune.farmmc.core.command.CommandHandler;
-import tokyo.ramune.farmmc.core.listener.ListenerHandler;
+import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 import tokyo.ramune.farmmc.game.crop.CropArtificialHandler;
-import tokyo.ramune.farmmc.game.crop.FarmServantHandler;
 import tokyo.ramune.farmmc.game.listener.entity.*;
-import tokyo.ramune.farmmc.game.listener.farm.*;
+import tokyo.ramune.farmmc.game.listener.farm.FarmCropHarvestListener;
+import tokyo.ramune.farmmc.game.listener.farm.FarmCropPlantListener;
+import tokyo.ramune.farmmc.game.listener.farm.FarmPlayerChangeExpListener;
+import tokyo.ramune.farmmc.game.listener.farm.FarmPlayerLevelUpListener;
 import tokyo.ramune.farmmc.game.listener.player.*;
-import tokyo.ramune.farmmc.game.listener.quest.FarmQuestListener;
+import tokyo.ramune.farmmc.game.listener.quest.QuestListener;
 import tokyo.ramune.farmmc.game.listener.world.*;
 import tokyo.ramune.farmmc.game.player.PlayerHandler;
-import tokyo.ramune.farmmc.game.quest.FarmQuestHandler;
+import tokyo.ramune.farmmc.game.quest.QuestHandler;
+import tokyo.ramune.farmmc.game.servant.ServantHandler;
 import tokyo.ramune.farmmc.game.statistic.StatisticHandler;
 import tokyo.ramune.farmmc.game.subcommand.CookSubCommand;
+
+import java.util.Set;
 
 public class GameHandler implements ModeHandler {
     private static GameHandler instance;
@@ -29,11 +35,20 @@ public class GameHandler implements ModeHandler {
 
         PlayerHandler.createTable();
         StatisticHandler.createTable();
-        FarmQuestHandler.createTable();
-        FarmServantHandler.initialize();
+        QuestHandler.createTable();
+        ServantHandler.initialize();
         CropArtificialHandler.createTable();
         CoreSettingHandler.createTable();
-        ListenerHandler.registerListeners(
+    }
+
+    @Override
+    public void onUnload() {
+    }
+
+    @Nullable
+    @Override
+    public Set<Listener> getListeners() {
+        return Set.of(
                 new EntityBlockChangeListener(),
                 new EntityBreedListener(),
                 new EntityDamageByEntityListener(),
@@ -42,7 +57,6 @@ public class GameHandler implements ModeHandler {
 
                 new FarmCropHarvestListener(),
                 new FarmCropPlantListener(),
-                new FarmMenuClickListener(),
                 new FarmPlayerChangeExpListener(),
                 new FarmPlayerLevelUpListener(),
 
@@ -53,7 +67,7 @@ public class GameHandler implements ModeHandler {
                 new PlayerMoveListener(),
                 new PlayerQuitListener(),
 
-                new FarmQuestListener(),
+                new QuestListener(),
 
                 new AnvilTakeResultListener(),
                 new BlockBreakBlockListener(),
@@ -65,10 +79,11 @@ public class GameHandler implements ModeHandler {
                 new BlockSpreadListener(),
                 new PrepareAnvilListener(),
                 new StructureGrowListener());
-        CommandHandler.registerSubCommands(new CookSubCommand());
     }
 
+    @Nullable
     @Override
-    public void onUnload() {
+    public Set<SubCommand> getSubCommands() {
+        return Set.of(new CookSubCommand());
     }
 }

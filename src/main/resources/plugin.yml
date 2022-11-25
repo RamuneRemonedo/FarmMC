@@ -33,6 +33,10 @@ permissions:
     default: op
   FarmMC.command.sql-query:
     default: op
+  FarmMC.command.ban:
+    default: op
+  FarmMC.command.unban:
+    default: op
 
   join.maintenance:
     default: op

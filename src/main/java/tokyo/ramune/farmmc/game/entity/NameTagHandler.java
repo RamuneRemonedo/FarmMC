@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.game.crop;
+package tokyo.ramune.farmmc.game.entity;
 
 import org.bukkit.Location;
 

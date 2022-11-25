@@ -9,15 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class FarmQuestReward {
+public class QuestReward {
     private int exp = 0, coin = 0;
     private List<ItemStack> itemStacks = new ArrayList<>();
     private Consumer<Player> onComplete;
 
-    public FarmQuestReward() {
+    public QuestReward() {
     }
 
-    public FarmQuestReward(int exp, int coin, Consumer<Player> onComplete, ItemStack... itemStacks) {
+    public QuestReward(int exp, int coin, Consumer<Player> onComplete, ItemStack... itemStacks) {
         this.exp = exp;
         this.coin = coin;
         this.onComplete = onComplete;
@@ -28,7 +28,7 @@ public class FarmQuestReward {
         return exp;
     }
 
-    public FarmQuestReward setExp(int exp) {
+    public QuestReward setExp(int exp) {
         this.exp = exp;
         return this;
     }
@@ -37,7 +37,7 @@ public class FarmQuestReward {
         return coin;
     }
 
-    public FarmQuestReward setCoin(int coin) {
+    public QuestReward setCoin(int coin) {
         this.coin = coin;
         return this;
     }
@@ -46,17 +46,17 @@ public class FarmQuestReward {
         return itemStacks;
     }
 
-    public FarmQuestReward setItemStacks(List<ItemStack> itemStacks) {
+    public QuestReward setItemStacks(List<ItemStack> itemStacks) {
         this.itemStacks = itemStacks;
         return this;
     }
 
-    public FarmQuestReward setOnComplete(Consumer<Player> onComplete) {
+    public QuestReward setOnComplete(Consumer<Player> onComplete) {
         this.onComplete = onComplete;
         return this;
     }
 
-    public FarmQuestReward addItemStack(ItemStack itemStack) {
+    public QuestReward addItemStack(ItemStack itemStack) {
         itemStacks.add(itemStack);
         return this;
     }

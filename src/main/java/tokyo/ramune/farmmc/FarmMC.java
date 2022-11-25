@@ -3,20 +3,22 @@ package tokyo.ramune.farmmc;
 import com.rylinaux.plugman.util.PluginUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.farmmc.core.CoreHandler;
+import tokyo.ramune.farmmc.core.command.CommandHandler;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.util.Notice;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class FarmMC extends JavaPlugin {
     private static FarmMC plugin;
-    private static List<ModeHandler> modeHandlers = new ArrayList<>();
+    private static Set<ModeHandler> modeHandlers = new HashSet<>();
 
     public static FarmMC getPlugin() {
         return plugin;
@@ -27,6 +29,13 @@ public final class FarmMC extends JavaPlugin {
             return;
 
         modeHandlers.add(modeHandler);
+
+        if (modeHandler.getListeners() != null)
+            modeHandler.getListeners().forEach(HandlerList::unregisterAll);
+
+        if (modeHandler.getSubCommands() != null)
+            modeHandler.getSubCommands().forEach(CommandHandler::unregisterSubCommands);
+
         modeHandler.onLoad();
     }
 
@@ -35,13 +44,19 @@ public final class FarmMC extends JavaPlugin {
             if (!modeHandlers.contains(modeHandler))
                 return;
 
+            if (modeHandler.getListeners() != null)
+                modeHandler.getListeners().forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, plugin));
+
+            if (modeHandler.getSubCommands() != null)
+                modeHandler.getSubCommands().forEach(CommandHandler::registerSubCommands);
+
             modeHandler.onUnload();
         }
 
-        modeHandlers = new ArrayList<>();
+        modeHandlers = new HashSet<>();
     }
 
-    public static List<ModeHandler> getModeHandlers() {
+    public static Set<ModeHandler> getModeHandlers() {
         return modeHandlers;
     }
 
@@ -58,7 +73,7 @@ public final class FarmMC extends JavaPlugin {
     public void reloadScheduled(int seconds) {
         Notice.noticeAutoRestart(seconds);
 
-
+        // TODO: 2022/11/26
     }
 
     public void reload() {
@@ -73,7 +88,7 @@ public final class FarmMC extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        modeHandlers = new ArrayList<>();
+        modeHandlers = new HashSet<>();
 
         registerModeHandler(new CoreHandler());
 

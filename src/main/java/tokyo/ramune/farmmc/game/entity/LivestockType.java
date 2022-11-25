@@ -2,7 +2,7 @@ package tokyo.ramune.farmmc.game.entity;
 
 import org.bukkit.entity.EntityType;
 
-public enum FarmLivestockType {
+public enum LivestockType {
     SHEEP(EntityType.SHEEP),
     COW(EntityType.COW),
     PIG(EntityType.PIG),
@@ -19,7 +19,7 @@ public enum FarmLivestockType {
 
     private final EntityType type;
 
-    FarmLivestockType(EntityType type) {
+    LivestockType(EntityType type) {
         this.type = type;
     }
 }

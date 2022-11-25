@@ -310,5 +310,26 @@ public class SQL {
                 .replaceAll("'", "")
                 .replaceAll(";", "");
     }
+
+    public static boolean isNull(Object value) {
+        return value == null || value.equals("null");
+    }
+
+    public static String wrapSingleTone(String text) {
+        return "'" + text + "'";
+    }
+
+    public static long toLong(@Nonnull Object value) {
+        try {
+            return (long) value;
+        } catch (Exception ignored) {
+        }
+        try {
+            return (long) (int) value;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+        return 0L;
+    }
 }
 

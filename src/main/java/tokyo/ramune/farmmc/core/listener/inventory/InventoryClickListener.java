@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.game.listener.farm;
+package tokyo.ramune.farmmc.core.listener.inventory;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,9 +10,7 @@ import tokyo.ramune.farmmc.core.menu.Menu;
 import tokyo.ramune.farmmc.core.menu.MenuHandler;
 import tokyo.ramune.farmmc.core.menu.MenuItem;
 
-import java.util.Objects;
-
-public class FarmMenuClickListener implements Listener {
+public class InventoryClickListener implements Listener {
     @EventHandler
     public void onFarmMenuClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();

@@ -48,6 +48,13 @@ public class CommandHandler {
         return false;
     }
 
+    public static void unregisterSubCommands(SubCommand... registeredSubCommands) {
+        for (SubCommand subCommand : registeredSubCommands) {
+            if (isRegistered(subCommand))
+                subCommands.remove(subCommand);
+        }
+    }
+
     public static void unregisterAllSubCommands() {
         subCommands = new HashSet<>();
     }
@@ -111,7 +118,7 @@ class TabCompleter implements org.bukkit.command.TabCompleter {
             }
 
             Collections.sort(completions);
-            
+
             return completions;
         }
         return null;

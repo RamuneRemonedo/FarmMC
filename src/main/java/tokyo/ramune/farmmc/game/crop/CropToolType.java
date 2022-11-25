@@ -1,6 +1,6 @@
 package tokyo.ramune.farmmc.game.crop;
 
-public enum FarmCropToolType {
+public enum CropToolType {
     HOE,
     AXE
 }

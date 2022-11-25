@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.game.crop;
+package tokyo.ramune.farmmc.game.entity;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;

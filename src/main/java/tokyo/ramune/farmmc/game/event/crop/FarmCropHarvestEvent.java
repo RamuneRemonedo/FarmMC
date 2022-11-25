@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import tokyo.ramune.farmmc.game.crop.FarmCropType;
+import tokyo.ramune.farmmc.game.crop.CropType;
 import tokyo.ramune.farmmc.game.player.PlayerStatus;
 
 import javax.annotation.Nonnull;
@@ -14,11 +14,11 @@ public class FarmCropHarvestEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Player player;
     private final Location blockLocation;
-    private final FarmCropType type;
+    private final CropType type;
 
     private boolean cancelled;
 
-    public FarmCropHarvestEvent(@Nonnull Player player, @Nonnull Location blockLocation, @Nonnull FarmCropType type) {
+    public FarmCropHarvestEvent(@Nonnull Player player, @Nonnull Location blockLocation, @Nonnull CropType type) {
         this.player = player;
         this.blockLocation = blockLocation;
         this.type = type;
@@ -36,7 +36,7 @@ public class FarmCropHarvestEvent extends Event implements Cancellable {
         return new PlayerStatus(player);
     }
 
-    public FarmCropType getType() {
+    public CropType getType() {
         return type;
     }
 

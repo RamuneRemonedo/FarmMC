@@ -38,3 +38,5 @@ lang:
   BOSSBAR_MAINTENANCE_TITLE: "&c&lThis plugin are running under maintenance mode!"
   BOSSBAR_EXP_TITLE: "&b&lExp &f:&f  {0}&f / &7{1}"
   BOSSBAR_COIN_TITLE: "&e&lCoin &f:&f  {0}"
+
+  QUEST_HELLO_MESSAGE: "hello"

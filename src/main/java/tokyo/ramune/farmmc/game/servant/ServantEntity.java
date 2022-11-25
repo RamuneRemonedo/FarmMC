@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.game.crop;
+package tokyo.ramune.farmmc.game.servant;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -10,15 +10,16 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import tokyo.ramune.farmmc.game.GameHandler;
+import tokyo.ramune.farmmc.game.entity.NameTagHandler;
 
 import java.util.Arrays;
 
-public class FarmServantEntity {
+public class ServantEntity {
     private final NameTagHandler nameTagHandler;
     private final Location location;
     private ArmorStand servant;
 
-    public FarmServantEntity(Location location) {
+    public ServantEntity(Location location) {
         this.location = location;
 
         spawn();

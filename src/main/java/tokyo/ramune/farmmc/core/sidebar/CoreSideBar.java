@@ -3,7 +3,6 @@ package tokyo.ramune.farmmc.core.sidebar;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.FarmMC;
-import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 
 import java.util.Arrays;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package tokyo.ramune.farmmc.game.crop;
+package tokyo.ramune.farmmc.game.servant;
 
 import org.bukkit.entity.ArmorStand;
 
@@ -6,19 +6,19 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FarmServantHandler {
-    private static List<FarmServantEntity> servants = new ArrayList<>();
+public class ServantHandler {
+    private static List<ServantEntity> servants = new ArrayList<>();
 
     public static void initialize() {
         servants = new ArrayList<>();
     }
 
     public static void removeAll() {
-        servants.forEach(FarmServantEntity::remove);
+        servants.forEach(ServantEntity::remove);
         servants = new ArrayList<>();
     }
 
-    public static void register(@Nonnull FarmServantEntity servant) {
+    public static void register(@Nonnull ServantEntity servant) {
         if (servants.contains(servant))
             return;
 
@@ -26,14 +26,14 @@ public class FarmServantHandler {
     }
 
     public static boolean isServant(ArmorStand armorStand) {
-        for (FarmServantEntity servant : servants) {
+        for (ServantEntity servant : servants) {
             if (servant.getServantEntity().equals(armorStand))
                 return true;
         }
         return false;
     }
 
-    public static List<FarmServantEntity> getServants() {
+    public static List<ServantEntity> getServants() {
         return servants;
     }
 }

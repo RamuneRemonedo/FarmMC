@@ -4,10 +4,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import tokyo.ramune.farmmc.core.database.SQL;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
+import tokyo.ramune.farmmc.core.util.Notice;
 
 import javax.annotation.Nonnull;
 
-public class FarmQuestHandler {
+public class QuestHandler {
     public static void createTable() {
         if (SQL.tableExists("quest"))
             return;
@@ -17,40 +18,48 @@ public class FarmQuestHandler {
 
     private static String toColumQuests() {
         String colum = "";
-        for (FarmQuest quest : FarmQuest.values()) {
+        for (Quest quest : Quest.values()) {
             colum += "," + quest.name() + " BOOLEAN NOT NULL DEFAULT false";
         }
 
         return colum;
     }
 
-    public static FarmQuest getCurrentQuest(@Nonnull Player player) {
+    public static Quest getCurrentQuest(@Nonnull Player player) {
         return null;// TODO: 2022/11/19
     }
 
     public static void check(@Nonnull Event event) {
-        for (FarmQuest quest : FarmQuest.values()) {
+        for (Quest quest : Quest.values()) {
             if (!quest.getTriggerEventClass().getName().equals(event.getClass().getName()))
                 return;
 
             Player targetPlayer = quest.getQuestCondition().apply(event);
-            if (targetPlayer != null)
-                set(targetPlayer, quest, true);
+
+            if (targetPlayer == null)
+                return;
+
+            if (alreadyGranted(targetPlayer, quest))
+                return;
+
+            if (quest.getRequireQuest() != null
+                    && !QuestHandler.alreadyGranted(targetPlayer, quest.getRequireQuest()))
+                return;
+
+            set(targetPlayer, quest, true);
+            Notice.noticeQuestComplete(targetPlayer, quest);
         }
     }
 
-    public static void set(@Nonnull Player player, @Nonnull FarmQuest quest, boolean grant) {
-        if (grant == alreadyGranted(player, quest))
-            return;
-
+    public static void set(@Nonnull Player player, @Nonnull Quest quest, boolean grant) {
         if (!exists(player))
             insert(player);
 
-        SQL.set(quest.name(), grant ? 1 : 0, "uuid", "=", player.getUniqueId().toString(), "quest");
+        SQL.set(quest.name(), grant, "uuid", "=", player.getUniqueId().toString(), "quest");
         System.out.println(LanguageHandler.getPhase("en", quest.getTitlePhase()) + " granted!");
     }
 
-    public static boolean alreadyGranted(@Nonnull Player player, @Nonnull FarmQuest quest) {
+    public static boolean alreadyGranted(@Nonnull Player player, @Nonnull Quest quest) {
         if (!exists(player))
             return false;
 
@@ -59,7 +68,7 @@ public class FarmQuestHandler {
         if (result == null)
             return false;
 
-        return (boolean) result;
+        return Boolean.parseBoolean((String) result);
     }
 
     private static void insert(@Nonnull Player player) {

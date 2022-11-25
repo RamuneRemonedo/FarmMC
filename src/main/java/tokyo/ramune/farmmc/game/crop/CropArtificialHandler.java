@@ -10,7 +10,7 @@ public class CropArtificialHandler {
         if (SQL.tableExists("crop"))
             return;
 
-        SQL.createTable("crop", "uuid TEXT NOT NULL, x INT NOT NULL, y INT NOT NULL, z INT NOT NULL");
+        SQL.createTable("crop", "world_uuid TEXT NOT NULL, x INT NOT NULL, y INT NOT NULL, z INT NOT NULL");
     }
 
     public static void add(Location blockLocation) {
@@ -18,7 +18,7 @@ public class CropArtificialHandler {
             return;
 
         SQL.insertData(
-                "uuid, x, y, z",
+                "world_uuid, x, y, z",
                 "'" + blockLocation.getWorld().getUID() + "', " + blockLocation.getBlockX() + ", " + blockLocation.getBlockY() + ", " + blockLocation.getBlockZ(),
                 "crop");
     }
@@ -29,7 +29,7 @@ public class CropArtificialHandler {
 
         SQL.deleteData(
                 new HashMap<>() {{
-                    put("uuid", "'" + blockLocation.getWorld().getUID() + "'");
+                    put("world_uuid", "'" + blockLocation.getWorld().getUID() + "'");
                     put("x", String.valueOf(blockLocation.getBlockX()));
                     put("y", String.valueOf(blockLocation.getBlockY()));
                     put("z", String.valueOf(blockLocation.getBlockZ()));
@@ -40,7 +40,7 @@ public class CropArtificialHandler {
     public static boolean isArtificialPlaced(Location blockLocation) {
         return SQL.exists(
                 new HashMap<>() {{
-                    put("uuid", "'" + blockLocation.getWorld().getUID() + "'");
+                    put("world_uuid", "'" + blockLocation.getWorld().getUID() + "'");
                     put("x", String.valueOf(blockLocation.getBlockX()));
                     put("y", String.valueOf(blockLocation.getBlockY()));
                     put("z", String.valueOf(blockLocation.getBlockZ()));

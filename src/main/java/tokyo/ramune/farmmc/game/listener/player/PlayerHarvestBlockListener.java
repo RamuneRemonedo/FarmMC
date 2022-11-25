@@ -7,14 +7,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
-import tokyo.ramune.farmmc.game.crop.FarmCropType;
+import tokyo.ramune.farmmc.game.crop.CropType;
 import tokyo.ramune.farmmc.game.event.crop.FarmCropHarvestEvent;
 
 public class PlayerHarvestBlockListener implements Listener {
     @EventHandler
     public void onPlayerHarvestBlock(PlayerHarvestBlockEvent event) {
         Material material = event.getHarvestedBlock().getType();
-        FarmCropType cropType = FarmCropType.getCropType(material);
+        CropType cropType = CropType.getCropType(material);
 
         if (cropType == null)
             return;

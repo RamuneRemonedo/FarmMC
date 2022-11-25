@@ -33,7 +33,7 @@ public enum CoreSettingHandler {
     }
 
     private static void initializeData(@Nonnull UUID uuid) {
-            String columns = "uuid,", values = "";
+        String columns = "uuid,", values = "";
         for (CoreSettingHandler value : values()) {
             columns += value.name() + ",";
             values += wrapSingleQuotation(value.defaultValue.toString()) + ",";

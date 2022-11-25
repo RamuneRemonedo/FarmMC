@@ -2,7 +2,7 @@ package tokyo.ramune.farmmc.game.statistic;
 
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.core.database.SQL;
-import tokyo.ramune.farmmc.game.crop.FarmCropType;
+import tokyo.ramune.farmmc.game.crop.CropType;
 
 import javax.annotation.Nonnull;
 
@@ -33,48 +33,48 @@ public class StatisticHandler {
 
     private static String toBiglongColumCropTypes() {
         String colum = "";
-        for (FarmCropType cropType : FarmCropType.values()) {
+        for (CropType cropType : CropType.values()) {
             colum += "," + cropType.name() + " BIGINT DEFAULT 0 ";
         }
 
         return colum;
     }
 
-    public static void setHarvestCount(@Nonnull Player player, @Nonnull FarmCropType type, long count) {
+    public static void setHarvestCount(@Nonnull Player player, @Nonnull CropType type, long count) {
         if (!existsHarvest(player))
             createColum(player);
 
         SQL.set(type.name(), count, "uuid", "=", player.getUniqueId().toString(), "statistic_harvest");
     }
 
-    public static void setPlantCount(@Nonnull Player player, @Nonnull FarmCropType type, long count) {
+    public static void setPlantCount(@Nonnull Player player, @Nonnull CropType type, long count) {
         if (!existsPlant(player))
             createColum(player);
 
         SQL.set(type.name(), count, "uuid", "=", player.getUniqueId().toString(), "statistic_plant");
     }
 
-    public static long getHarvestCount(@Nonnull Player player, @Nonnull FarmCropType type) {
+    public static long getHarvestCount(@Nonnull Player player, @Nonnull CropType type) {
         if (!existsHarvest(player))
             return 0;
 
         Object value = SQL.get(type.name(), "uuid", "=", player.getUniqueId().toString(), "statistic_harvest");
-        return value == null ? 0 : (long) value;
+        return value == null ? 0 : SQL.toLong(value);
     }
 
-    public static long getPlantCount(@Nonnull Player player, @Nonnull FarmCropType type) {
+    public static long getPlantCount(@Nonnull Player player, @Nonnull CropType type) {
         if (!existsPlant(player))
             return 0;
 
         Object value = SQL.get(type.name(), "uuid", "=", player.getUniqueId().toString(), "statistic_plant");
-        return value == null ? 0 : (long) value;
+        return value == null ? 0 : SQL.toLong(value);
     }
 
-    public static void addHarvestCount(@Nonnull Player player, @Nonnull FarmCropType type, long count) {
+    public static void addHarvestCount(@Nonnull Player player, @Nonnull CropType type, long count) {
         setHarvestCount(player, type, getHarvestCount(player, type) + count);
     }
 
-    public static void addPlantCount(@Nonnull Player player, @Nonnull FarmCropType type, long count) {
+    public static void addPlantCount(@Nonnull Player player, @Nonnull CropType type, long count) {
         setPlantCount(player, type, getPlantCount(player, type) + count);
     }
 }
