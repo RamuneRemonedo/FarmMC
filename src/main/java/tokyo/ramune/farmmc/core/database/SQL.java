@@ -326,10 +326,27 @@ public class SQL {
         }
         try {
             return (long) (int) value;
-        } catch (ClassCastException e) {
-            e.printStackTrace();
+        } catch (ClassCastException ignored) {
         }
-        return 0L;
+
+        throw new ClassCastException("Cannot cast to Long.");
+    }
+
+    public static boolean toBoolean(@Nonnull Object value) {
+        try {
+            return (boolean) value;
+        } catch (Exception ignored) {
+        }
+        try {
+            return (int) value != 0;
+        } catch (Exception ignored) {
+        }
+        try {
+            return Boolean.parseBoolean((String) value);
+        } catch (Exception ignored) {
+        }
+
+        throw new ClassCastException("Cannot cast to boolean.");
     }
 }
 

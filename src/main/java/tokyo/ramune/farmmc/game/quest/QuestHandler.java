@@ -32,7 +32,7 @@ public class QuestHandler {
     public static void check(@Nonnull Event event) {
         for (Quest quest : Quest.values()) {
             if (!quest.getTriggerEventClass().getName().equals(event.getClass().getName()))
-                return;
+                continue;
 
             Player targetPlayer = quest.getQuestCondition().apply(event);
 
@@ -55,7 +55,7 @@ public class QuestHandler {
         if (!exists(player))
             insert(player);
 
-        SQL.set(quest.name(), grant, "uuid", "=", player.getUniqueId().toString(), "quest");
+        SQL.set(quest.name(), grant ? 1 : 0, "uuid", "=", player.getUniqueId().toString(), "quest");
         System.out.println(LanguageHandler.getPhase("en", quest.getTitlePhase()) + " granted!");
     }
 
@@ -68,7 +68,7 @@ public class QuestHandler {
         if (result == null)
             return false;
 
-        return Boolean.parseBoolean((String) result);
+        return SQL.toBoolean(result);
     }
 
     private static void insert(@Nonnull Player player) {

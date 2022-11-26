@@ -22,7 +22,7 @@ public class AuthHandler {
     public static void set(@Nonnull PlayerProfile playerProfile) {
         if (!SQL.exists("player_uuid", playerProfile.getPlayerUniqueId().toString(), "auth")) {
             SQL.insertData("player_uuid, last_login_date, last_login_address, banned_date, banned_reason",
-                    "'" + playerProfile.getPlayerUniqueId() + "','" + playerProfile.getLastLoginDate() + "','" + playerProfile.getLastLoginAddress() + "','" + playerProfile.getBannedDate() + "','" + playerProfile.getBannedReason() + "'",
+                    "'" + playerProfile.getPlayerUniqueId() + "','" + playerProfile.getLastLoginDate() + "','" + playerProfile.getLastLoginAddress() + "'," + playerProfile.getBannedDate() + "," + playerProfile.getBannedReason(),
                     "auth");
         } else {
             SQL.set("last_login_date", playerProfile.getLastLoginDate() == null ? null : playerProfile.getLastLoginDate().toString(), "player_uuid", "=", playerProfile.getPlayerUniqueId().toString(), "auth");

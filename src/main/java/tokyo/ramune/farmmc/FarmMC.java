@@ -31,10 +31,10 @@ public final class FarmMC extends JavaPlugin {
         modeHandlers.add(modeHandler);
 
         if (modeHandler.getListeners() != null)
-            modeHandler.getListeners().forEach(HandlerList::unregisterAll);
+            modeHandler.getListeners().forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, plugin));
 
         if (modeHandler.getSubCommands() != null)
-            modeHandler.getSubCommands().forEach(CommandHandler::unregisterSubCommands);
+            modeHandler.getSubCommands().forEach(CommandHandler::registerSubCommands);
 
         modeHandler.onLoad();
     }
@@ -45,10 +45,11 @@ public final class FarmMC extends JavaPlugin {
                 return;
 
             if (modeHandler.getListeners() != null)
-                modeHandler.getListeners().forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, plugin));
+                modeHandler.getListeners().forEach(HandlerList::unregisterAll);
 
             if (modeHandler.getSubCommands() != null)
-                modeHandler.getSubCommands().forEach(CommandHandler::registerSubCommands);
+                modeHandler.getSubCommands().forEach(CommandHandler::unregisterSubCommands);
+
 
             modeHandler.onUnload();
         }
