@@ -3,9 +3,11 @@ package tokyo.ramune.farmmc.core.subcommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.FarmMC;
+import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
+import tokyo.ramune.farmmc.core.util.Notice;
 import tokyo.ramune.farmmc.core.util.Permission;
 
 public class ReloadSubCommand implements SubCommand {
@@ -37,6 +39,7 @@ public class ReloadSubCommand implements SubCommand {
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
-        FarmMC.getPlugin().reloadScheduled(60);
+        CoreHandler.getInstance().getShutdownHandler().startShutdownTimer(60);
+        Notice.noticeAutoRestart(60);
     }
 }

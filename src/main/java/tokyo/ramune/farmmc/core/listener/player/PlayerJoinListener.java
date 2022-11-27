@@ -7,13 +7,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.auth.AuthHandler;
+import tokyo.ramune.farmmc.core.bossbar.FarmBossBar;
+import tokyo.ramune.farmmc.core.bossbar.FarmBossBarHandler;
+import tokyo.ramune.farmmc.core.bossbar.ShutdownBossBar;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
-import tokyo.ramune.farmmc.core.database.SQLDate;
 import tokyo.ramune.farmmc.core.sidebar.CoreSideBar;
 import tokyo.ramune.farmmc.core.sidebar.SideBar;
 import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
 import tokyo.ramune.farmmc.core.util.Notice;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -24,7 +28,7 @@ public class PlayerJoinListener implements Listener {
 
         // Auth
         AuthHandler.get(player.getUniqueId())
-                .setLastLoginDate(new SQLDate())
+                .setLastLoginDate(LocalDateTime.now())
                 .setLastLoginAddress(Objects.requireNonNull(player.getAddress()).getHostName())
                 .apply();
 
@@ -51,5 +55,8 @@ public class PlayerJoinListener implements Listener {
         SideBar sideBar = new CoreSideBar(player);
         SideBarHandler.setSideBar(sideBar);
         sideBar.show();
+
+        // Shutdown bossBar
+        FarmBossBarHandler.create(new ShutdownBossBar(player));
     }
 }

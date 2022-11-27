@@ -71,12 +71,6 @@ public final class FarmMC extends JavaPlugin {
         return null;
     }
 
-    public void reloadScheduled(int seconds) {
-        Notice.noticeAutoRestart(seconds);
-
-        // TODO: 2022/11/26
-    }
-
     public void reload() {
         try {
             PluginUtil.reload(this);

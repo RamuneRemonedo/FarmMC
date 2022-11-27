@@ -5,6 +5,7 @@ import org.bukkit.event.Listener;
 import org.jetbrains.annotations.Nullable;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.ModeHandler;
+import tokyo.ramune.farmmc.Shutdown;
 import tokyo.ramune.farmmc.core.auth.AuthHandler;
 import tokyo.ramune.farmmc.core.bossbar.FarmBossBarHandler;
 import tokyo.ramune.farmmc.core.command.CommandHandler;
@@ -30,6 +31,7 @@ import java.util.Set;
 public class CoreHandler implements ModeHandler {
     private static CoreHandler instance;
     private CoreConfig coreConfig;
+    private final Shutdown shutdownHandler = new Shutdown();
 
     public static CoreHandler getInstance() {
         return instance;
@@ -108,5 +110,9 @@ public class CoreHandler implements ModeHandler {
 
     public CoreConfig getCoreConfig() {
         return coreConfig;
+    }
+
+    public Shutdown getShutdownHandler() {
+        return shutdownHandler;
     }
 }

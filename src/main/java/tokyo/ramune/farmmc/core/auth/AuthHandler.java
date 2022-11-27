@@ -1,9 +1,10 @@
 package tokyo.ramune.farmmc.core.auth;
 
 import tokyo.ramune.farmmc.core.database.SQL;
-import tokyo.ramune.farmmc.core.database.SQLDate;
 
 import javax.annotation.Nonnull;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class AuthHandler {
@@ -13,21 +14,21 @@ public class AuthHandler {
 
         SQL.createTable("auth",
                 "player_uuid TEXT NOT NULL," +
-                        "last_login_date DATE," +
+                        "last_login_datetime DATETIME," +
                         "last_login_address TEXT," +
-                        "banned_date DATE," +
+                        "banned_datetime DATETIME," +
                         "banned_reason TEXT");
     }
 
     public static void set(@Nonnull PlayerProfile playerProfile) {
         if (!SQL.exists("player_uuid", playerProfile.getPlayerUniqueId().toString(), "auth")) {
-            SQL.insertData("player_uuid, last_login_date, last_login_address, banned_date, banned_reason",
+            SQL.insertData("player_uuid, last_login_datetime, last_login_address, banned_datetime, banned_reason",
                     "'" + playerProfile.getPlayerUniqueId() + "','" + playerProfile.getLastLoginDate() + "','" + playerProfile.getLastLoginAddress() + "'," + playerProfile.getBannedDate() + "," + playerProfile.getBannedReason(),
                     "auth");
         } else {
-            SQL.set("last_login_date", playerProfile.getLastLoginDate() == null ? null : playerProfile.getLastLoginDate().toString(), "player_uuid", "=", playerProfile.getPlayerUniqueId().toString(), "auth");
+            SQL.set("last_login_datetime", playerProfile.getLastLoginDate() == null ? null : playerProfile.getLastLoginDate().toString(), "player_uuid", "=", playerProfile.getPlayerUniqueId().toString(), "auth");
             SQL.set("last_login_address", playerProfile.getLastLoginAddress(), "player_uuid", "=", playerProfile.getPlayerUniqueId().toString(), "auth");
-            SQL.set("banned_date", playerProfile.getLastLoginDate() == null ? null : playerProfile.getLastLoginDate().toString(), "player_uuid", "=", playerProfile.getPlayerUniqueId().toString(), "auth");
+            SQL.set("banned_datetime", playerProfile.getLastLoginDate() == null ? null : playerProfile.getLastLoginDate().toString(), "player_uuid", "=", playerProfile.getPlayerUniqueId().toString(), "auth");
             SQL.set("banned_reason", playerProfile.getBannedReason(), "player_uuid", "=", playerProfile.getPlayerUniqueId().toString(), "auth");
         }
     }
@@ -36,15 +37,15 @@ public class AuthHandler {
         if (!SQL.exists("player_uuid", playerUuid.toString(), "auth"))
             return new PlayerProfile(playerUuid, null, null, null, null);
 
-        Object lastLoginDate = SQL.get("last_login_date", "player_uuid", "=", playerUuid.toString(), "auth"),
+        Object lastLoginDatetime = SQL.get("last_login_datetime", "player_uuid", "=", playerUuid.toString(), "auth"),
                 lastLoginAddress = SQL.get("last_login_address", "player_uuid", "=", playerUuid.toString(), "auth"),
-                bannedDate = SQL.get("banned_date", "player_uuid", "=", playerUuid.toString(), "auth"),
+                bannedDatetime = SQL.get("banned_datetime", "player_uuid", "=", playerUuid.toString(), "auth"),
                 bannedReason = SQL.get("banned_reason", "player_uuid", "=", playerUuid.toString(), "auth");
 
         return new PlayerProfile(playerUuid,
-                SQL.isNull(lastLoginDate) ? null : new SQLDate((String) lastLoginDate),
+                SQL.isNull(lastLoginDatetime) ? null : (LocalDateTime) lastLoginDatetime,
                 SQL.isNull(lastLoginAddress) ? null : (String) lastLoginAddress,
-                SQL.isNull(bannedDate) ? null : new SQLDate((String) bannedDate),
+                SQL.isNull(bannedDatetime) ? null : (LocalDateTime) bannedDatetime,
                 SQL.isNull(bannedReason) ? null : (String) bannedReason);
     }
 

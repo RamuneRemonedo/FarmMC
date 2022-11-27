@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tokyo.ramune.farmmc.core.command.SubCommand;
+import tokyo.ramune.farmmc.core.language.Language;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
@@ -27,7 +28,7 @@ public class LanguageSubCommand implements SubCommand {
 
     @Override
     public String getHelp(CommandSender sender) {
-        return LanguageHandler.getPhase(sender, Phase.COMMAND_LANGUAGE_HELP) + Arrays.toString(LanguageHandler.getSupportedLangCodes());
+        return LanguageHandler.getPhase(sender, Phase.COMMAND_LANGUAGE_HELP) + Arrays.toString(Language.values());
     }
 
     @Override

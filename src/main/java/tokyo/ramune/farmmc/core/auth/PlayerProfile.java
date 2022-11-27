@@ -1,32 +1,31 @@
 package tokyo.ramune.farmmc.core.auth;
 
-import tokyo.ramune.farmmc.core.database.SQLDate;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class PlayerProfile {
     @Nonnull
     private final UUID playerUniqueId;
     @Nullable
-    private SQLDate lastLoginDate;
+    private LocalDateTime lastLoginDatetime;
     @Nullable
     private String lastLoginAddress;
     @Nullable
-    private SQLDate bannedDate;
+    private LocalDateTime bannedDatetime;
     @Nullable
     private String bannedReason;
 
     public PlayerProfile(@Nonnull UUID playerUniqueId,
-                         @Nullable SQLDate lastLoginDate,
+                         @Nullable LocalDateTime lastLoginDatetime,
                          @Nullable String lastLoginAddress,
-                         @Nullable SQLDate bannedDate,
+                         @Nullable LocalDateTime bannedDatetime,
                          @Nullable String bannedReason) {
         this.playerUniqueId = playerUniqueId;
-        this.lastLoginDate = lastLoginDate;
+        this.lastLoginDatetime = lastLoginDatetime;
         this.lastLoginAddress = lastLoginAddress;
-        this.bannedDate = bannedDate;
+        this.bannedDatetime = bannedDatetime;
         this.bannedReason = bannedReason;
     }
 
@@ -36,8 +35,8 @@ public class PlayerProfile {
     }
 
     @Nullable
-    public SQLDate getLastLoginDate() {
-        return lastLoginDate;
+    public LocalDateTime getLastLoginDate() {
+        return lastLoginDatetime;
     }
 
     @Nullable
@@ -46,8 +45,8 @@ public class PlayerProfile {
     }
 
     @Nullable
-    public SQLDate getBannedDate() {
-        return bannedDate;
+    public LocalDateTime getBannedDate() {
+        return bannedDatetime;
     }
 
     @Nullable
@@ -55,8 +54,8 @@ public class PlayerProfile {
         return bannedReason;
     }
 
-    public PlayerProfile setLastLoginDate(@Nullable SQLDate lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
+    public PlayerProfile setLastLoginDate(@Nullable LocalDateTime lastLoginDatetime) {
+        this.lastLoginDatetime = lastLoginDatetime;
         return this;
     }
 
@@ -65,8 +64,8 @@ public class PlayerProfile {
         return this;
     }
 
-    public PlayerProfile setBannedDate(@Nullable SQLDate bannedDate) {
-        this.bannedDate = bannedDate;
+    public PlayerProfile setBannedDate(@Nullable LocalDateTime bannedDatetime) {
+        this.bannedDatetime = bannedDatetime;
         return this;
     }
 
@@ -76,7 +75,7 @@ public class PlayerProfile {
     }
 
     public PlayerProfile ban(@Nonnull String reason) {
-        setBannedDate(new SQLDate());
+        setBannedDate(LocalDateTime.now());
         setBannedReason(reason);
         return this;
     }
@@ -92,6 +91,6 @@ public class PlayerProfile {
     }
 
     public boolean isBanned() {
-        return bannedDate != null;
+        return bannedDatetime != null;
     }
 }

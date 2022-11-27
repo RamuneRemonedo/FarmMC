@@ -1,5 +1,6 @@
 package tokyo.ramune.farmmc.core.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -65,10 +66,19 @@ public class Notice {
     public static void noticeQuestComplete(@Nonnull Player player, @Nonnull Quest quest) {
         Bukkit.getScheduler().runTaskAsynchronously(CoreHandler.getInstance().getPlugin(), () -> {
             try {
+                Chat.sendMessage(
+                        player,
+                        LanguageHandler.getPhase(player, Phase.NOTICE_QUEST_COMPLETE)
+                                .replace("{0}", quest.getTitle().apply(LanguageHandler.getLanguage(player)))
+                                .replace("{1}", String.valueOf(quest.getReward().getExp()))
+                                .replace("{2}", String.valueOf(quest.getReward().getCoin()))
+                                .replace("{3}", quest.getReward().getItemStacks().size() < 1 ? "none" : quest.getReward().getItemStacks().get(0).getItemMeta().getDisplayName()),
+                        true);
+
                 player.spawnParticle(Particle.SCULK_SOUL, player.getLocation().add(0, 1.5, 0), 100, 0.0, 0.1, 0.1, 0.1);
                 for (int i = 0; i < 20; i++) {
                     player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 0.00F + i * 0.02F, 1.78F);
-                    Thread.sleep(30);
+                    Thread.sleep(50);
                 }
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 0.59F);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1.19F);

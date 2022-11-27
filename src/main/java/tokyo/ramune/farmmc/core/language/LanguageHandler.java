@@ -14,8 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LanguageHandler {
-    private static final String[] supportedLangCodes = {"en", "ja"};
-    private static final Map<String, ConfigFile> languageConfigs = new HashMap<>();
+    private static final Map<Language, ConfigFile> languageConfigs = new HashMap<>();
 
     public static void createTable() {
         if (SQL.tableExists("language"))
@@ -27,7 +26,10 @@ public class LanguageHandler {
     public static void load() {
         languageConfigs.clear();
 
-        for (String langCode : supportedLangCodes) {
+        for (Language langCode : Language.values()) {
+            if (langCode.equals(Language.DEFAULT))
+                continue;
+
             ConfigFile languageConfig = new ConfigFile(FarmMC.getPlugin(), langCode + "_lang.yml");
 
             languageConfig.saveDefaultConfig();
@@ -43,13 +45,9 @@ public class LanguageHandler {
         }
     }
 
-    public static String[] getSupportedLangCodes() {
-        return supportedLangCodes;
-    }
-
     public static boolean isSupportedLangCode(String languageCode) {
-        for (String supportedLangCode : supportedLangCodes) {
-            if (supportedLangCode.equals(languageCode))
+        for (Language supportedLangCode : Language.values()) {
+            if (supportedLangCode.name().equalsIgnoreCase(languageCode))
                 return true;
         }
 
@@ -59,47 +57,51 @@ public class LanguageHandler {
     private static boolean existsDefaultLanguage() {
         String defaultLanguage = CoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT;
 
-        for (String supportedLangCode : supportedLangCodes) {
-            if (supportedLangCode.equals(defaultLanguage))
+        for (Language supportedLangCode : Language.values()) {
+            if (supportedLangCode.name().equalsIgnoreCase(defaultLanguage))
                 return true;
         }
 
         return false;
     }
 
-    public static String getPhase(@Nonnull Player player, Phase phase) {
-        String langCode = CoreSettingHandler.LANGUAGE.getData(player.getUniqueId()).getAsString();
+    public static Language getLanguage(@Nonnull Player player) {
+        return Language.valueOf(CoreSettingHandler.LANGUAGE.getData(player.getUniqueId()).getAsString().toUpperCase());
+    }
 
-        return getPhase(langCode, phase);
+    public static String getPhase(@Nonnull Player player, Phase phase) {
+        Language language = Language.valueOf(CoreSettingHandler.LANGUAGE.getData(player.getUniqueId()).getAsString().toUpperCase());
+
+        return getPhase(language, phase);
     }
 
     public static String getPhase(@Nonnull CommandSender sender, Phase phase) {
-        String langCode;
+        Language language;
 
         if (sender instanceof Player) {
-            langCode = CoreSettingHandler.LANGUAGE.getData(((Player) sender).getUniqueId()).getAsString();
+            language = Language.valueOf(CoreSettingHandler.LANGUAGE.getData(((Player) sender).getUniqueId()).getAsString().toUpperCase());
         } else {
-            langCode = "en";
+            language = Language.EN;
         }
 
-        return getPhase(langCode, phase);
+        return getPhase(language, phase);
     }
 
-    public static String getPhase(String langCode, Phase phase) {
-        if (langCode.equals("default"))
-            langCode = CoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT;
+    public static String getPhase(Language language, Phase phase) {
+        if (language.equals(Language.DEFAULT))
+            language = Language.valueOf(CoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT.toUpperCase());
 
         return Chat.replaceColor(
-                getRawPhase(langCode, phase),
-                getRawPhase(langCode, Phase.LANG_COLOR_PREFIX).toCharArray()[0]
+                getRawPhase(language, phase),
+                getRawPhase(language, Phase.LANG_COLOR_PREFIX).charAt(0)
         );
     }
 
-    public static String getRawPhase(String langCode, Phase phase) {
-        if (!languageConfigs.containsKey(langCode))
+    public static String getRawPhase(Language language, Phase phase) {
+        if (!languageConfigs.containsKey(language))
             return "Config File Missing.";
 
-        ConfigFile languageConfig = languageConfigs.get(langCode);
+        ConfigFile languageConfig = languageConfigs.get(language);
 
         return languageConfig.getConfig().getString("lang." + phase.name(), "\"Cannot find " + phase.name() + " phase\"");
     }

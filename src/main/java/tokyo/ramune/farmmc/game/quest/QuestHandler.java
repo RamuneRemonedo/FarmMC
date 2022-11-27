@@ -56,7 +56,7 @@ public class QuestHandler {
             insert(player);
 
         SQL.set(quest.name(), grant ? 1 : 0, "uuid", "=", player.getUniqueId().toString(), "quest");
-        System.out.println(LanguageHandler.getPhase("en", quest.getTitlePhase()) + " granted!");
+        System.out.println(quest.getTitle().apply(LanguageHandler.getLanguage(player)) + " granted!");
     }
 
     public static boolean alreadyGranted(@Nonnull Player player, @Nonnull Quest quest) {

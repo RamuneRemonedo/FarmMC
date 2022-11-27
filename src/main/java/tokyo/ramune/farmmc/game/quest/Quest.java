@@ -1,11 +1,15 @@
 package tokyo.ramune.farmmc.game.quest;
 
+import io.papermc.paper.event.block.BlockBreakBlockEvent;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import tokyo.ramune.farmmc.core.language.Language;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 
@@ -14,8 +18,7 @@ import java.util.function.Function;
 
 public enum Quest {
     FIRST_JOIN(
-            Phase.QUEST_FIRST_JOIN_TITLE,
-            Phase.QUEST_HELLO_DESCRIPTION,
+            language -> LanguageHandler.getPhase(language, Phase.QUEST_FIRST_JOIN_TITLE),
             QuestDifficulty.EASY,
             null,
             PlayerJoinEvent.class,
@@ -26,16 +29,13 @@ public enum Quest {
             new QuestReward(100, 100, null)
     ),
     HELLO(
-            Phase.QUEST_HELLO_TITLE,
-            Phase.QUEST_HELLO_DESCRIPTION,
+            language -> LanguageHandler.getPhase(language, Phase.QUEST_HELLO_TITLE),
             QuestDifficulty.EASY,
             null,
             PlayerChatEvent.class,
             event -> {
                 PlayerChatEvent castedEvent = (PlayerChatEvent) event;
                 Player player = castedEvent.getPlayer();
-
-                System.out.println("aaa");
 
                 if (castedEvent.getMessage()
                         .contains(LanguageHandler.getPhase(player, Phase.QUEST_HELLO_MESSAGE)))
@@ -45,11 +45,25 @@ public enum Quest {
             },
             new QuestReward(100, 100, null)
     ),
-    CRAFT_WORKBENCH(
-            Phase.QUEST_CRAFT_WORKBENCH_TITLE,
-            Phase.QUEST_CRAFT_WORKBENCH_DESCRIPTION,
+    COLLECT_LOG(
+            language -> LanguageHandler.getPhase(language, Phase.QUEST_COLLECT_TITLE)
+                    .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_LOG)),
             QuestDifficulty.EASY,
             HELLO,
+            BlockBreakEvent.class,
+            event -> {
+                BlockBreakEvent castedEvent = (BlockBreakEvent) event;
+                Player player = castedEvent.getPlayer();
+
+                return castedEvent.getBlock().getType().name().endsWith("LOG") ? player : null;
+            },
+            new QuestReward(100, 200, null)
+    ),
+    CRAFT_WORKBENCH(
+            language -> LanguageHandler.getPhase(language, Phase.QUEST_CRAFT_TITLE)
+                    .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_WORKBENCH)),
+            QuestDifficulty.EASY,
+            COLLECT_LOG,
             CraftItemEvent.class,
             event -> {
                 CraftItemEvent castedEvent = (CraftItemEvent) event;
@@ -59,10 +73,25 @@ public enum Quest {
                 return resultMaterial.equals(Material.CRAFTING_TABLE) ? player : null;
             },
             new QuestReward(100, 200, null)
-    );
+    ),
+    CRAFT_WOODEN_AXE(
+            language -> LanguageHandler.getPhase(language, Phase.QUEST_CRAFT_TITLE)
+                    .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_WOODEN_AXE)),
+            QuestDifficulty.NORMAL,
+            CRAFT_WORKBENCH,
+            CraftItemEvent.class,
+            event -> {
+                CraftItemEvent castedEvent = (CraftItemEvent) event;
+                Player player = (Player) castedEvent.getWhoClicked();
+                Material resultMaterial = castedEvent.getRecipe().getResult().getType();
 
-    private final Phase title;
-    private final Phase description;
+                return resultMaterial.equals(Material.WOODEN_AXE) ? player : null;
+            },
+            new QuestReward(100, 200, null)
+    ),
+    ;
+
+    private final Function<Language, String> title;
     private final QuestDifficulty difficulty;
     private final @Nullable Quest requireQuest;
     private final Class<? extends Event> triggerEventClass;
@@ -70,15 +99,13 @@ public enum Quest {
     private final QuestReward reward;
 
     Quest(
-            Phase title,
-            Phase description,
+            Function<Language, String> title,
             QuestDifficulty difficulty,
             @Nullable Quest requireQuest,
             Class<? extends Event> triggerEventClass,
             Function<Event, Player> questCondition,
             QuestReward reward) {
         this.title = title;
-        this.description = description;
         this.difficulty = difficulty;
         this.requireQuest = requireQuest;
         this.triggerEventClass = triggerEventClass;
@@ -86,12 +113,8 @@ public enum Quest {
         this.reward = reward;
     }
 
-    public Phase getTitlePhase() {
+    public Function<Language, String> getTitle() {
         return title;
-    }
-
-    public Phase getDescriptionPhase() {
-        return description;
     }
 
     public QuestDifficulty getDifficulty() {
