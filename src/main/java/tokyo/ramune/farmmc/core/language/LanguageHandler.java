@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class LanguageHandler {
     private static final Map<Language, ConfigFile> languageConfigs = new HashMap<>();
-
+    
     public static void createTable() {
         if (SQL.tableExists("language"))
             return;
@@ -30,14 +30,14 @@ public class LanguageHandler {
             if (langCode.equals(Language.DEFAULT))
                 continue;
 
-            ConfigFile languageConfig = new ConfigFile(FarmMC.getPlugin(), langCode + "_lang.yml");
+            ConfigFile languageConfig = new ConfigFile(FarmMC.getPlugin(), langCode.name().toLowerCase() + "_lang.yml");
 
             languageConfig.saveDefaultConfig();
             languageConfig.getConfig().options().copyDefaults(true);
             languageConfig.saveConfig();
 
             languageConfigs.put(langCode, languageConfig);
-            FarmMC.getPlugin().getLogger().info(langCode + "_lang.yml loaded!");
+            FarmMC.getPlugin().getLogger().info(langCode.name().toLowerCase() + "_lang.yml loaded!");
         }
 
         if (!existsDefaultLanguage()) {

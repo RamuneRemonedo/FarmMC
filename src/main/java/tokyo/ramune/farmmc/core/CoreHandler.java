@@ -94,7 +94,9 @@ public class CoreHandler implements ModeHandler {
                 new SettingSubCommand(),
                 new SQLQuerySubCommand(),
                 new BanSubCommand(),
-                new UnbanSubCommand());
+                new UnbanSubCommand(),
+                new ShutdownSubCommand()
+        );
     }
 
     private void connectDatabase() {

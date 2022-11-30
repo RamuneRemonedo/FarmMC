@@ -2,6 +2,8 @@ lang:
   LANG_COLOR_PREFIX: "&"
   LANG_NAME: "日本語"
 
+  LANGUAGE_MENU_TITLE: "表示言語の設定"
+
   PLUGIN_RESTART: "サーバーを再起動しています。 しばらく経ってからまた参加してください。"
 
   NOTICE_FIRST_JOIN_PLAYER: "&7[&a&l+&7] &7{0} がこのサーバーで初参加です! 歓迎しましょう!"
@@ -10,7 +12,7 @@ lang:
   NOTICE_LEVEL_UP_MESSAGE: "&a&lおめでとう! レベルアップしたよ!\n&b{0} &f> &b&l{1}"
   NOTICE_LEVEL_UP_TITLE: "&a&lレベルアップ!!"
   NOTICE_AUTO_RESTART_MESSAGE: "&l[&c&lお知らせ 重要&l] &cこのサーバーは{0}秒後に自動で再起動されます。\n再起動時はすべてのプレイヤーがキックされるので注意してください。\n再起動後、しばらく経つと再びサーバーに参加できるようになります。"
-  NOTICE_AUTO_RESTART_TITLE": "&e&lサーバー 再起動!"
+  NOTICE_AUTO_RESTART_TITLE: "&e&lサーバー 再起動!"
   NOTICE_AUTO_RESTART_SUB_TITLE: "&a定期再起動が行われます &7(あと &e{0}秒&7)"
   NOTICE_QUEST_COMPLETE: "&bクエスト&f(&a&l{0}&f)&bが達成されました! クエストが達成されたため報酬を与えられます\n&f&l・ &f&l&e{1}EXP\n&f&l・ &e{2}コイン\n&f&l・ &e&e{3}..."
 
@@ -44,6 +46,18 @@ lang:
   COMMAND_FORCE_SPAWN_SUCCESS: "&aスポーン位置の固定を{0}にしました!"
   COMMAND_SQL_QUERY_DESCRIPTION: "データベースにクエリを実行します"
   COMMAND_SQL_QUERY_HELP: "&l/farmmc query [query] &f&l:  でデータベースにクエリを実行"
+  COMMAND_BAN_DESCRIPTION: "プレイヤーの参加を禁止します"
+  COMMAND_BAN_HELP: "&l/farmmc spawn &f&l:  で現在の位置に設定"
+  COMMAND_BAN_PLAYER_NOT_FOUND: "指定されたプレイヤーが見つかりません"
+  COMMAND_BAN_SUCCESS: "そのプレイヤーの参加を禁止しました"
+  COMMAND_BAN_ALREADY_BANNED: "すでにそのプレイヤーの参加は禁止済みです"
+  COMMAND_UNBAN_DESCRIPTION: "スポーン位置を設定します"
+  COMMAND_UNBAN_HELP: "&l/farmmc spawn &f&l:  で現在の位置に設定"
+  COMMAND_UNBAN_PLAYER_NOT_FOUND: "そのプレイヤーが見つかりません"
+  COMMAND_UNBAN_ALREADY_UNBANNED: "そのプレイヤーの参加の禁止はすでに解除されています"
+  COMMAND_UNBAN_SUCCESS: "そのプレイヤーの参加の禁止を解除しました"
+  COMMAND_SHUTDOWN_DESCRIPTION: "スポーン位置を設定します"
+  COMMAND_SHUTDOWN_HELP: "&l/farmmc spawn &f&l:  で現在の位置に設定"
 
   SIDEBAR_VERSION: "バージョン"
   SIDEBAR_COIN: "コイン"
@@ -53,13 +67,22 @@ lang:
   WORLD_CROP_TEMPERATURE_MISMATCH: "[&c&l注意&f] &c今植えた植物の適温がその土地の温度と異なります。 植物がうまく育たない可能性があります。\nこのメッセージは設定から無効化できます"
   WORLD_CANNOT_PLACE: "[&c&l注意&f] &cそのブロックは設置可能ではありません。\nこのメッセージは設定から無効化できます"
 
-  BOSSBAR_SHURDOWN_TITLE: "&cサーバーシャットダウンまで あと{0}秒"
+  BOSSBAR_SHUTDOWN_TITLE: "&c&lサーバーシャットダウンまで あと&f{0}&c秒"
   BOSSBAR_MAINTENANCE_TITLE: "&c&lメンテナンスモードで実行中!"
   BOSSBAR_EXP_TITLE: "&b&l経験値 &f:&f  {0}&f / &7{1}"
   BOSSBAR_COIN_TITLE: "&e&l所持コイン &f:&f  {0}"
 
+
+  QUEST_MENU_TITLE: "クエストメニュー"
+  QUEST_CRAFT_TITLE: "{0}のクラフト"
+  QUEST_COLLECT_TITLE: "{0}の採取"
+  QUEST_FIRST_JOIN_TITLE: "初めてサーバーに参加する"
+  QUEST_HELLO_TITLE: "\"こんにちは\"とチャットで挨拶"
   QUEST_HELLO_MESSAGE: "こんにちは"
-  QUEST_CRAFT: ""
+  QUEST_WORKBENCH: "作業台"
+  QUEST_WOODEN_AXE: "木の斧"
+  QUEST_WOODEN_PICKAXE: "木のピッケル"
+  QUEST_LOG: "原木"
 
   MAINTENANCE_HELP: "メンテナンスモードでは基本op持ち以外のプレイヤーのログインは制限されています。 \n"
 
@@ -78,5 +101,9 @@ lang:
   SETTING_SIDEBAR_ENABLE_DESCRIPTION: "画面右に表示される情報を表示/非表示にします"
   SETTING_BOSSBAR_ENABLE_TITLE: "ボスバーの表示"
   SETTING_BOSSBAR_ENABLE_DESCRIPTION: "画面上に表示される情報を表示/非表示にします"
+
+  ANVIL_DENY_RENAMING: "金床でアイテム名を変更はできません"
+
+  COOK_MENU_TITLE: "調理メニュー"
 
   AUTH_BANNED: "&c現在、こののプレイヤーはサーバーの参加を禁止されています。\n\n&w理由: {0}\nこの禁止を取り下げるには運営にお問い合わせください"

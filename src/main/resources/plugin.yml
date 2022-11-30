@@ -37,6 +37,8 @@ permissions:
     default: op
   FarmMC.command.unban:
     default: op
+  FarmMC.command.shutdown:
+    default: op
 
   join.maintenance:
     default: op

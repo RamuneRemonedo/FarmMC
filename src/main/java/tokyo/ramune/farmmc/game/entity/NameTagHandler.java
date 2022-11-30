@@ -21,8 +21,6 @@ public class NameTagHandler {
             Objects.requireNonNull(getNameTag(index)).setText(text);
             return;
         }
-
-        System.out.println(index + " ");
         nameTags.add(new NameTag(text, index, location));
     }
 

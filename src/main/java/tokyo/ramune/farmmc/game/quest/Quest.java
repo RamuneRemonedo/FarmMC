@@ -1,8 +1,7 @@
 package tokyo.ramune.farmmc.game.quest;
 
-import io.papermc.paper.event.block.BlockBreakBlockEvent;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -13,6 +12,7 @@ import tokyo.ramune.farmmc.core.language.Language;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Function;
 
@@ -20,6 +20,8 @@ public enum Quest {
     FIRST_JOIN(
             language -> LanguageHandler.getPhase(language, Phase.QUEST_FIRST_JOIN_TITLE),
             QuestDifficulty.EASY,
+            Material.ACACIA_DOOR,
+            null,
             null,
             PlayerJoinEvent.class,
             event -> {
@@ -31,6 +33,8 @@ public enum Quest {
     HELLO(
             language -> LanguageHandler.getPhase(language, Phase.QUEST_HELLO_TITLE),
             QuestDifficulty.EASY,
+            Material.TORCH,
+            null,
             null,
             PlayerChatEvent.class,
             event -> {
@@ -49,6 +53,8 @@ public enum Quest {
             language -> LanguageHandler.getPhase(language, Phase.QUEST_COLLECT_TITLE)
                     .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_LOG)),
             QuestDifficulty.EASY,
+            Material.OAK_LOG,
+            World.Environment.NORMAL,
             HELLO,
             BlockBreakEvent.class,
             event -> {
@@ -63,6 +69,8 @@ public enum Quest {
             language -> LanguageHandler.getPhase(language, Phase.QUEST_CRAFT_TITLE)
                     .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_WORKBENCH)),
             QuestDifficulty.EASY,
+            Material.CRAFTING_TABLE,
+            World.Environment.NORMAL,
             COLLECT_LOG,
             CraftItemEvent.class,
             event -> {
@@ -78,6 +86,8 @@ public enum Quest {
             language -> LanguageHandler.getPhase(language, Phase.QUEST_CRAFT_TITLE)
                     .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_WOODEN_AXE)),
             QuestDifficulty.NORMAL,
+            Material.WOODEN_AXE,
+            World.Environment.NORMAL,
             CRAFT_WORKBENCH,
             CraftItemEvent.class,
             event -> {
@@ -93,6 +103,8 @@ public enum Quest {
 
     private final Function<Language, String> title;
     private final QuestDifficulty difficulty;
+    private final Material icon;
+    private final @Nullable World.Environment environment;
     private final @Nullable Quest requireQuest;
     private final Class<? extends Event> triggerEventClass;
     private final Function<Event, Player> questCondition;
@@ -101,12 +113,16 @@ public enum Quest {
     Quest(
             Function<Language, String> title,
             QuestDifficulty difficulty,
+            Material icon,
+            @Nullable World.Environment environment,
             @Nullable Quest requireQuest,
             Class<? extends Event> triggerEventClass,
             Function<Event, Player> questCondition,
             QuestReward reward) {
         this.title = title;
         this.difficulty = difficulty;
+        this.icon = icon;
+        this.environment = environment;
         this.requireQuest = requireQuest;
         this.triggerEventClass = triggerEventClass;
         this.questCondition = questCondition;
@@ -119,6 +135,15 @@ public enum Quest {
 
     public QuestDifficulty getDifficulty() {
         return difficulty;
+    }
+
+    public Material getIcon() {
+        return icon;
+    }
+
+    @Nullable
+    public World.Environment getEnvironment() {
+        return environment;
     }
 
     @Nullable
@@ -136,5 +161,9 @@ public enum Quest {
 
     public Class<? extends Event> getTriggerEventClass() {
         return triggerEventClass;
+    }
+
+    public boolean isGranted(@Nonnull Player player) {
+        return QuestHandler.isGranted(player, this);
     }
 }

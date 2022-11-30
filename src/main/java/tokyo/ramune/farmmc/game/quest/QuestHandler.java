@@ -39,11 +39,11 @@ public class QuestHandler {
             if (targetPlayer == null)
                 return;
 
-            if (alreadyGranted(targetPlayer, quest))
+            if (isGranted(targetPlayer, quest))
                 return;
 
             if (quest.getRequireQuest() != null
-                    && !QuestHandler.alreadyGranted(targetPlayer, quest.getRequireQuest()))
+                    && !QuestHandler.isGranted(targetPlayer, quest.getRequireQuest()))
                 return;
 
             set(targetPlayer, quest, true);
@@ -59,7 +59,7 @@ public class QuestHandler {
         System.out.println(quest.getTitle().apply(LanguageHandler.getLanguage(player)) + " granted!");
     }
 
-    public static boolean alreadyGranted(@Nonnull Player player, @Nonnull Quest quest) {
+    public static boolean isGranted(@Nonnull Player player, @Nonnull Quest quest) {
         if (!exists(player))
             return false;
 

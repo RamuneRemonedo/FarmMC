@@ -19,8 +19,5 @@ public class PlayerInteractListener implements Listener {
                 !event.getClickedBlock().getType().equals(Material.CAMPFIRE))
             return;
 
-        System.out.println("opened");
-
-
     }
 }

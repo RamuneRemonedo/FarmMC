@@ -7,6 +7,5 @@ import org.bukkit.event.Listener;
 public class BlockBreakBlockListener implements Listener {
     @EventHandler
     public void onBlockBreakBlock(BlockBreakBlockEvent event) {
-        System.out.println(event.getBlock().getType());
     }
 }

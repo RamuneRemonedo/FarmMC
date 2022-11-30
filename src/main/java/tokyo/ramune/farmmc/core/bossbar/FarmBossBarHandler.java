@@ -85,7 +85,7 @@ public class FarmBossBarHandler {
         if (updateTimer != null)
             updateTimer.cancel();
 
-        updateTimer = Bukkit.getScheduler().runTaskTimer(FarmMC.getPlugin(), FarmBossBarHandler::update, 20, 20);
+        updateTimer = Bukkit.getScheduler().runTaskTimer(FarmMC.getPlugin(), FarmBossBarHandler::update, 10, 10);
     }
 
     public static void updateVisible(@Nonnull Player player) {

@@ -31,7 +31,7 @@ public class CookMenu {
     }
 
     public MenuItem[] getMenuItems() {
-        List<MenuItem> menuItems = new ArrayList<>();
+        Set<MenuItem> menuItems = new HashSet<>();
 
         ItemStack background = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta backgroundMeta = background.getItemMeta();

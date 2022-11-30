@@ -12,6 +12,7 @@ public enum Permission {
     COMMAND_SQL$QUERY,
     COMMAND_BAN,
     COMMAND_UNBAN,
+    COMMAND_SHUTDOWN,
 
     JOIN_TEMPLATE,
     JOIN_MAINTENANCE;

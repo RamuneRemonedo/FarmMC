@@ -57,7 +57,12 @@ public class ShutdownBossBar extends FarmBossBar {
     public void update() {
         super.update();
 
-        setVisible(CoreHandler.getInstance().getShutdownHandler().getShutdownTimeLeft() > 0);
+        int leftTime = CoreHandler.getInstance().getShutdownHandler().getShutdownTimeLeft();
+        if (leftTime < 10 && leftTime > 0) {
+            setVisible(!isVisible());
+        } else {
+            setVisible(leftTime > 0);
+        }
     }
 
     @Override

@@ -12,8 +12,7 @@ import java.util.function.Function;
 public class MenuItem {
     private final Function<Player, ItemStack> itemStack;
     private final int slot;
-    @Nullable
-    private final Consumer<InventoryClickEvent> onClick;
+    private final @Nullable Consumer<InventoryClickEvent> onClick;
 
     public MenuItem(@Nonnull Function<Player, ItemStack> itemStack, int slot, @Nullable Consumer<InventoryClickEvent> onClick) {
         this.itemStack = itemStack;
@@ -29,7 +28,6 @@ public class MenuItem {
         return slot;
     }
 
-    @Nullable
     public void onClick(InventoryClickEvent event) {
         if (onClick == null)
             return;

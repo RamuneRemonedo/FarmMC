@@ -1,12 +1,9 @@
 package tokyo.ramune.farmmc;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 import tokyo.ramune.farmmc.core.CoreHandler;
-import tokyo.ramune.farmmc.core.bossbar.FarmBossBarHandler;
-
-import javax.annotation.Nonnull;
+import tokyo.ramune.farmmc.core.util.Notice;
 
 public class Shutdown {
     private int shutdownTimeMax = 60;
@@ -32,12 +29,17 @@ public class Shutdown {
         } catch (Exception ignored) {
         }
 
+        Notice.noticeAutoRestart(seconds);
+
         shutdownTimerTask = Bukkit.getScheduler().runTaskTimer(CoreHandler.getInstance().getPlugin(), () -> {
             if (shutdownTimeLeft < 0) {
                 cancelShutdownTimer();
                 Bukkit.getServer().shutdown();
+                return;
             }
-            System.out.println(shutdownTimeLeft);
+            if (shutdownTimeLeft % 5 == 0)
+                CoreHandler.getInstance().getPlugin().getLogger().info("This server will be shutdown in " + shutdownTimeLeft + "seconds left.");
+
             shutdownTimeLeft--;
         }, 20, 20);
     }
