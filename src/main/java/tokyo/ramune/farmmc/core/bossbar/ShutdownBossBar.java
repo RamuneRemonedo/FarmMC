@@ -35,7 +35,7 @@ public class ShutdownBossBar extends FarmBossBar {
     @Override
     public String getTitle() {
         return LanguageHandler.getPhase(getPlayer(), Phase.BOSSBAR_SHUTDOWN_TITLE)
-                        .replace("{0}", String.valueOf(CoreHandler.getInstance().getShutdownHandler().getShutdownTimeLeft()));
+                .replace("{0}", String.valueOf(CoreHandler.getInstance().getShutdownHandler().getShutdownTimeLeft()));
     }
 
     @Override

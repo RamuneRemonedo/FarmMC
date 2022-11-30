@@ -37,6 +37,16 @@ public enum CropType {
         this.cropTypes = cropTypes;
     }
 
+    @Nullable
+    public static CropType getCropType(Material material) {
+        for (CropType value : CropType.values()) {
+            if (value.getCropTypes().contains(material))
+                return value;
+        }
+
+        return null;
+    }
+
     public List<Material> getCropTypes() {
         return cropTypes;
     }
@@ -62,15 +72,5 @@ public enum CropType {
 
     public int getExp() {
         return 1;
-    }
-
-    @Nullable
-    public static CropType getCropType(Material material) {
-        for (CropType value : CropType.values()) {
-            if (value.getCropTypes().contains(material))
-                return value;
-        }
-
-        return null;
     }
 }

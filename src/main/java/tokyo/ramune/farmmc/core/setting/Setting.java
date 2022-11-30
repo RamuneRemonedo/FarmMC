@@ -1,8 +1,8 @@
 package tokyo.ramune.farmmc.core.setting;
 
 public class Setting {
-    private Object value;
     private final Object defaultValue;
+    private Object value;
 
     public Setting(Object value, Object defaultValue) {
         this.value = value;

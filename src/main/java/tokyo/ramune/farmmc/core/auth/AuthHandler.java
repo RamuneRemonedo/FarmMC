@@ -3,7 +3,6 @@ package tokyo.ramune.farmmc.core.auth;
 import tokyo.ramune.farmmc.core.database.SQL;
 
 import javax.annotation.Nonnull;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

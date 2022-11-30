@@ -9,8 +9,8 @@ public class EntityTargetListener implements Listener {
     @EventHandler
     public void onEntityTarget(EntityTargetEvent event) {
         if (event.getTarget() == null
-                || !event.getTarget().getType().equals(EntityType.PLAYER))
-            return;
+                || !event.getTarget().getType().equals(EntityType.PLAYER)) {
+        }
 
 
     }

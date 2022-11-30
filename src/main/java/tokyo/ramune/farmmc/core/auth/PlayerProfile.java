@@ -39,24 +39,14 @@ public class PlayerProfile {
         return lastLoginDatetime;
     }
 
-    @Nullable
-    public String getLastLoginAddress() {
-        return lastLoginAddress;
-    }
-
-    @Nullable
-    public LocalDateTime getBannedDate() {
-        return bannedDatetime;
-    }
-
-    @Nullable
-    public String getBannedReason() {
-        return bannedReason;
-    }
-
     public PlayerProfile setLastLoginDate(@Nullable LocalDateTime lastLoginDatetime) {
         this.lastLoginDatetime = lastLoginDatetime;
         return this;
+    }
+
+    @Nullable
+    public String getLastLoginAddress() {
+        return lastLoginAddress;
     }
 
     public PlayerProfile setLastLoginAddress(@Nullable String lastLoginAddress) {
@@ -64,9 +54,19 @@ public class PlayerProfile {
         return this;
     }
 
+    @Nullable
+    public LocalDateTime getBannedDate() {
+        return bannedDatetime;
+    }
+
     public PlayerProfile setBannedDate(@Nullable LocalDateTime bannedDatetime) {
         this.bannedDatetime = bannedDatetime;
         return this;
+    }
+
+    @Nullable
+    public String getBannedReason() {
+        return bannedReason;
     }
 
     public PlayerProfile setBannedReason(@Nullable String bannedReason) {

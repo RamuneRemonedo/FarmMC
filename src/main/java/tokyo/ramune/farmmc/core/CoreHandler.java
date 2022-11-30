@@ -30,8 +30,8 @@ import java.util.Set;
 
 public class CoreHandler implements ModeHandler {
     private static CoreHandler instance;
-    private CoreConfig coreConfig;
     private final Shutdown shutdownHandler = new Shutdown();
+    private CoreConfig coreConfig;
 
     public static CoreHandler getInstance() {
         return instance;

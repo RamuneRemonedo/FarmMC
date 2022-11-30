@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class LanguageHandler {
     private static final Map<Language, ConfigFile> languageConfigs = new HashMap<>();
-    
+
     public static void createTable() {
         if (SQL.tableExists("language"))
             return;

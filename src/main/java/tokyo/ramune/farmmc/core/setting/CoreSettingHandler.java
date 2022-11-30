@@ -18,6 +18,18 @@ public enum CoreSettingHandler {
     ;
 
     private static final String tableName = "core_settings";
+    private final Object defaultValue;
+    private final Consumer<Player> onUpdate;
+    private final Phase title, description;
+    private final Material icon;
+
+    CoreSettingHandler(Object defaultValue, Consumer<Player> onUpdate, Phase title, Phase description, Material icon) {
+        this.defaultValue = defaultValue;
+        this.onUpdate = onUpdate;
+        this.title = title;
+        this.description = description;
+        this.icon = icon;
+    }
 
     public static void createTable() {
         if (SQL.tableExists(tableName))
@@ -58,19 +70,6 @@ public enum CoreSettingHandler {
 
     private static boolean isExists(@Nonnull UUID uuid) {
         return SQL.exists("uuid", uuid.toString(), tableName);
-    }
-
-    private final Object defaultValue;
-    private final Consumer<Player> onUpdate;
-    private final Phase title, description;
-    private final Material icon;
-
-    CoreSettingHandler(Object defaultValue, Consumer<Player> onUpdate, Phase title, Phase description, Material icon) {
-        this.defaultValue = defaultValue;
-        this.onUpdate = onUpdate;
-        this.title = title;
-        this.description = description;
-        this.icon = icon;
     }
 
     public Object getDefaultValue() {

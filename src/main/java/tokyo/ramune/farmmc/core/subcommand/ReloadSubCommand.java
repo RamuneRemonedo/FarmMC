@@ -3,12 +3,10 @@ package tokyo.ramune.farmmc.core.subcommand;
 import com.rylinaux.plugman.util.PluginUtil;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.command.SubCommand;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.util.Notice;
 import tokyo.ramune.farmmc.core.util.Permission;
 
 public class ReloadSubCommand implements SubCommand {

@@ -10,6 +10,11 @@ public enum GameSettingHandler {
     ;
 
     private static final String tableName = "game_settings";
+    private final Object defaultValue;
+
+    GameSettingHandler(Object defaultValue) {
+        this.defaultValue = defaultValue;
+    }
 
     public static void createTable() {
         if (SQL.tableExists(tableName))
@@ -42,12 +47,6 @@ public enum GameSettingHandler {
 
     private static boolean isExists(@Nonnull UUID uuid) {
         return SQL.exists("uuid", uuid.toString(), tableName);
-    }
-
-    private final Object defaultValue;
-
-    GameSettingHandler(Object defaultValue) {
-        this.defaultValue = defaultValue;
     }
 
     public Object getDefaultValue() {

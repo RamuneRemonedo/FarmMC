@@ -10,15 +10,14 @@ import org.bukkit.entity.Player;
 import javax.annotation.Nonnull;
 
 public class FarmBossBar {
+    private final Player player;
+    private final NamespacedKey namespacedKey;
+    private final AutoHide autoHide;
     private boolean visible;
     private BarColor barColor;
     private BarStyle barStyle;
     private String title;
     private double progress;
-    private final Player player;
-    private final NamespacedKey namespacedKey;
-
-    private final AutoHide autoHide;
 
     public FarmBossBar(Player player, NamespacedKey namespacedKey) {
         visible = true;

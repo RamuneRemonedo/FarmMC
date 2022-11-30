@@ -10,7 +10,6 @@ import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.command.CommandHandler;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.util.Notice;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
