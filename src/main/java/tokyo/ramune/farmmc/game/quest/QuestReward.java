@@ -4,20 +4,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tokyo.ramune.farmmc.game.player.PlayerStatus;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class QuestReward {
-    private int exp = 0, coin = 0;
-    private List<ItemStack> itemStacks = new ArrayList<>();
+    private int exp, coin;
+    private List<ItemStack> itemStacks;
     private Consumer<Player> onComplete;
 
-    public QuestReward() {
-    }
-
-    public QuestReward(int exp, int coin, Consumer<Player> onComplete, ItemStack... itemStacks) {
+    QuestReward(int exp, int coin, Consumer<Player> onComplete, ItemStack... itemStacks) {
         this.exp = exp;
         this.coin = coin;
         this.onComplete = onComplete;
@@ -46,18 +42,22 @@ public class QuestReward {
         return itemStacks;
     }
 
-    public QuestReward setItemStacks(List<ItemStack> itemStacks) {
-        this.itemStacks = itemStacks;
-        return this;
-    }
-
-    public QuestReward setOnComplete(Consumer<Player> onComplete) {
-        this.onComplete = onComplete;
+    public QuestReward setItemStacks(ItemStack... itemStacks) {
+        this.itemStacks = Arrays.asList(itemStacks);
         return this;
     }
 
     public QuestReward addItemStack(ItemStack itemStack) {
         itemStacks.add(itemStack);
+        return this;
+    }
+
+    public Consumer<Player> getOnComplete() {
+        return onComplete;
+    }
+
+    public QuestReward setOnComplete(Consumer<Player> onComplete) {
+        this.onComplete = onComplete;
         return this;
     }
 
@@ -75,5 +75,22 @@ public class QuestReward {
 
         if (onComplete != null)
             onComplete.accept(player);
+    }
+
+    public enum Rarity {
+        LOW(new QuestReward(50, 1000, null)),
+        NORMAL(new QuestReward(100, 3000, null)),
+        HIGH(new QuestReward(200, 5000, null)),
+        EXPERT(new QuestReward(500, 10000, null));
+
+        private final QuestReward questReward;
+
+        Rarity(QuestReward questReward) {
+            this.questReward = questReward;
+        }
+
+        public QuestReward getQuestReward() {
+            return questReward;
+        }
     }
 }

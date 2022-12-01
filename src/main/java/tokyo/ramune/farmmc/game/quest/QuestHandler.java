@@ -7,6 +7,7 @@ import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.util.Notice;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class QuestHandler {
     public static void createTable() {
@@ -25,8 +26,16 @@ public class QuestHandler {
         return colum;
     }
 
+    @Nullable
     public static Quest getCurrentQuest(@Nonnull Player player) {
-        return null;// TODO: 2022/11/19
+        for (Quest quest : Quest.values()) {
+            if (quest.getRequireQuest() != null && !quest.getRequireQuest().isGranted(player)) continue;
+            if (quest.isGranted(player)) continue;
+
+            return quest;
+        }
+
+        return null;
     }
 
     public static void check(@Nonnull Event event) {

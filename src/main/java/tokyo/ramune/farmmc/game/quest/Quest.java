@@ -28,7 +28,7 @@ public enum Quest {
                 PlayerJoinEvent joinEvent = (PlayerJoinEvent) event;
                 return joinEvent.getPlayer();
             },
-            new QuestReward(100, 100, null)
+            QuestReward.Rarity.LOW.getQuestReward()
     ),
     HELLO(
             language -> LanguageHandler.getPhase(language, Phase.QUEST_HELLO_TITLE),
@@ -47,7 +47,7 @@ public enum Quest {
 
                 return null;
             },
-            new QuestReward(100, 100, null)
+            QuestReward.Rarity.LOW.getQuestReward()
     ),
     COLLECT_LOG(
             language -> LanguageHandler.getPhase(language, Phase.QUEST_COLLECT_TITLE)
@@ -63,8 +63,7 @@ public enum Quest {
 
                 return castedEvent.getBlock().getType().name().endsWith("LOG") ? player : null;
             },
-            new QuestReward(100, 200, null)
-    ),
+            QuestReward.Rarity.LOW.getQuestReward()    ),
     CRAFT_WORKBENCH(
             language -> LanguageHandler.getPhase(language, Phase.QUEST_CRAFT_TITLE)
                     .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_WORKBENCH)),
@@ -80,7 +79,7 @@ public enum Quest {
 
                 return resultMaterial.equals(Material.CRAFTING_TABLE) ? player : null;
             },
-            new QuestReward(100, 200, null)
+            QuestReward.Rarity.LOW.getQuestReward()
     ),
     CRAFT_WOODEN_AXE(
             language -> LanguageHandler.getPhase(language, Phase.QUEST_CRAFT_TITLE)
@@ -97,9 +96,43 @@ public enum Quest {
 
                 return resultMaterial.equals(Material.WOODEN_AXE) ? player : null;
             },
-            new QuestReward(100, 200, null)
+            QuestReward.Rarity.LOW.getQuestReward()
     ),
-    ;
+    CRAFT_WOODEN_PICKAXE(
+            language -> LanguageHandler.getPhase(language, Phase.QUEST_CRAFT_TITLE)
+                    .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_WOODEN_PICKAXE)),
+            QuestDifficulty.NORMAL,
+            Material.WOODEN_PICKAXE,
+            World.Environment.NORMAL,
+            CRAFT_WOODEN_AXE,
+            CraftItemEvent.class,
+            event -> {
+                CraftItemEvent castedEvent = (CraftItemEvent) event;
+                Player player = (Player) castedEvent.getWhoClicked();
+                Material resultMaterial = castedEvent.getRecipe().getResult().getType();
+
+                return resultMaterial.equals(Material.WOODEN_PICKAXE) ? player : null;
+            },
+            QuestReward.Rarity.LOW.getQuestReward()
+    ),
+    COLLECT_COBBLESTONE(
+            language -> LanguageHandler.getPhase(language, Phase.QUEST_COLLECT_TITLE)
+                    .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_COBBLESTONE)),
+            QuestDifficulty.NORMAL,
+            Material.COBBLESTONE,
+            World.Environment.NORMAL,
+            CRAFT_WOODEN_PICKAXE,
+            BlockBreakEvent.class,
+            event -> {
+                BlockBreakEvent castedEvent = (BlockBreakEvent) event;
+                Player player = castedEvent.getPlayer();
+                Material brokeMaterial = castedEvent.getBlock().getType();
+
+                return brokeMaterial.equals(Material.STONE)
+                        || brokeMaterial.equals(Material.COBBLESTONE) ? player : null;
+            },
+            QuestReward.Rarity.LOW.getQuestReward()
+    );
 
     private final Function<Language, String> title;
     private final QuestDifficulty difficulty;
