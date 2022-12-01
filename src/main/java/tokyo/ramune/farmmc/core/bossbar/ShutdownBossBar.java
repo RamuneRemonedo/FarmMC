@@ -5,7 +5,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import tokyo.ramune.farmmc.Shutdown;
+import tokyo.ramune.farmmc.ShutdownHandler;
 import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
@@ -40,7 +40,7 @@ public class ShutdownBossBar extends FarmBossBar {
 
     @Override
     public double getProgress() {
-        Shutdown shutdownHandler = CoreHandler.getInstance().getShutdownHandler();
+        ShutdownHandler shutdownHandler = CoreHandler.getInstance().getShutdownHandler();
         double progress = (double) shutdownHandler.getShutdownTimeLeft() / (double) shutdownHandler.getShutdownTimeMax();
 
         return progress < 0 ? 0 : progress;

@@ -5,12 +5,12 @@ import org.bukkit.scheduler.BukkitTask;
 import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.util.Notice;
 
-public class Shutdown {
+public class ShutdownHandler {
     private int shutdownTimeMax = 60;
     private int shutdownTimeLeft = -1;
     private BukkitTask shutdownTimerTask;
 
-    public Shutdown() {
+    public ShutdownHandler() {
     }
 
     public int getShutdownTimeLeft() {
