@@ -63,7 +63,7 @@ public enum Quest {
 
                 return castedEvent.getBlock().getType().name().endsWith("LOG") ? player : null;
             },
-            QuestReward.Rarity.LOW.getQuestReward()    ),
+            QuestReward.Rarity.LOW.getQuestReward()),
     CRAFT_WORKBENCH(
             language -> LanguageHandler.getPhase(language, Phase.QUEST_CRAFT_TITLE)
                     .replace("{0}", LanguageHandler.getPhase(language, Phase.QUEST_WORKBENCH)),
@@ -197,6 +197,6 @@ public enum Quest {
     }
 
     public boolean isGranted(@Nonnull Player player) {
-        return QuestHandler.isGranted(player, this);
+        return QuestHandler.isCompleted(player, this);
     }
 }
