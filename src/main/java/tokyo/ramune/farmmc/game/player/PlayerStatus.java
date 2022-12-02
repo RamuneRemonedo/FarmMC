@@ -15,7 +15,7 @@ public class PlayerStatus {
         PlayerHandler.initializeDatabasePlayer(player);
     }
 
-    // --- Get ---
+
     public long getRequireLevelUpExp() {
         return getRequireLevelUpExp(getLevel());
     }
@@ -24,13 +24,16 @@ public class PlayerStatus {
         return PlayerHandler.getRequireLevelUpExp(level);
     }
 
-    // --- Set ---
     public long getStamina() {
         return PlayerHandler.getStamina(player);
     }
 
     public void setStamina(long stamina) {
         PlayerHandler.setStamina(player, stamina);
+    }
+
+    public void addStamina(long stamina) {
+        setStamina(getStamina() + stamina);
     }
 
     public long getLevel() {
@@ -41,6 +44,10 @@ public class PlayerStatus {
         PlayerHandler.setLevel(player, level);
     }
 
+    public void addLevel(long level) {
+        setLevel(getLevel() + level);
+    }
+
     public long getExp() {
         return PlayerHandler.getExp(player);
     }
@@ -49,12 +56,20 @@ public class PlayerStatus {
         PlayerHandler.setExp(player, exp);
     }
 
+    public void addExp(long exp) {
+        setExp(getExp() + exp);
+    }
+
     public long getCoin() {
         return PlayerHandler.getCoin(player);
     }
 
     public void setCoin(long coin) {
         PlayerHandler.setCoin(player, coin);
+    }
+
+    public void addCoin(long coin) {
+        setCoin(getCoin() + coin);
     }
 
     public double getTemperature() {
