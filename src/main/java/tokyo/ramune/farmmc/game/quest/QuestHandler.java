@@ -1,10 +1,10 @@
 package tokyo.ramune.farmmc.game.quest;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import tokyo.ramune.farmmc.core.database.SQL;
-import tokyo.ramune.farmmc.core.language.LanguageHandler;
-import tokyo.ramune.farmmc.core.util.Notice;
+import tokyo.ramune.farmmc.game.event.quest.QuestCompleteEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,17 +46,16 @@ public class QuestHandler {
             Player targetPlayer = quest.getQuestCondition().apply(event);
 
             if (targetPlayer == null)
-                return;
+                continue;
 
-            if (isGranted(targetPlayer, quest))
-                return;
+            if (isCompleted(targetPlayer, quest))
+                continue;
 
             if (quest.getRequireQuest() != null
-                    && !QuestHandler.isGranted(targetPlayer, quest.getRequireQuest()))
-                return;
+                    && !QuestHandler.isCompleted(targetPlayer, quest.getRequireQuest()))
+                continue;
 
             set(targetPlayer, quest, true);
-            Notice.noticeQuestComplete(targetPlayer, quest);
         }
     }
 
@@ -64,11 +63,18 @@ public class QuestHandler {
         if (!exists(player))
             insert(player);
 
+
+        if (grant) {
+            // Call event
+            QuestCompleteEvent event = new QuestCompleteEvent(player, quest);
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) return;
+        }
+
         SQL.set(quest.name(), grant ? 1 : 0, "uuid", "=", player.getUniqueId().toString(), "quest");
-        System.out.println(quest.getTitle().apply(LanguageHandler.getLanguage(player)) + " granted!");
     }
 
-    public static boolean isGranted(@Nonnull Player player, @Nonnull Quest quest) {
+    public static boolean isCompleted(@Nonnull Player player, @Nonnull Quest quest) {
         if (!exists(player))
             return false;
 
