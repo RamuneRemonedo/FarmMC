@@ -12,6 +12,7 @@ import tokyo.ramune.farmmc.game.listener.farm.FarmCropPlantListener;
 import tokyo.ramune.farmmc.game.listener.farm.FarmPlayerChangeExpListener;
 import tokyo.ramune.farmmc.game.listener.farm.FarmPlayerLevelUpListener;
 import tokyo.ramune.farmmc.game.listener.player.*;
+import tokyo.ramune.farmmc.game.listener.quest.QuestCompleteListener;
 import tokyo.ramune.farmmc.game.listener.quest.QuestListener;
 import tokyo.ramune.farmmc.game.listener.world.*;
 import tokyo.ramune.farmmc.game.player.PlayerHandler;
@@ -67,6 +68,7 @@ public class GameHandler implements ModeHandler {
                 new PlayerMoveListener(),
                 new PlayerQuitListener(),
 
+                new QuestCompleteListener(),
                 new QuestListener(),
 
                 new AnvilTakeResultListener(),
