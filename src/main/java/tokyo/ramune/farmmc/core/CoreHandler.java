@@ -15,10 +15,7 @@ import tokyo.ramune.farmmc.core.database.MySQL;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.listener.inventory.InventoryClickListener;
 import tokyo.ramune.farmmc.core.listener.inventory.InventoryCloseListener;
-import tokyo.ramune.farmmc.core.listener.player.PlayerCommandPreprocessListener;
-import tokyo.ramune.farmmc.core.listener.player.PlayerJoinListener;
-import tokyo.ramune.farmmc.core.listener.player.PlayerQuitListener;
-import tokyo.ramune.farmmc.core.listener.player.TabCompleteListener;
+import tokyo.ramune.farmmc.core.listener.player.*;
 import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
 import tokyo.ramune.farmmc.core.subcommand.*;
@@ -79,7 +76,8 @@ public class CoreHandler implements ModeHandler {
                 new PlayerCommandPreprocessListener(),
                 new PlayerJoinListener(),
                 new PlayerQuitListener(),
-                new TabCompleteListener());
+                new TabCompleteListener(),
+                new PlayerInteractListener());
     }
 
     @Nullable
