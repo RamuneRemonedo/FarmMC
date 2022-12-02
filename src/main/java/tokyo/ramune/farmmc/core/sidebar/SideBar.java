@@ -52,7 +52,6 @@ public class SideBar {
             return this;
         }
 
-
         lines.put(Collections.max(lines.keySet()) + 1, line);
         return this;
     }
@@ -95,9 +94,9 @@ public class SideBar {
     }
 
     private boolean isMatchLines() {
-        List<Integer>
-                currentIndexList = new ArrayList<>(getFixedLines().keySet()),
-                teamIndexList = new ArrayList<>();
+        Set<Integer>
+                currentIndexList = new HashSet<>(getFixedLines().keySet()),
+                teamIndexList = new HashSet<>();
         scoreboard.getTeams().forEach(team -> teamIndexList.add(Integer.parseInt(team.getName())));
 
         return currentIndexList.equals(teamIndexList);
@@ -130,7 +129,13 @@ public class SideBar {
         if (!isMatchLines())
             initialize();
 
-        objective.displayName(Component.text(title));
-        getFixedLines().forEach((index, line) -> Objects.requireNonNull(scoreboard.getTeam(String.valueOf(index))).prefix(Component.text(line.get())));
+        if (!objective.getDisplayName().equals(title))
+            objective.setDisplayName(title);
+
+        getFixedLines().forEach((index, line) -> {
+            Team team = scoreboard.getTeam(String.valueOf(index));
+            if (team != null && !team.getPrefix().equals(line.get()))
+                Objects.requireNonNull(scoreboard.getTeam(Integer.toString(index))).setPrefix(line.get());
+        });
     }
 }
