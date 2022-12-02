@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.auth.AuthHandler;
 import tokyo.ramune.farmmc.core.bossbar.FarmBossBarHandler;
@@ -14,6 +15,7 @@ import tokyo.ramune.farmmc.core.sidebar.CoreSideBar;
 import tokyo.ramune.farmmc.core.sidebar.SideBar;
 import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
 import tokyo.ramune.farmmc.core.util.Notice;
+import tokyo.ramune.farmmc.game.GameHandler;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -50,9 +52,11 @@ public class PlayerJoinListener implements Listener {
                         + player.getName());
 
         // SideBar
-        SideBar sideBar = new CoreSideBar(player);
-        SideBarHandler.setSideBar(sideBar);
-        sideBar.show();
+        if (FarmMC.getModeHandler(GameHandler.class) == null) {
+            SideBar sideBar = new CoreSideBar(player);
+            SideBarHandler.setSideBar(sideBar);
+            sideBar.show();
+        }
 
         // Shutdown bossBar
         FarmBossBarHandler.create(new ShutdownBossBar(player));
