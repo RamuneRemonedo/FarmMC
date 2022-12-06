@@ -9,5 +9,9 @@ FarmMCサーバーで動く、プラグインです。
 ## 依存プラグイン
 * PlugMan
 
-## ダウンロード
-[Jenkins](https://jenkins.farmmc.tokyo/job/FarmMC-Plugin/lastStableBuild/)からダウンロードができます。
+---
+## 成果物
+ソースコードをダウンロードして、ビルドしてください
+`git clone https://github.com/ramuneremonedo/FarmMC.git -b develp`  
+`cd ./FarmMC`  
+`mvn package`
