@@ -12,6 +12,6 @@ FarmMCサーバーで動く、プラグインです。
 ---
 ## 成果物
 ソースコードをダウンロードして、ビルドしてください  
-`git clone https://github.com/ramuneremonedo/FarmMC.git -b develp`  
+`git clone https://github.com/ramuneremonedo/FarmMC.git -b develop`  
 `cd ./FarmMC`  
 `mvn package`
