@@ -19,4 +19,4 @@ Commands:
 `mvn package`
 
 # License
-*FarmMC*'s code is licensed under the [CC0-1.0 licence](https://creativecommons.org/publicdomain/zero/1.0/deed.en). Please see [the licence file](LICENSE) for more information. [tl;dr](https://tldrlegal.com/license/mit-license) you can do whatever you want as long as you include the original copyright and license notice in any copy of the source.
+*FarmMC*'s code is licensed under the [CC0-1.0 licence](https://creativecommons.org/publicdomain/zero/1.0/deed.en). Please see [the licence file](LICENSE) for more information. [tl;dr](https://creativecommons.org/publicdomain/zero/1.0/deed.en) you can do whatever you want as long as you include the original copyright and license notice in any copy of the source.
