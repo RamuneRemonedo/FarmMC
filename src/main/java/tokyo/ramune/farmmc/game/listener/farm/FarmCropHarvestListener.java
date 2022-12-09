@@ -32,8 +32,5 @@ public class FarmCropHarvestListener implements Listener {
 
             StatisticHandler.addHarvestCount(player, type, 1);
         }
-
-        // TODO: 2022/12/10
-        event.setCancelled(true);
     }
 }
