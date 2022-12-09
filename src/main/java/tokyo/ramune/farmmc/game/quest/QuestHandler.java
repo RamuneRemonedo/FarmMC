@@ -8,6 +8,8 @@ import tokyo.ramune.farmmc.game.event.quest.QuestCompleteEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.LinkedList;
+import java.util.List;
 
 public class QuestHandler {
     public static void createTable() {
@@ -29,6 +31,7 @@ public class QuestHandler {
     @Nullable
     public static Quest getCurrentQuest(@Nonnull Player player) {
         for (Quest quest : Quest.values()) {
+            if (getDependsQuest(quest).isEmpty()) continue;
             if (quest.getRequireQuest() != null && !quest.getRequireQuest().isGranted(player)) continue;
             if (quest.isGranted(player)) continue;
 
@@ -36,6 +39,16 @@ public class QuestHandler {
         }
 
         return null;
+    }
+
+    public static List<Quest> getDependsQuest(@Nonnull Quest quest) {
+        List<Quest> dependedQuests = new LinkedList<>();
+
+        for (Quest value : Quest.values()) {
+            if (value.getRequireQuest() != null && value.getRequireQuest().equals(quest))
+                dependedQuests.add(value);
+        }
+        return dependedQuests;
     }
 
     public static void check(@Nonnull Event event) {

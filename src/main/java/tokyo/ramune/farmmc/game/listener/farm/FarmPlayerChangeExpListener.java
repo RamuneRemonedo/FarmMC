@@ -11,6 +11,6 @@ public class FarmPlayerChangeExpListener implements Listener {
     public void onFarmPlayerChangeExp(FarmPlayerChangeExpEvent event) {
         Player player = event.getPlayer();
 
-        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1.1F);
+        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.7F, 1.1F);
     }
 }

@@ -18,6 +18,5 @@ public class PlayerInteractListener implements Listener {
         if (event.getClickedBlock() == null ||
                 !event.getClickedBlock().getType().equals(Material.CAMPFIRE)) {
         }
-
     }
 }

@@ -8,6 +8,8 @@ import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.sidebar.SideBar;
 import tokyo.ramune.farmmc.core.util.Chat;
 import tokyo.ramune.farmmc.game.player.PlayerStatus;
+import tokyo.ramune.farmmc.game.quest.Quest;
+import tokyo.ramune.farmmc.game.quest.QuestHandler;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -54,8 +56,6 @@ public class GameSideBar extends SideBar {
 
         addLine(() -> ChatColor.GRAY.toString() + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "  " + ChatColor.GRAY + ChatColor.ITALIC + ChatColor.BOLD + animatedPlayerName);
         addBlankLine();
-        addLine(() -> ChatColor.GRAY.toString() + ChatColor.BOLD + "ping: " + player.getPing() + "ms");
-        addBlankLine();
         addLine(() -> Chat.replaceColor("&6&l" + LanguageHandler.getPhase(player, Phase.SIDEBAR_COIN) + "&f: " + String.format("%,d", playerStatus.getCoin()), '&'));
         addBlankLine();
         addLine(() -> Chat.replaceColor("&l" + LanguageHandler.getPhase(player, Phase.SIDEBAR_BIOME) + "&f: &b&o" +
@@ -63,6 +63,16 @@ public class GameSideBar extends SideBar {
                         .toLowerCase()
                         .replaceAll("_", " "), '&'));
         addBlankLine();
+        addLine(() -> Chat.replaceColor("&b&l" + LanguageHandler.getPhase(player, Phase.SIDEBAR_QUEST) + "&f&l:", '&'));
+
+        addLine(() -> {
+            Quest currentQuest = QuestHandler.getCurrentQuest(player);
+            if (currentQuest == null) return ChatColor.RESET.toString();
+            return Chat.replaceColor(" &l→ &a&l" + currentQuest.getTitle().apply(LanguageHandler.getLanguage(player)), '&');
+        });
+
+        addBlankLine();
+
         addLine(() -> ChatColor.GRAY + FarmMC.getPlugin().getDescription().getVersion());
         addLine(() -> ChatColor.YELLOW + "www.farmmc.tokyo");
     }

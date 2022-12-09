@@ -8,12 +8,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
+import tokyo.ramune.farmmc.core.menu.Glow;
 import tokyo.ramune.farmmc.core.menu.Menu;
 import tokyo.ramune.farmmc.core.menu.MenuItem;
 
 import javax.annotation.Nonnull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 public class QuestMenu {
     private final Menu menu;
@@ -28,9 +29,14 @@ public class QuestMenu {
         menu = new Menu(player, title, size, getMenuItems());
     }
 
-    public MenuItem[] getMenuItems() {
-        Set<MenuItem> menuItems = new HashSet<>();
+    public Menu getMenu() {
+        return menu;
+    }
 
+    public MenuItem[] getMenuItems() {
+        List<MenuItem> menuItems = new LinkedList<>();
+
+        // Fill background with gray stained-glass pane
         ItemStack background = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta backgroundMeta = background.getItemMeta();
 
@@ -38,12 +44,29 @@ public class QuestMenu {
         background.setItemMeta(backgroundMeta);
 
         for (int i = 0; i < 54; i++) {
-            menuItems.add(new MenuItem(targetPlayer -> background, i, null));
+            menuItems.add(new MenuItem(viewer -> background, i, null));
         }
 
+        // Set quests item
+        int i = 0;
         for (Quest quest : Quest.values()) {
+            menuItems.add(new MenuItem(viewer -> {
+                ItemStack item = new ItemStack(quest.getIcon());
+                ItemMeta meta = item.getItemMeta();
 
+                if (!quest.isGranted(player)
+                        && quest.getRequireQuest() != null && quest.getRequireQuest().isGranted(player)) {
+                    meta.addEnchant(new Glow(), 1, true);
+                }
+
+                item.setItemMeta(meta);
+
+                return item;
+            }, i, null));
+
+            i++;
         }
-        return null;
+
+        return menuItems.toArray(new MenuItem[0]);
     }
 }

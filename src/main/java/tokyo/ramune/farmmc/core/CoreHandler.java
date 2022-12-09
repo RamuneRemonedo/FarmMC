@@ -16,6 +16,7 @@ import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.listener.inventory.InventoryClickListener;
 import tokyo.ramune.farmmc.core.listener.inventory.InventoryCloseListener;
 import tokyo.ramune.farmmc.core.listener.player.*;
+import tokyo.ramune.farmmc.core.menu.MenuHandler;
 import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
 import tokyo.ramune.farmmc.core.subcommand.*;
@@ -47,6 +48,7 @@ public class CoreHandler implements ModeHandler {
         FarmBossBarHandler.initialize();
         CoreSettingHandler.createTable();
         AuthHandler.createTable();
+        MenuHandler.registerGlow();
         CommandHandler.registerCommand();
         CommandHandler.registerTabCompleter();
 

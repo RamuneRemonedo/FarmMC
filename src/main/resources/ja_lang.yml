@@ -62,6 +62,7 @@ lang:
   SIDEBAR_VERSION: "バージョン"
   SIDEBAR_COIN: "コイン"
   SIDEBAR_BIOME: "バイオーム"
+  SIDEBAR_QUEST: "クエスト"
 
   WORLD_BONE_MEAL_DISABLED: "[&c&l注意&f] &cこのサーバーでは骨粉は利用できません\nこのメッセージは設定から無効化できます"
   WORLD_CROP_TEMPERATURE_MISMATCH: "[&c&l注意&f] &c今植えた植物の適温がその土地の温度と異なります。 植物がうまく育たない可能性があります。\nこのメッセージは設定から無効化できます"
@@ -83,6 +84,7 @@ lang:
   QUEST_WOODEN_AXE: "木の斧"
   QUEST_WOODEN_PICKAXE: "木のピッケル"
   QUEST_LOG: "原木"
+  QUEST_COBBLESTONE: "丸石"
 
   MAINTENANCE_HELP: "メンテナンスモードでは基本op持ち以外のプレイヤーのログインは制限されています。 \n"
 
