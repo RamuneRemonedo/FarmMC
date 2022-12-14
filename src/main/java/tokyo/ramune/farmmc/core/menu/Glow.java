@@ -12,13 +12,12 @@ import tokyo.ramune.farmmc.core.CoreHandler;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class Glow extends Enchantment {
 
     public Glow() {
-        super(Objects.requireNonNull(new NamespacedKey(CoreHandler.getInstance().getPlugin(), "FarmMC.glow")));
+        super(new NamespacedKey(CoreHandler.getInstance().getPlugin(), "FarmMC.glow"));
     }
 
     @Override
