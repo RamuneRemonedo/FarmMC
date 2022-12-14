@@ -17,6 +17,7 @@ public class ItemStackBuilder {
     private final String title;
     private final List<Component> lore;
     private final boolean addEnchantAnimation;
+
     public ItemStackBuilder(@Nonnull Material material, @Nullable String title, @Nullable String lore, boolean addEnchantAnimation) {
         this.material = material;
         this.title = title;
