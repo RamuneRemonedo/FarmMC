@@ -9,6 +9,7 @@ import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.core.bossbar.FarmBossBar;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
+import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 import tokyo.ramune.farmmc.core.util.Chat;
 import tokyo.ramune.farmmc.game.player.PlayerStatus;
 
@@ -17,7 +18,7 @@ public class ExpBossBar extends FarmBossBar {
 
     public ExpBossBar(Player player) {
         super(player, new NamespacedKey(FarmMC.getPlugin(), "exp." + player.getUniqueId()));
-        getAutoHide().setAutoHide(true);
+        getAutoHide().setAutoHide(CoreSettingHandler.EXP_BOSSBAR_TOGGLE_SHOW.getData(player.getUniqueId()).getAsBoolean());
     }
 
     @NotNull

@@ -63,7 +63,6 @@ public class GameHandler implements ModeHandler {
 
                 new PlayerArmorStandManipulateListener(),
                 new PlayerHarvestBlockListener(),
-                new PlayerInteractListener(),
                 new PlayerJoinListener(),
                 new PlayerMoveListener(),
                 new PlayerQuitListener(),
@@ -76,6 +75,7 @@ public class GameHandler implements ModeHandler {
                 new BlockBreakListener(),
                 new BlockFertilizeListener(),
                 new BlockGrowListener(),
+                new BlockPistonListener(),
                 new BlockPlaceListener(),
                 new BlockPreDispenseListener(),
                 new BlockSpreadListener(),

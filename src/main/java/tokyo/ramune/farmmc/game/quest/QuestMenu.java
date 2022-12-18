@@ -8,9 +8,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
-import tokyo.ramune.farmmc.core.menu.Glow;
 import tokyo.ramune.farmmc.core.menu.Menu;
 import tokyo.ramune.farmmc.core.menu.MenuItem;
+import tokyo.ramune.farmmc.core.util.ItemStackBuilder;
 
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
@@ -51,17 +51,13 @@ public class QuestMenu {
         int i = 0;
         for (Quest quest : Quest.values()) {
             menuItems.add(new MenuItem(viewer -> {
-                ItemStack item = new ItemStack(quest.getIcon());
-                ItemMeta meta = item.getItemMeta();
-
-                if (!quest.isGranted(player)
-                        && quest.getRequireQuest() != null && quest.getRequireQuest().isGranted(player)) {
-                    meta.addEnchant(new Glow(), 1, true);
-                }
-
-                item.setItemMeta(meta);
-
-                return item;
+                boolean addEnchant = !quest.isGranted(player) && quest.getRequireQuest() != null && quest.getRequireQuest().isGranted(player);
+                return new ItemStackBuilder(
+                        quest.getIcon(),
+                        quest.getTitle().apply(LanguageHandler.getLanguage(player)),
+                        null,
+                        addEnchant
+                ).build();
             }, i, null));
 
             i++;

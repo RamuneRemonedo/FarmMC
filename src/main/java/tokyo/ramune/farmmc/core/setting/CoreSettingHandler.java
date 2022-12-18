@@ -15,7 +15,7 @@ public enum CoreSettingHandler {
     LANGUAGE("default", null, Phase.SETTING_LANGUAGE_TITLE, Phase.SETTING_LANGUAGE_DESCRIPTION, Material.PLAYER_HEAD),
     SIDEBAR_ENABLE(true, SideBarHandler::updateVisible, Phase.SETTING_SIDEBAR_ENABLE_TITLE, Phase.SETTING_SIDEBAR_ENABLE_DESCRIPTION, Material.CRIMSON_FUNGUS),
     BOSSBAR_ENABLE(true, FarmBossBarHandler::updateVisible, Phase.SETTING_BOSSBAR_ENABLE_TITLE, Phase.SETTING_BOSSBAR_ENABLE_DESCRIPTION, Material.WARPED_FUNGUS),
-    ;
+    EXP_BOSSBAR_TOGGLE_SHOW(false, FarmBossBarHandler::updateVisible, Phase.SETTING_BOSSBAR_TOGGLE_SHOW_TITLE, Phase.SETTING_BOSSBAR_TOGGLE_SHOW_DESCRIPTION, Material.REDSTONE_TORCH);
 
     private static final String tableName = "core_settings";
     private final Object defaultValue;

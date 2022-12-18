@@ -14,22 +14,27 @@ public class FarmUtil {
 
         CropType type = CropType.getCropType(blockLocation.getBlock().getType());
 
-        if (type == null || !type.canPlacedOn())
+        if (type == null)
             return new ArrayList<>();
 
         List<Location> locations = new ArrayList<>();
 
+        int h = 0;
         while (type.getCropTypes().contains(blockLocation.getBlock().getType())) {
             if (!type.getCropTypes().contains(blockLocation.getBlock().getType()))
                 return locations;
 
             if (CropArtificialHandler.isArtificialPlaced(blockLocation)) {
-                blockLocation.add(0, 1, 0);
-                continue;
+                return locations;
+            }
+
+            if (h > 0 && !type.canPlacedOn()) {
+                return locations;
             }
 
             locations.add(blockLocation.clone());
             blockLocation.add(0, 1, 0);
+            h++;
         }
         return locations;
     }

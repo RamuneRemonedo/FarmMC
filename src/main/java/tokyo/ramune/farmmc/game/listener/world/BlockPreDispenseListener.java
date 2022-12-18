@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import tokyo.ramune.farmmc.core.language.LanguageHandler;
 import tokyo.ramune.farmmc.core.language.Phase;
 import tokyo.ramune.farmmc.core.util.Chat;
-import tokyo.ramune.farmmc.game.util.PlayerUtil;
+import tokyo.ramune.farmmc.core.util.PlayerUtil;
 
 public class BlockPreDispenseListener implements Listener {
     @EventHandler

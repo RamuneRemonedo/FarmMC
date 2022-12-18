@@ -11,10 +11,14 @@ import tokyo.ramune.farmmc.core.auth.AuthHandler;
 import tokyo.ramune.farmmc.core.bossbar.FarmBossBarHandler;
 import tokyo.ramune.farmmc.core.bossbar.ShutdownBossBar;
 import tokyo.ramune.farmmc.core.config.CoreConfig;
+import tokyo.ramune.farmmc.core.item.CustomItem;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
+import tokyo.ramune.farmmc.core.menu.ServerMenu;
 import tokyo.ramune.farmmc.core.sidebar.CoreSideBar;
 import tokyo.ramune.farmmc.core.sidebar.SideBar;
 import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
 import tokyo.ramune.farmmc.core.util.Notice;
+import tokyo.ramune.farmmc.core.util.PlayerUtil;
 import tokyo.ramune.farmmc.game.GameHandler;
 
 import java.time.LocalDateTime;
@@ -60,5 +64,10 @@ public class PlayerJoinListener implements Listener {
 
         // Shutdown bossBar
         FarmBossBarHandler.create(new ShutdownBossBar(player));
+
+        // Server menu item
+        CustomItem serverMenuItem = ServerMenu.getServerMenuItem(LanguageHandler.getLanguage(player));
+        if (!PlayerUtil.hasCustomItem(player, serverMenuItem))
+            player.getInventory().addItem(serverMenuItem.getAsItemStack());
     }
 }

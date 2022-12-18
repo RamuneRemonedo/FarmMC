@@ -1,6 +1,5 @@
 package tokyo.ramune.farmmc.core.item;
 
-import io.github.bananapuncher714.nbteditor.NBTEditor;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -29,10 +28,11 @@ public class CustomItemHandler {
 
     @Nullable
     public static CustomItem toCustomItem(@Nonnull ItemStack itemStack) {
-        String id = NBTEditor.getString(itemStack, "FarmMC.item.id");
-        if (!isRegistered(id)) return null;
-
-        return registeredCustomItem.get(id);
+        for (Map.Entry<String, CustomItem> customItemEntry : registeredCustomItem.entrySet()) {
+            if (customItemEntry.getValue().getAsItemStack().equals(itemStack))
+                return customItemEntry.getValue();
+        }
+        return null;
     }
 
     public static boolean isRegistered(String id) {

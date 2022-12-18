@@ -1,37 +1,34 @@
 package tokyo.ramune.farmmc.core.item;
 
-import io.github.bananapuncher714.nbteditor.NBTEditor;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import tokyo.ramune.farmmc.core.menu.Glow;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class CustomItem {
     private final String id;
     private final Material material;
     private final String title;
-    private final List<String> lore;
-    private final HashMap<String, Object> customData;
-    private final Consumer<PlayerInteractEvent> onClick;
+    private List<String> lore;
+    private Consumer<PlayerInteractEvent> onClick = (event) -> {
+    };
+    private boolean allowEnchantGlow = false;
 
     public CustomItem(@Nonnull String id,
                       @Nonnull Material material,
-                      @Nonnull String title,
-                      @Nonnull List<String> lore,
-                      @Nonnull HashMap<String, Object> customData,
-                      @Nonnull Consumer<PlayerInteractEvent> onClick) {
+                      @Nonnull String title) {
         this.id = id;
         this.material = material;
         this.title = title;
-        this.lore = lore;
-        this.customData = customData;
-        this.onClick = onClick;
+
+        CustomItemHandler.registerCustomItem(this);
     }
 
     public String getId() {
@@ -50,8 +47,28 @@ public class CustomItem {
         return lore;
     }
 
+    public void setLore(List<String> lore) {
+        this.lore = lore;
+    }
+
+    public void setLore(String lore) {
+        this.lore = Arrays.asList(StringUtils.split(lore, "\n"));
+    }
+
     public Consumer<PlayerInteractEvent> getOnClick() {
         return onClick;
+    }
+
+    public void setOnClick(Consumer<PlayerInteractEvent> onClick) {
+        this.onClick = onClick;
+    }
+
+    public boolean isAllowEnchantGlow() {
+        return allowEnchantGlow;
+    }
+
+    public void setAllowEnchantGlow(boolean allowEnchantGlow) {
+        this.allowEnchantGlow = allowEnchantGlow;
     }
 
     public ItemStack getAsItemStack() {
@@ -64,12 +81,8 @@ public class CustomItem {
 
         customItem.setItemMeta(meta);
 
-        // Apply NBT
-        customItem = NBTEditor.set(customItem, "FarmMC.item.id", id);
-
-        for (Map.Entry<String, Object> valueEntry : customData.entrySet()) {
-            customItem = NBTEditor.set(customItem, "FarmMC.item.custom." + valueEntry.getKey(), valueEntry.getValue());
-        }
+        if (isAllowEnchantGlow())
+            customItem.addUnsafeEnchantment(new Glow(), 1);
 
         return customItem;
     }

@@ -27,10 +27,8 @@ public class AutoHide {
         if (!isAutoHide)
             return;
 
-
         if (autoHideTask != null)
             autoHideTask.cancel();
-
 
         if (!farmBossBar.isVisible())
             return;

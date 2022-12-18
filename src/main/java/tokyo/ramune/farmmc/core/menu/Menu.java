@@ -46,14 +46,14 @@ public class Menu {
 
         Inventory menu = Bukkit.createInventory(
                 null,
-                size,
-                Component.text(Chat.replaceColor("&r&a&r" + title, '&'))
+                getSize(),
+                Component.text(Chat.replaceColor("&r&a&r" + getTitle(), '&'))
         );
 
-        for (MenuItem menuItem : menuItems) {
-            menu.setItem(menuItem.getSlot(), menuItem.getItemStack(player));
+        for (MenuItem menuItem : getMenuItems()) {
+            menu.setItem(menuItem.getSlot(), menuItem.getItemStack(getPlayer()));
         }
 
-        player.openInventory(menu);
+        getPlayer().openInventory(menu);
     }
 }

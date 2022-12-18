@@ -1,5 +1,7 @@
 package tokyo.ramune.farmmc.core.setting;
 
+import tokyo.ramune.farmmc.core.language.Language;
+
 public class Setting {
     private final Object defaultValue;
     private Object value;
@@ -31,5 +33,9 @@ public class Setting {
 
     public boolean getAsBoolean() {
         return Boolean.parseBoolean(String.valueOf(value != null ? value : defaultValue));
+    }
+
+    public Language getAsLanguage() {
+        return Language.valueOf(String.valueOf(value != null ? value : defaultValue));
     }
 }

@@ -17,20 +17,20 @@ public class FarmCropHarvestListener implements Listener {
     @EventHandler
     public void onFarmCropHarvest(FarmCropHarvestEvent event) {
         Player player = event.getPlayer();
-        List<Location> cropLocations = FarmUtil.getHarvestedCropLocations(event.getBlockLocation());
+        Location blockLocation = event.getBlockLocation();
+        List<Location> cropLocations = FarmUtil.getHarvestedCropLocations(blockLocation);
+        CropArtificialHandler.remove(blockLocation);
 
         PlayerStatus playerStatus = new PlayerStatus(player);
 
-        System.out.println(cropLocations.size());
         for (Location cropLocation : cropLocations) {
             CropType type = CropType.getCropType(cropLocation.getBlock().getType());
-
-            if (CropArtificialHandler.isArtificialPlaced(cropLocation))
-                CropArtificialHandler.remove(cropLocation);
+            if (type == null)
+                continue;
 
             playerStatus.setExp(playerStatus.getExp() + (type.getExp()));
-
             StatisticHandler.addHarvestCount(player, type, 1);
+            CropArtificialHandler.remove(cropLocation);
         }
     }
 }

@@ -2,7 +2,6 @@ package tokyo.ramune.farmmc.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
-import org.jetbrains.annotations.Nullable;
 import tokyo.ramune.farmmc.FarmMC;
 import tokyo.ramune.farmmc.ModeHandler;
 import tokyo.ramune.farmmc.ShutdownHandler;
@@ -17,6 +16,7 @@ import tokyo.ramune.farmmc.core.listener.inventory.InventoryClickListener;
 import tokyo.ramune.farmmc.core.listener.inventory.InventoryCloseListener;
 import tokyo.ramune.farmmc.core.listener.player.*;
 import tokyo.ramune.farmmc.core.menu.MenuHandler;
+import tokyo.ramune.farmmc.core.menu.ServerMenu;
 import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 import tokyo.ramune.farmmc.core.sidebar.SideBarHandler;
 import tokyo.ramune.farmmc.core.subcommand.*;
@@ -24,6 +24,7 @@ import tokyo.ramune.farmmc.core.util.RateLimiter;
 import tokyo.ramune.farmmc.game.GameHandler;
 import tokyo.ramune.farmmc.maintenance.FarmMaintenanceHandler;
 
+import javax.annotation.Nullable;
 import java.util.Set;
 
 public class CoreHandler implements ModeHandler {
@@ -51,7 +52,7 @@ public class CoreHandler implements ModeHandler {
         MenuHandler.registerGlow();
         CommandHandler.registerCommand();
         CommandHandler.registerTabCompleter();
-
+        ServerMenu.initialize();
         SideBarHandler.initialize();
 
         if (coreConfig.PLUGIN_GAME_MODE)
@@ -59,7 +60,6 @@ public class CoreHandler implements ModeHandler {
 
         if (coreConfig.PLUGIN_MAINTENANCE_MODE)
             FarmMC.registerModeHandler(new FarmMaintenanceHandler());
-
     }
 
     @Override
@@ -79,7 +79,8 @@ public class CoreHandler implements ModeHandler {
                 new PlayerJoinListener(),
                 new PlayerQuitListener(),
                 new TabCompleteListener(),
-                new PlayerInteractListener());
+                new PlayerInteractListener(),
+                new PlayerDropItemListener());
     }
 
     @Nullable

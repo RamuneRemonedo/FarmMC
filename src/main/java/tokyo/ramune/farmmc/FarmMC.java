@@ -88,7 +88,7 @@ public final class FarmMC extends JavaPlugin {
 
         getLogger().info("The plugin has been enabled.");
 
-        getLogger().info("Modes: ");
+        getLogger().info("Loaded ModeHandlers: ");
         for (ModeHandler modeHandler : modeHandlers) {
             getLogger().info(modeHandler.getClass().getName());
         }
