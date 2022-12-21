@@ -3,9 +3,7 @@ package tokyo.ramune.farmmc.core.language;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tokyo.ramune.farmmc.FarmMC;
-import tokyo.ramune.farmmc.core.CoreHandler;
 import tokyo.ramune.farmmc.core.config.ConfigFile;
-import tokyo.ramune.farmmc.core.database.SQL;
 import tokyo.ramune.farmmc.core.setting.CoreSettingHandler;
 import tokyo.ramune.farmmc.core.util.Chat;
 

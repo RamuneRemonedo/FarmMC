@@ -19,8 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class QuestMenu extends Menu {
-    private boolean allowHideCompleted = true;
-    private boolean allowCurrentQuestFilter = false;
+    private final boolean allowHideCompleted = true;
+    private final boolean allowCurrentQuestFilter = false;
 
     public QuestMenu(@NotNull Player player) {
         super(player, LanguageHandler.getPhase(player, Phase.QUEST_MENU_TITLE), 54, new MenuItem(viewer -> new ItemStack(Material.GRASS), 0, null));

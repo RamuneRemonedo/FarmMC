@@ -21,16 +21,16 @@ public enum Permission {
     JOIN_TEMPLATE(PermissionDefault.OP),
     JOIN_MAINTENANCE(PermissionDefault.OP);
 
-    public static void registerAll() {
-        for (Permission permission : values()) {
-            Bukkit.getPluginManager().addPermission(new org.bukkit.permissions.Permission("FarmMC." + permission.name().toLowerCase(), permission.getPermissionDefault()));
-        }
-    }
-
     private final PermissionDefault permissionDefault;
 
     Permission(@Nonnull PermissionDefault permissionDefault) {
         this.permissionDefault = permissionDefault;
+    }
+
+    public static void registerAll() {
+        for (Permission permission : values()) {
+            Bukkit.getPluginManager().addPermission(new org.bukkit.permissions.Permission("FarmMC." + permission.name().toLowerCase(), permission.getPermissionDefault()));
+        }
     }
 
     public PermissionDefault getPermissionDefault() {
