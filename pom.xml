@@ -6,7 +6,7 @@
 
     <groupId>tokyo.ramune</groupId>
     <artifactId>FarmMC</artifactId>
-    <version>2022.1126.1-develop</version>
+    <version>2022.1221.0-develop</version>
     <packaging>jar</packaging>
 
     <name>FarmMC</name>
