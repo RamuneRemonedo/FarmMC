@@ -4,6 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import tokyo.ramune.farmmc.core.database.SQL;
+import tokyo.ramune.farmmc.core.language.LanguageHandler;
+import tokyo.ramune.farmmc.core.language.Phase;
+import tokyo.ramune.farmmc.core.menu.MenuItem;
+import tokyo.ramune.farmmc.core.menu.ServerMenu;
+import tokyo.ramune.farmmc.core.util.ItemStackBuilder;
 import tokyo.ramune.farmmc.game.event.quest.QuestCompleteEvent;
 
 import javax.annotation.Nonnull;
@@ -17,6 +22,22 @@ public class QuestHandler {
             return;
 
         SQL.createTable("quest", "uuid TEXT NOT NULL" + toColumQuests());
+    }
+
+    public static void registerServerMenuItem() {
+        ServerMenu.addExtensionMenuItem(
+                new MenuItem(player -> {
+                    Quest currentQuest = QuestHandler.getCurrentQuest(player);
+                    if (currentQuest == null)
+                        return null;
+
+                    return new ItemStackBuilder(
+                            currentQuest.getIcon(),
+                            LanguageHandler.getPhase(player, Phase.QUEST_SERVER_MENU_TITLE),
+                            currentQuest.getTitle().apply(LanguageHandler.getLanguage(player)),
+                            false).build();
+                }, 5, null)
+        );
     }
 
     private static String toColumQuests() {

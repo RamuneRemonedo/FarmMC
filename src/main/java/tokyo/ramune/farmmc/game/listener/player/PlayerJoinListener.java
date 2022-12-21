@@ -21,6 +21,10 @@ public class PlayerJoinListener implements Listener {
         status.initializeDatabasePlayer();
         status.updateName();
 
+        // Auto detect language
+        if (player.hasPlayedBefore())
+            System.out.println(player.getLocale());
+
         // Add exp BossBar
         FarmBossBarHandler.create(new ExpBossBar(player));
 

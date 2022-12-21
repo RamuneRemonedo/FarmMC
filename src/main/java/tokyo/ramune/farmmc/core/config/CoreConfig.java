@@ -7,8 +7,7 @@ import tokyo.ramune.farmmc.FarmMC;
 import javax.annotation.Nonnull;
 
 public class CoreConfig extends ConfigFile {
-    public String MYSQL_TYPE, MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_PORT, MYSQL_DATABASE,
-            LANGUAGE_DEFAULT;
+    public String MYSQL_TYPE, MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_PORT, MYSQL_DATABASE;
     public Location SPAWN_LOCATION;
     public boolean FORCE_SPAWN_TELEPORT, PLUGIN_GAME_MODE, PLUGIN_MAINTENANCE_MODE;
 
@@ -31,8 +30,6 @@ public class CoreConfig extends ConfigFile {
         MYSQL_USER = getConfig().getString("config.MYSQL_USER", "root");
         MYSQL_PASSWORD = getConfig().getString("config.MYSQL_PASSWORD", "password");
         MYSQL_DATABASE = getConfig().getString("config.MYSQL_DATABASE", "FarmMC");
-
-        LANGUAGE_DEFAULT = getConfig().getString("config.LANGUAGE_DEFAULT", "ja");
 
         FORCE_SPAWN_TELEPORT = getConfig().getBoolean("config.FORCE_SPAWN_TELEPORT", false);
         SPAWN_LOCATION = getAsLocation("config.SPAWN_LOCATION");

@@ -45,7 +45,6 @@ public class CoreHandler implements ModeHandler {
 
         connectDatabase();
         LanguageHandler.load();
-        LanguageHandler.createTable();
         FarmBossBarHandler.initialize();
         CoreSettingHandler.createTable();
         AuthHandler.createTable();
@@ -80,7 +79,10 @@ public class CoreHandler implements ModeHandler {
                 new PlayerQuitListener(),
                 new TabCompleteListener(),
                 new PlayerInteractListener(),
-                new PlayerDropItemListener());
+                new PlayerDropItemListener(),
+                new PlayerSwapHandItemsListener(),
+                new PlayerChangedMainHandListener(),
+                new PlayerLocaleChangeListener());
     }
 
     @Nullable

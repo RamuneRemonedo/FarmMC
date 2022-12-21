@@ -98,7 +98,7 @@ public class ServerMenu extends Menu {
                                         .replace("{0}", LanguageHandler.getPhase(viewer, Phase.SERVER_LOBBY)),
                                 false).build(),
                         10,
-                        event -> new QuestMenu((Player) event.getWhoClicked()).getMenu().open()));
+                        event -> new QuestMenu((Player) event.getWhoClicked()).open()));
 
         // Extension
         menuItems.addAll(extensionMenuItem);

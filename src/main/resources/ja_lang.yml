@@ -75,6 +75,8 @@ lang:
 
 
   QUEST_MENU_TITLE: "クエストメニュー"
+  QUEST_SERVER_MENU_TITLE: "進行中のクエスト"
+  QUEST_SERVER_MENU_DESCRIPTION: ""
   QUEST_CRAFT_TITLE: "{0}のクラフト"
   QUEST_COLLECT_TITLE: "{0}の採取"
   QUEST_FIRST_JOIN_TITLE: "初めてサーバーに参加する"

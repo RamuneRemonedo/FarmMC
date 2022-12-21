@@ -12,7 +12,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public enum CoreSettingHandler {
-    LANGUAGE("default", null, Phase.SETTING_LANGUAGE_TITLE, Phase.SETTING_LANGUAGE_DESCRIPTION, Material.PLAYER_HEAD),
+    LANGUAGE("ja", null, Phase.SETTING_LANGUAGE_TITLE, Phase.SETTING_LANGUAGE_DESCRIPTION, Material.PLAYER_HEAD),
     SIDEBAR_ENABLE(true, SideBarHandler::updateVisible, Phase.SETTING_SIDEBAR_ENABLE_TITLE, Phase.SETTING_SIDEBAR_ENABLE_DESCRIPTION, Material.CRIMSON_FUNGUS),
     BOSSBAR_ENABLE(true, FarmBossBarHandler::updateVisible, Phase.SETTING_BOSSBAR_ENABLE_TITLE, Phase.SETTING_BOSSBAR_ENABLE_DESCRIPTION, Material.WARPED_FUNGUS),
     EXP_BOSSBAR_TOGGLE_SHOW(false, FarmBossBarHandler::updateVisible, Phase.SETTING_BOSSBAR_TOGGLE_SHOW_TITLE, Phase.SETTING_BOSSBAR_TOGGLE_SHOW_DESCRIPTION, Material.REDSTONE_TORCH);
@@ -45,6 +45,7 @@ public enum CoreSettingHandler {
     }
 
     private static void initializeData(@Nonnull UUID uuid) {
+        System.out.println("aaa");
         String columns = "uuid,", values = "";
         for (CoreSettingHandler value : values()) {
             columns += value.name() + ",";

@@ -16,20 +16,10 @@ import java.util.Map;
 public class LanguageHandler {
     private static final Map<Language, ConfigFile> languageConfigs = new HashMap<>();
 
-    public static void createTable() {
-        if (SQL.tableExists("language"))
-            return;
-
-        SQL.createTable("language", "uuid TEXT NOT NULL, lang_code TEXT NOT NULL");
-    }
-
     public static void load() {
         languageConfigs.clear();
 
         for (Language langCode : Language.values()) {
-            if (langCode.equals(Language.DEFAULT))
-                continue;
-
             ConfigFile languageConfig = new ConfigFile(FarmMC.getPlugin(), langCode.name().toLowerCase() + "_lang.yml");
 
             languageConfig.saveDefaultConfig();
@@ -38,10 +28,6 @@ public class LanguageHandler {
 
             languageConfigs.put(langCode, languageConfig);
             FarmMC.getPlugin().getLogger().info(langCode.name().toLowerCase() + "_lang.yml loaded!");
-        }
-
-        if (!existsDefaultLanguage()) {
-            throw new IllegalStateException("There is no supported language: \"" + CoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT + "\"");
         }
     }
 
@@ -54,23 +40,12 @@ public class LanguageHandler {
         return false;
     }
 
-    private static boolean existsDefaultLanguage() {
-        String defaultLanguage = CoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT;
-
-        for (Language supportedLangCode : Language.values()) {
-            if (supportedLangCode.name().equalsIgnoreCase(defaultLanguage))
-                return true;
-        }
-
-        return false;
-    }
-
     public static Language getLanguage(@Nonnull Player player) {
         return Language.valueOf(CoreSettingHandler.LANGUAGE.getData(player.getUniqueId()).getAsString().toUpperCase());
     }
 
     public static String getPhase(@Nonnull Player player, Phase phase) {
-        Language language = Language.valueOf(CoreSettingHandler.LANGUAGE.getData(player.getUniqueId()).getAsString().toUpperCase());
+        Language language = getLanguage(player);
 
         return getPhase(language, phase);
     }
@@ -88,9 +63,6 @@ public class LanguageHandler {
     }
 
     public static String getPhase(Language language, Phase phase) {
-        if (language.equals(Language.DEFAULT))
-            language = Language.valueOf(CoreHandler.getInstance().getCoreConfig().LANGUAGE_DEFAULT.toUpperCase());
-
         return Chat.replaceColor(
                 getRawPhase(language, phase),
                 getRawPhase(language, Phase.LANG_COLOR_PREFIX).charAt(0)
@@ -99,7 +71,7 @@ public class LanguageHandler {
 
     public static String getRawPhase(Language language, Phase phase) {
         if (!languageConfigs.containsKey(language))
-            return "Config File Missing.";
+            return "Language File Missing.";
 
         ConfigFile languageConfig = languageConfigs.get(language);
 

@@ -1,27 +1,43 @@
 package tokyo.ramune.farmmc.core.util;
 
-public enum Permission {
-    COMMAND_HELP,
-    COMMAND_MAINTENANCE,
-    COMMAND_LANGUAGE,
-    COMMAND_SETTING,
-    COMMAND_RELOAD,
-    COMMAND_TP$TEMPLATE,
-    COMMAND_SPAWN,
-    COMMAND_FORCE$SPAWN,
-    COMMAND_SQL$QUERY,
-    COMMAND_BAN,
-    COMMAND_UNBAN,
-    COMMAND_SHUTDOWN,
+import org.bukkit.Bukkit;
+import org.bukkit.permissions.PermissionDefault;
 
-    JOIN_TEMPLATE,
-    JOIN_MAINTENANCE;
+import javax.annotation.Nonnull;
+
+public enum Permission {
+    COMMAND_HELP(PermissionDefault.TRUE),
+    COMMAND_MAINTENANCE(PermissionDefault.TRUE),
+    COMMAND_LANGUAGE(PermissionDefault.TRUE),
+    COMMAND_SETTING(PermissionDefault.TRUE),
+    COMMAND_RELOAD(PermissionDefault.OP),
+    COMMAND_TP$TEMPLATE(PermissionDefault.OP),
+    COMMAND_SPAWN(PermissionDefault.OP),
+    COMMAND_FORCE$SPAWN(PermissionDefault.OP),
+    COMMAND_SQL$QUERY(PermissionDefault.OP),
+    COMMAND_BAN(PermissionDefault.OP),
+    COMMAND_UNBAN(PermissionDefault.OP),
+    COMMAND_SHUTDOWN(PermissionDefault.OP),
+    JOIN_TEMPLATE(PermissionDefault.OP),
+    JOIN_MAINTENANCE(PermissionDefault.OP);
+
+    public static void registerAll() {
+        for (Permission permission : values()) {
+            Bukkit.getPluginManager().addPermission(new org.bukkit.permissions.Permission("FarmMC." + permission.name().toLowerCase(), permission.getPermissionDefault()));
+        }
+    }
+
+    private final PermissionDefault permissionDefault;
+
+    Permission(@Nonnull PermissionDefault permissionDefault) {
+        this.permissionDefault = permissionDefault;
+    }
+
+    public PermissionDefault getPermissionDefault() {
+        return permissionDefault;
+    }
 
     public org.bukkit.permissions.Permission toPermission() {
-        return new org.bukkit.permissions.Permission("FarmMC." + super.name()
-                .toLowerCase()
-                .replace("_", ".")
-                .replace("$", "-")
-        );
+        return new org.bukkit.permissions.Permission("FarmMC." + super.name().toLowerCase());
     }
 }

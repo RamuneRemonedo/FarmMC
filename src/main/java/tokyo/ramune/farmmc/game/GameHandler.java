@@ -40,6 +40,8 @@ public class GameHandler implements ModeHandler {
         ServantHandler.initialize();
         CropArtificialHandler.createTable();
         CoreSettingHandler.createTable();
+
+        QuestHandler.registerServerMenuItem();
     }
 
     @Override
