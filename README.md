@@ -1,3 +1,5 @@
+# RETIRED
+
 # FarmMC plugin
 This is a PaperMC plugin which is running on FarmMC`s server.  
 
